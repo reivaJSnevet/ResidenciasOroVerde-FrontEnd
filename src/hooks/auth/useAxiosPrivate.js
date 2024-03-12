@@ -6,9 +6,9 @@ import useRefreshToken from "./useRefreshToken";
 const useAxiosPrivate = () => {
     const refreshToken = useRefreshToken();
     const auth = useAuthStore((state) => state.auth);
+    const setAuth = useAuthStore((state) => state.setAuth);
 
     useEffect(()=>{
-        try{
         const requestIntercept = apiPrivate.interceptors.request.use(
             (config) => {
                 if(!config.headers["Authorization"]){
@@ -26,12 +26,16 @@ const useAxiosPrivate = () => {
             },
             async (error) => {
                 const prevRequest = error?.config;
-                if(error?.response?.status == 403 && !prevRequest?.sent){
+                if(error?.response?.status == 401 && !prevRequest?.sent){
                     prevRequest.sent = true;
                     const newAccessToken = await refreshToken();
                     prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
                     return apiPrivate(prevRequest);
                 }
+                if(error?.response?.status == 401){
+                    setAuth({user: null, accessToken: null});
+                }
+
                 return Promise.reject(error);
             }
         );
@@ -39,9 +43,6 @@ const useAxiosPrivate = () => {
             apiPrivate.interceptors.request.eject(requestIntercept);
             apiPrivate.interceptors.response.eject(responseIntercept);
         };
-    }catch(error){
-        console.log(error);
-    }
         
     }, [auth, refreshToken]);
 

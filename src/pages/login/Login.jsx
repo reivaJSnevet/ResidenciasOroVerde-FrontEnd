@@ -5,7 +5,6 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
 
 const Login = () => {
-    const auth = useAuthStore((state) => state.auth);
     const setAuth = useAuthStore((state) => state.setAuth);
     const persist = useAuthStore((state) => state.persist);
     const setPersist = useAuthStore((state) => state.setPersist);
@@ -23,7 +22,6 @@ const Login = () => {
 
     useEffect(() => {
         emailRef.current.focus();
-        setPersist(JSON.parse(localStorage.getItem("persist")) || false);
     }, []);
 
     useEffect(() => {
