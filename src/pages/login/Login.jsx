@@ -73,22 +73,18 @@ const Login = () => {
     }, [persist]);
 
     return (
-        <section
-            className="flex flex-col items-center justify-center h-screen"
-            style={{ backgroundColor: "#1e1b4b" }}
-        >
+        <section className="flex flex-col items-center justify-center h-screen">
             <div className="relative">
                 <form
                     onSubmit={handleSubmit}
-                    className="relative z-10 flex flex-col w-full max-w-md p-4 text-white rounded-lg shadow-md dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 mt-n8"
-                    style={{
-                        backgroundColor: "rgba(0, 0, 0, 0.7)",
-                        boxShadow:
-                            "0 0 0 3px rgba(156, 72, 255, 0.7), 0 0 0 6px rgba(156, 72, 255, 0.5), 0 0 0 9px rgba(156, 72, 255, 0.3), 0 0 0 12px rgba(156, 72, 255, 0.2)",
-                    }}
+                    className="relative z-10 flex flex-col w-full max-w-md p-4 bg-black rounded-lg sm:px-6 md:px-8 lg:px-10 mt-n8"
                 >
                     <div className="flex items-center justify-center mb-2">
-                        <img src="/about.png" alt="Logo" className="h-60" />
+                        <img
+                            src="public\zyro-image.png"
+                            alt="Logo"
+                            className="mt-3 rounded-md h-60"
+                        />
                     </div>
                     <p
                         ref={errRef}
@@ -114,7 +110,7 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         required
-                        className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-[#abcc57] focus:border-[#abcc57] sm:text-sm"
                     />
 
                     <label
@@ -130,11 +126,11 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         required
-                        className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-300 focus:outline-none focus:ring-[#abcc57] focus:border-[#abcc57] sm:text-sm"
                     />
                     <button
                         type="submit"
-                        className="px-10 py-2 mt-4 text-white transition-colors duration-300 bg-purple-400 bg-opacity-50 shadow-xl rounded-3xl backdrop-blur-md hover:bg-purple-600"
+                        className="px-10 py-2 mt-4 text-white transition-colors duration-300 bg-[#5c7e03] bg-opacity-50 shadow-xl rounded-3xl backdrop-blur-md hover:bg-[#abcc57]"
                     >
                         Iniciar sesión
                     </button>
@@ -144,7 +140,7 @@ const Login = () => {
                             id="persist"
                             onChange={togglePersist}
                             checked={persist}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring focus:ring-opacity-50"
+                            className="w-4 h-4 text-[#abcc57] border-[#abcc57] rounded focus:ring-[#abcc57] focus:ring focus:ring-opacity-50"
                         />
                         <label
                             htmlFor="persist"
