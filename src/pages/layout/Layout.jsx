@@ -1,6 +1,24 @@
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Header from "../administrador/components/Header";
+import Footer from "../administrador/components/Footer";
+import { Outlet } from "react-router-dom";
+
 function Layout() {
   return (
-    <div className="text-yellow-500">Layout</div>
+    <Grid container direction="column" style={{ minHeight: "100vh" }}>
+    <Grid item>
+      <Header />
+    </Grid>
+    <Grid item xs>
+      <Container maxWidth="lg">
+        <Outlet />
+      </Container>
+    </Grid>
+    <Grid item>
+      <Footer />
+    </Grid>
+  </Grid>
   )
 }
 
