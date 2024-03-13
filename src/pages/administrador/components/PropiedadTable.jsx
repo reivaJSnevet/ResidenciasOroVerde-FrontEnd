@@ -1,6 +1,6 @@
 import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import api from "../../../database/api";
+import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Card from "@mui/material/Card";
 
 function PropiedadTable() {
+  const api = useAxiosPrivate();
   const [propiedades, setPropiedades] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10, 20];
