@@ -81,7 +81,7 @@ const Login = () => {
                 >
                     <div className="flex items-center justify-center mb-2">
                         <img
-                            src="public\zyro-image.png"
+                            src="\zyro-image.png"
                             alt="Logo"
                             className="mt-3 rounded-md h-60"
                         />
