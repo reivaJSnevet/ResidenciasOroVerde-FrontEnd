@@ -13,6 +13,7 @@ import RequireAuth from "../components/auth/RequireAuth";
 const routes = (
     <>
         <Route path="/" element={<Layout />}>
+            {/* <Route path="map" element={<MapView />} /> */}
             <Route path="login" element={<Login />} />
             <Route element={<PersistLogin />}>
                 <Route path="/home" element={<Home />} />

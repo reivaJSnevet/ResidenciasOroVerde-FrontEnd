@@ -3,17 +3,19 @@ import routes from './routes/Routes';
 import { Routes } from 'react-router-dom';
 import "../src/index.css";
 import Admin from './pages/administrador/Administrador';
+import MapView from './components/map/Map';
 
 
 function App() {
 
   return (
     <>
-    <Routes>
+    <MapView />
+   {/*  <Routes>
       {routes}
-    </Routes>
+    </Routes> */}
   </>
   );
-};
+}
 
 export default App
