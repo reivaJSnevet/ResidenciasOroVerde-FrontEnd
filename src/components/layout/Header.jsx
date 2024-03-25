@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Avatar,
@@ -11,10 +11,23 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  ListItemIcon,
 } from "@mui/material";
-import {Menu} from "@mui/icons-material";
+import { Menu, ExitToApp } from "@mui/icons-material";
+import useLogout from "../../hooks/auth/useLogout";
 
 function Header() {
+    const navigate = useNavigate();
+    const logout = useLogout();
+
+    const signOut = async () => {
+        await logout();
+        navigate("/login");
+    }
+    
+
+
+
   const ListOptions = () => {
     return (
       <>
@@ -52,6 +65,14 @@ function Header() {
           <ListItemButton component={Link} to="admin/propiedades">
             <ListItemText primary={"Propiedades"} />
           </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={signOut}>
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+          <ListItemText className="text-red-600" primary={"Cerrar Sesión"} />
+            </ListItemButton>
         </ListItem>
       </>
     );
