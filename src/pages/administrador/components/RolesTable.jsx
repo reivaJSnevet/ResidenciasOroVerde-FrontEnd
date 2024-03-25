@@ -1,8 +1,9 @@
 import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import api from "../../../database/api";
+import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
 
 function RolesTable() {
+    const api = useAxiosPrivate();
     const [roles, setRoles] = useState([]);
     const pageSize = 5;
     const sizeOptions = [5, 10, 20];
@@ -17,7 +18,7 @@ function RolesTable() {
             }
         }
         fetchRoles();
-    }, []);
+    }, [api]);
 
     const columns = [
         {
