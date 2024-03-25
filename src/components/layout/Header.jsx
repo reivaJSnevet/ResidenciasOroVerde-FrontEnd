@@ -1,17 +1,20 @@
-import { AppBar, Avatar, IconButton, Toolbar, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-
 import { Link } from "react-router-dom";
+import {
+  AppBar,
+  Avatar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 function Header() {
-
-    
   const ListOptions = () => {
     return (
       <>
@@ -67,23 +70,23 @@ function Header() {
 
   return (
     <>
-      <AppBar position="sticky" sx={{ backgroundColor: '#5c7e03' }}>
-        <Toolbar variant="dense" sx={{justifyContent: 'space-between'}}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ m: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Administrador
-          </Typography>
+      <AppBar position="sticky" sx={{ backgroundColor: "#5c7e03" }}>
+        <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ m: 2 }}
+            >
+              <Menu />
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              Administrador
+            </Typography>
           </div>
-          <Avatar src="/zyro-image.png"  sx={{ width: 56, height: 56 }}></Avatar>
+          <Avatar src="/zyro-image.png" sx={{ width: 56, height: 56 }}></Avatar>
         </Toolbar>
       </AppBar>
 

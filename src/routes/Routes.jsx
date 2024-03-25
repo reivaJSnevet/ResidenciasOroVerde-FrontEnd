@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import Layout from "../pages/layout/Layout";
+import Layout from "../components/layout/Layout";
 import Home from "../pages/home/Home";
 import Admin from "../pages/administrador/Administrador";
 import UsuariosTable from "../pages/administrador/components/UsuariosTable";
