@@ -6,7 +6,7 @@ const useAuthStore = create(
                 user: {},
                 accessToken: null,
             },
-            persist: JSON.parse(localStorage.getItem("persist")) || false,
+            persist: localStorage.getItem("persist") === "true" ? true : false,
             setAuth: (auth) => set(() => ({ auth: auth })),
             setPersist: (persist) => set(() => ({ persist: persist })),
         })

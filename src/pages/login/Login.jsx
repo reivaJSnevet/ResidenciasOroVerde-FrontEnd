@@ -25,6 +25,10 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
+        localStorage.setItem("persist", persist);
+    }, [persist]);
+
+    useEffect(() => {
         setErrorMsg("");
     }, [email, password]);
 
@@ -67,10 +71,6 @@ const Login = () => {
     const togglePersist = () => {
         setPersist(!persist);
     };
-
-    useEffect(() => {
-        localStorage.setItem("persist", persist);
-    }, [persist]);
 
     return (
         <section className="flex flex-col items-center justify-center h-screen">
