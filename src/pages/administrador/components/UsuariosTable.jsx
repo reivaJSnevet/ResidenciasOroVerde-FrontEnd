@@ -1,5 +1,5 @@
-import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
 
 function UsuariosTable() {
