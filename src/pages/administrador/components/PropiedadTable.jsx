@@ -55,7 +55,6 @@ function PropiedadTable() {
         const fotos = Array.isArray(params.row.fotos)
           ? params.row.fotos
           : params.row.fotos.split(",");
-          console.log(fotos);
         return (
           <Card sx={{ maxWidth: 345 }}>
             {fotos.map((foto, index) => (
