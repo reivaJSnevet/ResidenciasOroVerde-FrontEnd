@@ -1,4 +1,5 @@
 import useAuthStore from "../../../hooks/auth/useAuth";
+import CarouselComponent from "../../../components/carousel/Carousel";
 
 const PropiedadDetalles = ({ propiedad }) => {
   const auth = useAuthStore((state) => state.auth);
@@ -83,6 +84,7 @@ const PropiedadDetalles = ({ propiedad }) => {
       <aside className="w-full p-4 bg-red-200 md:w-1/2 ">
         <div className="hidden mb-4 md:block">
           <h2 className="mb-2 text-lg font-semibold">Mapa</h2>
+          <CarouselComponent photos={propiedad.fotos.split(",")} />
         </div>
       </aside>
     </div>
