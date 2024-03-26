@@ -9,6 +9,7 @@ import PropiedadesTable from "../pages/administrador/components/PropiedadTable";
 import Login from "../pages/login/Login";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
+import Propiedades from "../pages/propiedades/Propiedades";
 
 const routes = (
     <>
@@ -23,6 +24,7 @@ const routes = (
                         <Route path="roles" element={<RolesTable />} />
                         <Route path="categorias" element={<CategoriasTable />}/>
                         <Route path="propiedades" element={<PropiedadesTable />}/>
+                        <Route path="propiedad" element={<Propiedades/>} />
                     </Route>
                 </Route>
             </Route>
