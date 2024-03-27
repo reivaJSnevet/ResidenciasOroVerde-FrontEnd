@@ -1,12 +1,10 @@
-import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import api from "../../../database/api";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
+import { Backdrop, CircularProgress, Box, Typography } from "@mui/material";
+import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
 
 function CategoriasTable() {
+  const api = useAxiosPrivate();
   const [categorias, setCategorias] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10, 20];
@@ -25,7 +23,7 @@ function CategoriasTable() {
       }
     };
     fetchCategorias();
-  }, []);
+  }, [api]);
 
   const columns = [
     {
@@ -44,8 +42,8 @@ function CategoriasTable() {
     <>
       <Backdrop
         sx={{
-          color: "#5c7e03", 
-          backgroundColor: "rgba(255, 255, 255, 0.5)", 
+          color: "#5c7e03",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
         open={loading}

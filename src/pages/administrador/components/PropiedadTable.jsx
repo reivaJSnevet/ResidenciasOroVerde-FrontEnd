@@ -1,11 +1,8 @@
-import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import { DataGrid, esES, GridToolbar } from "@mui/x-data-grid";
+import { Card, CardMedia } from "@mui/material";
 import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
-import StarIcon from "@mui/icons-material/Star";
-import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
-import CardMedia from "@mui/material/CardMedia";
-import Card from "@mui/material/Card";
+import renderCalificacion from "../services/renderCalificacion";
 
 function PropiedadTable() {
   const api = useAxiosPrivate();
@@ -14,42 +11,17 @@ function PropiedadTable() {
   const sizeOptions = [5, 10, 20];
 
   useEffect(() => {
-    const fetchPropiedades = async () => {
+    const getPropiedades = async () => {
       try {
         const response = await api.get("/propiedades");
         setPropiedades(response.data);
       } catch (error) {
-        console.error("Error fetching propiedades", error.message);
+        console.error(error);
       }
     };
-    fetchPropiedades();
-  }, []);
 
-  const renderCalificacion = (calificacion) => {
-    const roundedCalificacion = Math.floor(calificacion);
-    const hasHalfStar = calificacion % 1 !== 0;
-    const stars = [];
-
-    for (let i = 1; i <= roundedCalificacion; i++) {
-      stars.push(<StarIcon className="text-yellow-300" key={i} />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(
-        <StarHalfIcon className="text-yellow-300" key={stars.length + 1} />
-      );
-    }
-
-    const totalStars = Math.ceil(calificacion);
-    const remainingStars = 5 - totalStars;
-    for (let i = 1; i <= remainingStars; i++) {
-      stars.push(
-        <StarOutlineIcon className="text-yellow-300" key={stars.length + 1} />
-      );
-    }
-
-    return stars;
-  };
+    getPropiedades();
+  }, [api]);
 
   const columns = [
     {
@@ -82,7 +54,7 @@ function PropiedadTable() {
       renderCell: (params) => {
         const fotos = Array.isArray(params.row.fotos)
           ? params.row.fotos
-          : [params.row.fotos];
+          : params.row.fotos.split(",");
         return (
           <Card sx={{ maxWidth: 345 }}>
             {fotos.map((foto, index) => (
