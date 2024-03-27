@@ -13,7 +13,7 @@ function CategoriasTable() {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await api.get("/categorias");
+        const response = await api.get("/categories");
         setTimeout(() => {
           setCategorias(response.data);
           setLoading(false);

@@ -11,7 +11,7 @@ function UsuariosTable() {
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        const response = await api.get("/usuarios");
+        const response = await api.get("/users");
         setUsuarios(response.data);
       } catch (error) {
         console.error("Error fetching usuarios", error.message);

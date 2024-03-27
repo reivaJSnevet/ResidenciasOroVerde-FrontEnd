@@ -12,11 +12,11 @@ const useRefreshToken = () => {
         console.log("\x1b[32m%s\x1b[0m", "---------");
 
         setAuth({
-            user: response.data.usuario,
-            accessToken: response.data.tokenAcceso,
+            user: response.data.user,
+            accessToken: response.data.accessToken,
         });
 
-        return response.data.tokenAcceso;
+        return response.data.accessToken;
     };
 
     return refreshToken;

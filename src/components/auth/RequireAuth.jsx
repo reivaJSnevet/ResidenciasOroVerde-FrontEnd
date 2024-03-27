@@ -5,12 +5,12 @@ const RequireAuth = ({allowedRoles}) => {
     const auth = useAuthStore((state) => state.auth);
     const location = useLocation();
 
-    if(!auth?.user?.Rol?.nombre){
+    if(!auth?.user?.Role?.name){
        return <Navigate to="/login" state={{from: location}} replace />; 
     } 
 
     return (
-        allowedRoles.includes(auth?.user?.Rol.nombre)
+        allowedRoles.includes(auth?.user?.Role.name)
             ? <Outlet />
             : auth?.user
                 ? <Navigate to="/unauthorized" />

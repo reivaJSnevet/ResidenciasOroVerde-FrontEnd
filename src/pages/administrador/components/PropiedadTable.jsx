@@ -13,7 +13,7 @@ function PropiedadTable() {
   useEffect(() => {
     const getPropiedades = async () => {
       try {
-        const response = await api.get("/propiedades");
+        const response = await api.get("/properties");
         setPropiedades(response.data);
       } catch (error) {
         console.error(error);
@@ -25,39 +25,39 @@ function PropiedadTable() {
 
   const columns = [
     {
-      field: "nombre",
+      field: "name",
       headerName: "Nombre",
       flex: 1,
     },
     {
-      field: "dimensiones",
+      field: "squareMeters",
       headerName: "Dimensiones",
       flex: 1,
     },
     {
-      field: "calificacion",
+      field: "rating",
       headerName: "Calificacion",
       flex: 1,
       renderCell: (params) => renderCalificacion(params.value),
     },
     {
-      field: "precio",
+      field: "prices",
       headerName: "Precio Venta / Alquiler",
       flex: 1,
       valueGetter: (params) =>
-        `$${params.row.precioAlquiler || ""} / ${params.row.precioVenta || ""}`,
+        `$ ${params.row.salePrice || "No se alquila"} / ${params.row.rentalPrice || "No se vende"}`,
     },
     {
-      field: "fotos",
+      field: "photos",
       headerName: "Imagenes",
       flex: 1,
       renderCell: (params) => {
-        const fotos = Array.isArray(params.row.fotos)
-          ? params.row.fotos
-          : params.row.fotos.split(",");
+        const photos = Array.isArray(params.row.photos)
+          ? params.row.photos
+          : params.row.photos.split(",");
         return (
           <Card sx={{ maxWidth: 345 }}>
-            {fotos.map((foto, index) => (
+            { photos && photos.map((foto, index) => (
               <CardMedia
                 key={index}
                 component="img"

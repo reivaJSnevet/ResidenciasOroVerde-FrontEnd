@@ -39,8 +39,8 @@ const Login = () => {
       const response = await api.post(
         "/auth/login",
         {
-          correo: email,
-          clave: password,
+          email,
+          password,
         },
         {
           headers: {
@@ -51,13 +51,13 @@ const Login = () => {
       );
 
       setAuth({
-        user: response.data.usuario,
-        accessToken: response.data.tokenAcceso,
+        user: response.data.user,
+        accessToken: response.data.accessToken,
       });
 
-      if (response.data.usuario.Rol.nombre === "admin") {
+      if (response.data.user.Role.name === "admin") {
         navigate("/admin", { replace: true });
-      } else if (response.data.usuario.Rol.nombre === "cliente") {
+      } else if (response.data.user.Role.name === "cliente") {
         navigate(from);
       } else {
         navigate("login", { replace: true });
