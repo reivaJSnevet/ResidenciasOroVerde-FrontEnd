@@ -12,13 +12,15 @@ const Item = ({ photo }) => {
   );
 };
 
-const CarouselComponent = ({ photos }) => {
+const CarouselComponent = ({ photos, height = 400 }) => {
 
   return (
     <Carousel
-      autoPlay={false}
-      navButtonsAlwaysVisible={true}
+      autoPlay={true}
+      navButtonsAlwaysVisible={false}
       indicators={false}
+      height={height}
+      
     >
       {
         photos.map((photo, index) => <Item key={index} photo={photo} />)

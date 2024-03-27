@@ -18,7 +18,7 @@ const Propiedades = () => {
         "restricciones": "No se permiten mascotas.",
         "calificacion": 4.5,
         "UsuarioId": "267317282",
-        "fotos": "https://definicion.de/wp-content/uploads/2011/01/casa-2.jpg,url2,url3,url4",
+        "fotos": "https://definicion.de/wp-content/uploads/2011/01/casa-2.jpg,https://www.esneca.lat/wp-content/uploads/disen%CC%83o-interior.jpg,https://planner5d.com/blog/content/images/2022/05/andre-francois-mckenzie-sZ5CteK2r6E-unsplash.jpg,https://static.vecteezy.com/system/resources/previews/011/444/845/large_2x/home-interior-rendering-with-empty-room-decorate-gray-color-wall-free-photo.jpg",
         "Usuario": {
             "id": "80233d31-ca00-4648-b1fb-e66d7db063fe",
             "nombre": "Topadora",

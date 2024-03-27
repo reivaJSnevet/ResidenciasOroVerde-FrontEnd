@@ -24,7 +24,7 @@ const PropiedadDetalles = ({ propiedad }) => {
             <p>Habitaciones: {propiedad.numHabitaciones}</p>
             <p>Duchas: {propiedad.numducha}</p>
             <p>Garaje: {propiedad.garaje ? "Sí" : "No"}</p>
-            {(propiedad.renta && propiedad.precioAlquiler) && (
+            {propiedad.renta && propiedad.precioAlquiler && (
               <p>Precio de alquiler: {propiedad.precioAlquiler}</p>
             )}
             {(!propiedad.renta || propiedad.precioVenta) && (
@@ -84,7 +84,25 @@ const PropiedadDetalles = ({ propiedad }) => {
       <aside className="w-full p-4 bg-red-200 md:w-1/2 ">
         <div className="hidden mb-4 md:block">
           <h2 className="mb-2 text-lg font-semibold">Mapa</h2>
-          <CarouselComponent photos={propiedad.fotos.split(",")} />
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <p>-</p>
+          <h3 className="mb-2 text-lg font-semibold">Fotos</h3>
+          <div>
+            <CarouselComponent
+              photos={propiedad.fotos.split(",")}
+              height={400}
+            />
+          </div>
         </div>
       </aside>
     </div>
