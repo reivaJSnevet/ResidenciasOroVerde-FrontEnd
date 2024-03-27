@@ -13,10 +13,12 @@ import Propiedades from "../pages/propiedades/Propiedades";
 
 const routes = (
     <>
-        <Route path="/" element={<Layout />}>
+
+     <Route path="/" element={<Home />} /> 
+        <Route path="/" element={<Layout/>}>
             <Route path="login" element={<Login />} />
             <Route element={<PersistLogin />}>
-                <Route path="/home" element={<Home />} />
+                 {/* <Route path="/home" element={<Home />} />  */}
 
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
                     <Route path="/admin" element={<Admin />}>

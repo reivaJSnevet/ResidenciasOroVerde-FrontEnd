@@ -1,0 +1,33 @@
+.header {
+    background-color: #3c6c42;
+    padding: 20px 30px;
+    width: 100%;
+    box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+  
+ 
+  }
+
+  
+  .header nav a:hover {
+    color: #ffffff;
+}
+  
+
+  .boton1 {
+  color: #c6c9c3 !important;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 0.5em 1.2em;
+  background: rgba(0,0,0,0);
+  border-color: #3c6c42;
+  transition: all 1s ease;
+  position: relative;
+}
+.boton1:hover {
+  background: #61dd67;
+  color: #fff !important;
+}
