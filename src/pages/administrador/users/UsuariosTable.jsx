@@ -31,33 +31,34 @@ function UsuariosTable() {
       headerName: "Nombre Completo",
       flex: 1,
       valueGetter: (params) => {
-        return `${params.row.nombre || ""} ${params.row.apellido1 || ""} ${
-          params.row.apellido2 || ""
+        return `${params.row.name || ""} ${params.row.lastName || ""} ${
+          params.row.lastName2 || ""
         }`;
       },
     },
     {
-      field: "correo",
+      field: "email",
       headerName: "Correo Electronico",
       flex: 1,
     },
     {
-      field: "telefonoPrincipal",
+      field: "phoneNumbers.principal",
       headerName: "Teléfono Principal",
       flex: 1,
-      valueGetter: (params) => params.row.telefonos?.principal || "Sin Datos",
+      valueGetter: (params) => params.row.phoneNumbers?.principal || "Sin Datos",
     },
     {
-      field: "telefonoSecundario",
+      field: "phoneNumbers.secundario",
       headerName: "Teléfono Secundario",
       flex: 1,
-      valueGetter: (params) => params.row.telefonos?.secundario || "Sin Datos",
+      valueGetter: (params) => params.row.phoneNumbers?.secundario || "Sin Datos",
     },
+    
   ];
 
   return (
     <>
-      <div className="flex justify-center mt-14">
+      <div className="flex justify-center mt-20">
         <DataGrid
           sx={{
             boxShadow: 2,
@@ -78,8 +79,6 @@ function UsuariosTable() {
           slotProps={{
             toolbar: {
               showQuickFilter: true,
-              // csvOptions,
-              // printOptions,
             },
           }}
           disableSelectionOnClick

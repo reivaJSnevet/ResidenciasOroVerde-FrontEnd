@@ -32,7 +32,7 @@ function CategoriasTable() {
       flex: 1,
     },
     {
-      field: "nombre",
+      field: "name",
       headerName: "Nombre",
       flex: 1,
     },
