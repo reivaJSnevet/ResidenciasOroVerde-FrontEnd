@@ -73,7 +73,7 @@ const Login = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center h-screen">
+    <section className="flex flex-col items-center justify-center h-screen bg-[#abcc57]">
       <div className="relative">
         <form
           onSubmit={handleSubmit}
