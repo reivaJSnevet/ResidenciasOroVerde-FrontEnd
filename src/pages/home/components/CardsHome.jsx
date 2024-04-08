@@ -12,7 +12,7 @@ function CardsHome({ totalAlquiladas, totalVendidas }) {
       <div className="circle-icon-container">
             <AddHomeIcon className="green-icon" />
           </div>
-          <h5 className="card-title">Casas Alquiladas</h5>
+          <h5 className="card-title">Casas de Alquiler</h5>
         <p className="card-text">{totalAlquiladas}</p>
       </div>
     </div>
@@ -21,7 +21,7 @@ function CardsHome({ totalAlquiladas, totalVendidas }) {
       <div className="circle-icon-container">
             <HomeIcon className="green-icon" />
           </div>
-          <h5 className="card-title">Casas Vendidas</h5>
+          <h5 className="card-title">Casas en Venta</h5>
         <p className="card-text">{totalVendidas}</p>
       </div>
     </div>
