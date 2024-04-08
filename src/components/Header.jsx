@@ -18,6 +18,7 @@ function Header() {
         <Link to="/" className="boton1">INICIO</Link>
         <a href="#" className="boton1">SERVICIOS</a>
          <a href="#contacto" className="boton1">CONTACTO</a> 
+         <Link to="/cliente" className="boton1">BÚSQUEDA</Link>
         <Link to="/login/" className="boton1">INICIAR SESIÓN</Link>
        
       </div>

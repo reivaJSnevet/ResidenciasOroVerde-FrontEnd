@@ -10,22 +10,19 @@ import Login from "../pages/login/Login";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedades from "../pages/propiedades/Propiedades";
-import Home2 from "../pages/home/Home2";
+import BusquedaCliente from "../pages/cliente/BusquedaCliente";
+// import Home2 from "../pages/home/Home2";
 
 const routes = (
     <>
 
      <Route path="/" element={<Home />} /> 
-<<<<<<< Updated upstream
         
-=======
-     <Route path="/home2" element={<Home2 />} /> 
-        <Route path="/" element={<Layout/>}>
->>>>>>> Stashed changes
             <Route path="login" element={<Login />} />
+            <Route path="cliente" element={<BusquedaCliente />} /> 
             <Route element={<PersistLogin />}>
                  {/* <Route path="/home" element={<Home />} />  */}
-
+               
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
                 <Route path="/" element={<Layout/>}>
                     <Route path="/admin" element={<Admin />}>
