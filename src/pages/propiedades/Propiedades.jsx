@@ -35,7 +35,7 @@ const Propiedades = () => {
       }
 
   return (
-    <div>
+    <div id="propiedades">
         <PropiedadDetalles propiedad={propiedad} />
     </div>
   )

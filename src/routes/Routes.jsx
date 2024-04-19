@@ -11,17 +11,17 @@ import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedades from "../pages/propiedades/Propiedades";
 import BusquedaCliente from "../pages/cliente/BusquedaCliente";
-// import Home2 from "../pages/home/Home2";
+ import Home2 from "../pages/home/Home2";
 
 const routes = (
     <>
 
-     <Route path="/" element={<Home />} /> 
-        
+     <Route path="/" element={<Home/>} /> 
+     <Route path="/home2" element={<Home2 />} /> 
             <Route path="login" element={<Login />} />
             <Route path="cliente" element={<BusquedaCliente />} /> 
+            <Route path="propiedades" element={<Propiedades />} /> 
             <Route element={<PersistLogin />}>
-                 {/* <Route path="/home" element={<Home />} />  */}
                
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
                 <Route path="/" element={<Layout/>}>

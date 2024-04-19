@@ -16,7 +16,13 @@ function Header() {
 
         <div className="links">
         <Link to="/" className="boton1">INICIO</Link>
-        <a href="#" className="boton1">SERVICIOS</a>
+        <div className="dropdown">
+        <button className="boton1">SERVICIOS</button>
+        <div className="dropdown-content">
+          <Link to="/" className="boton1 sub-option">ALQUILER</Link>
+          <Link to="/" className="boton1 sub-option">VENTA</Link>
+        </div>
+      </div>
          <a href="#contacto" className="boton1">CONTACTO</a> 
          <Link to="/cliente" className="boton1">BÚSQUEDA</Link>
         <Link to="/login/" className="boton1">INICIAR SESIÓN</Link>

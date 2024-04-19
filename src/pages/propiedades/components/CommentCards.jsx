@@ -1,9 +1,9 @@
 const CommentCard = ({ comments }) => {
   return (
-    <div className="bg-pink-300">
+    <div className="bg-300 p-4">
       <h3 className="mb-2 text-lg font-semibold">Comentarios</h3>
-      <div className="p-4 bg-blue-200">
-      <div className="grid grid-cols-1 gap-4 bg-purple-400 md:grid-cols-2">
+      <div className="p-4 bg-200">
+      <div className="grid grid-cols-1 gap-4 bg-400 md:grid-cols-2">
         {comments.map((comment, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md">
             <div className="flex p-4">

@@ -24,20 +24,20 @@ const PostComment = ({ user }) => {
 
   return (
     <form
-      className="flex flex-col items-center justify-center h-full bg-lime-200"
+      className="flex flex-col items-center justify-center h-full bg-200"
       onSubmit={handleSubmit}
     >
-      <h3 className="mb-2 text-lg font-semibold">
+      <h3 className=" mb-2 text-lg font-semibold">
         Comenta tu estadía o el trato con el anfitrión
       </h3>
       <textarea
-        className="w-10/12 h-32 p-2 mb-2 bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-green-800"
+        className="w-10/12 h-32 p-2  bg-white border-2 border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-800"
         maxLength={500}
         placeholder="Escribe tu comentario"
         value={comment}
         onChange={handleChange}
       ></textarea>
-      <button className="w-full p-2 m-4 bg-gray-500 md:w-1/2"
+      <button className="w-full p-2 m-4 bg-green-700 md:w-1/2 text-white font-serif rounded-md "
         type="submit"       
       >Enviar</button>
     </form>
