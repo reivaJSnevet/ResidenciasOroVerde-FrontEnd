@@ -37,7 +37,7 @@ const PostComment = ({ user }) => {
         value={comment}
         onChange={handleChange}
       ></textarea>
-      <button className="w-full p-2 m-4 bg-green-700 md:w-1/2 text-white font-serif rounded-md "
+    <button className="w-full p-2 m-4 bg-green-700 md:w-1/2 text-lg text-white font-semibold rounded-md hover:bg-green-900 transition duration-300 ease-in-out"
         type="submit"       
       >Enviar</button>
     </form>

@@ -51,7 +51,7 @@ const PropiedadDetalles = ({ propiedad }) => {
         <main className="grid grid-cols-1 p-4 md:w-1/2">
           <section className="row-span-4 mb-4 bg-200 p-6 ">
            
-            <h2 className="text-2xl mb-6 mt-6">
+            <h2 className="text-2xl mb-6 mt-6 ">
               Detalles de la propiedad
             </h2>
             <p>{propiedad.nombre}</p>
@@ -129,7 +129,7 @@ const PropiedadDetalles = ({ propiedad }) => {
     {auth.user && (
             <section className="p-6 mt-4" >
                 <h3 className="mb-2 text-lg font-semibold">Para más información puedes comunicarte al:</h3>
-                <p className="mb-2"><Email/> correo@dominio.ejemplo</p>
+                <p className="mb-2"><Email/> correoanfitrion@gmail.com</p>
                 <p className="mb-2"><Phone/> 2256-7878</p>
                 <p><WhatsApp/> 8677-1232</p>
                 <p className="mt-2">
@@ -153,7 +153,7 @@ const PropiedadDetalles = ({ propiedad }) => {
 <div className="p-6">
 
       < Accordion open={open === 1} >
-      <AccordionHeader className="flex items-center justify-between cursor-pointer rounded-lg p-2 transition duration-300 hover:bg-gray-100" onClick={() => handleOpen(0)}>
+      <AccordionHeader className="flex items-center justify-between cursor-pointer rounded-lg p-2 transition duration-300 hover:bg-gray-200" onClick={() => handleOpen(0)}>
         Ver comentarios
         </AccordionHeader>
         <AccordionBody>

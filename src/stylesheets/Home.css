@@ -9,7 +9,6 @@
   }
 
   .page-container {
-    /* background-color: #5dcc7e38;  */
     padding: 20px;
   }
   
@@ -77,13 +76,5 @@
 
 .green-icon {
   color: #fff; 
-}
-
-
-.switchThumb {
-margin-left: 3%;
-color: #426e42;
-
-
 }
 
