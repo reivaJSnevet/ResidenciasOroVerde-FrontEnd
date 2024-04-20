@@ -58,7 +58,6 @@ function UpdateRol({ role, onUpdate }) {
     transform: "translate(-50%, -50%)",
     width: isSmallScreen ? "90%" : "75%",
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 1,
     margin: "auto",
@@ -82,8 +81,13 @@ function UpdateRol({ role, onUpdate }) {
         />
       </AccordionDetails>
       <AccordionDetails>
-        <Button type="submit" variant="contained" fullWidth>
-          Actualizar
+      <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
         </Button>
       </AccordionDetails>
     </Box>

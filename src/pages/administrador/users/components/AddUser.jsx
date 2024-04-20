@@ -197,9 +197,14 @@ function AddUser({ reset, setReset }) {
                 </TextField>
               </Grid>
             </Grid>
-            <Button type="submit" variant="contained" fullWidth>
-              Agregar
-            </Button>
+            <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
           </Box>
         </AccordionDetails>
       </Accordion>

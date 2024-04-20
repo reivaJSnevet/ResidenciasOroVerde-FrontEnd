@@ -5,8 +5,9 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/system/Unstable_Grid";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-function UpdateProperty({ property, onUpdate }) {
+function UpdateProperty({ property, onUpdate, tittle, onClose}) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
@@ -28,7 +29,7 @@ function UpdateProperty({ property, onUpdate }) {
     transform: "translate(-50%, -50%)",
     width: isSmallScreen ? "90%" : "75%",
     bgcolor: "background.paper",
-    border: "2px solid #000",
+
     boxShadow: 24,
     p: 1,
     margin: "auto",
@@ -39,11 +40,23 @@ function UpdateProperty({ property, onUpdate }) {
   return (
     <>
       <Box sx={style} component={"form"} onSubmit={handleSubmit}>
-        <Typography variant="h6" align="center">
-          Actualizar propiedad
+      <Typography variant="h4" gutterBottom>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {tittle}
+            <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+              <CancelIcon />
+            </Button>
+          </div>
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+        
+        <Grid container spacing={2} margin={1}>
+          <Grid  xs={12}>
             <TextField
               fullWidth
               label="Nombre"
@@ -51,11 +64,11 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={"Casa en la playa"}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid  xs={12}>
             <img src="/ping.png" alt="Descripción de la imagen" />
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="m²"
@@ -63,7 +76,7 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={"2330"}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               select
@@ -80,7 +93,7 @@ function UpdateProperty({ property, onUpdate }) {
               <option value="segundo">No</option>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="Cuartos"
@@ -88,7 +101,7 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={4}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="Baños"
@@ -96,7 +109,7 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={2}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="Garage"
@@ -104,7 +117,7 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={2}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="Precio de renta"
@@ -112,7 +125,7 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={100000}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid  xs={12} sm={6}>
             <TextField
               fullWidth
               label="Precio de venta"
@@ -120,30 +133,36 @@ function UpdateProperty({ property, onUpdate }) {
               defaultValue={1000}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid  xs={12}>
             <TextField
               fullWidth
               label="Descripción"
               variant="outlined"
               defaultValue={
-                "Casa en la playa con vista al mar, 4 cuartos, 2 baños, 2 garages, 2330 m² de terreno, precio de renta $100,000, precio de venta $1,000,000"
+                "Casa en la playa con vista al mar, 4 cuartos, 2 baños, 2 garajes, 2330 m² de terreno, precio de renta $100,000, precio de venta $1,000,000"
               }
             />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid  xs={12} sm={3}>
             <img src="/Homepotrero.jpeg" alt="Descripción de la imagen" />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid  xs={12} sm={3}>
             <img src="/Playa-Potrero.jpg" alt="Descripción de la imagen" />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid  xs={12} sm={3}>
             <img src="/Villapinilla.jpg" alt="Descripción de la imagen" />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid  xs={12} sm={3}>
             <img src="/Tamarindo.jpg" alt="Descripción de la imagen" />
           </Grid>
         </Grid>
-        <Button variant="contained" color="primary" type="submit" fullWidth>
+
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
           Guardar
         </Button>
       </Box>

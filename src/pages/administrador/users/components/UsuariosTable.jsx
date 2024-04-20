@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { DataGrid, esES, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  esES,
+  GridToolbar,
+  GridActionsCellItem,
+} from "@mui/x-data-grid";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,8 +12,9 @@ import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import UpdateUser from "./UpdateUser";
+import { Button } from "@mui/material";
 
-function UsuariosTable({ reset, setReset}) {
+function UsuariosTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [usuarios, setUsuarios] = useState([]);
   const pageSize = 5;
@@ -76,13 +82,15 @@ function UsuariosTable({ reset, setReset}) {
       field: "phoneNumbers.principal",
       headerName: "Teléfono Principal",
       flex: 1,
-      valueGetter: (params) => params.row.phoneNumbers?.principal || "Sin Datos",
+      valueGetter: (params) =>
+        params.row.phoneNumbers?.principal || "Sin Datos",
     },
     {
       field: "phoneNumbers.secundario",
       headerName: "Teléfono Secundario",
       flex: 1,
-      valueGetter: (params) => params.row.phoneNumbers?.secundario || "Sin Datos",
+      valueGetter: (params) =>
+        params.row.phoneNumbers?.secundario || "Sin Datos",
     },
     {
       field: "actions",
@@ -111,20 +119,19 @@ function UsuariosTable({ reset, setReset}) {
         );
       },
     },
-    
   ];
 
   const handleDelete = async () => {
     // try {
     //   await api.delete(`/users/${selectedUser.id}`);
-      enqueueSnackbar("Rol eliminado con éxito", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
-      handleCloseDeleteDialog();
+    enqueueSnackbar("Rol eliminado con éxito", {
+      variant: "success",
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
+    handleCloseDeleteDialog();
     //   setReset((prev) => !prev);
     // } catch (error) {
     //   enqueueSnackbar("Error eliminando rol", {
@@ -139,58 +146,58 @@ function UsuariosTable({ reset, setReset}) {
 
   return (
     <>
-     
-        <DataGrid
-          sx={{
-            boxShadow: 2,
-          }}
-          style={{ height: 500, width: "100%" }}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={usuarios}
-          getRowId={(row) => row.id}
-          loading={usuarios.length === 0}
-          columns={columns}
-          editMode="row"
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          disableSelectionOnClick
-          getRowHeight={() => "auto"}
-          pageSize={pageSize}
-          rowsPerPageOptions={pageSize}
-          initialState={{
-            ...usuarios.initialState,
-            pagination: { paginationModel: { pageSize } },
-          }}
-          pageSizeOptions={sizeOptions}
-        />
+      <DataGrid
+        sx={{
+          boxShadow: 2,
+        }}
+        style={{ height: 500, width: "100%" }}
+        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+        rows={usuarios}
+        getRowId={(row) => row.id}
+        loading={usuarios.length === 0}
+        columns={columns}
+        editMode="row"
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
+        disableSelectionOnClick
+        getRowHeight={() => "auto"}
+        pageSize={pageSize}
+        rowsPerPageOptions={pageSize}
+        initialState={{
+          ...usuarios.initialState,
+          pagination: { paginationModel: { pageSize } },
+        }}
+        pageSizeOptions={sizeOptions}
+      />
 
-        <ReusableModal
-          open={openModal}
-          onClose={handleCloseModal}
-          title="Editar Usuario"
-        >
-          <UpdateUser
+      <ReusableModal
+        open={openModal}
+        onClose={handleCloseModal}
+        children={
+          <UpdateUser tittle={"Editar Usuario"} onClose={handleCloseModal} />
+        }
+      >
+        {/* <UpdateUser
           user={selectedUser}
           onUpdate={() => {
             handleCloseModal();
             setReset((prev) => !prev);
-          }} />
-        </ReusableModal>
+          }} /> */}
+      </ReusableModal>
 
-        {selectedUser && (
-          <ReusableDialog
-            open={openDeleteDialog}
-            onClose={handleCloseDeleteDialog}
-            title="Eliminar Usuario"
-            content={`¿Estás seguro de eliminar a ${selectedUser.name} ${selectedUser.lastName}?`}
-            onConfirm={handleDelete}
-          />
-        )}
-
+      {selectedUser && (
+        <ReusableDialog
+          open={openDeleteDialog}
+          onClose={handleCloseDeleteDialog}
+          title="Eliminar Usuario"
+          content={`¿Estás seguro de eliminar a ${selectedUser.name} ${selectedUser.lastName}?`}
+          onConfirm={handleDelete}
+        />
+      )}
     </>
   );
 }

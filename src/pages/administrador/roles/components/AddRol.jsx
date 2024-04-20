@@ -85,9 +85,14 @@ function AddRol({ reset, setReset }) {
               value={formData.name}
               onChange={handleInputChange}
             />
-            <Button type="submit" variant="contained" color="primary">
-              Crear Rol
-            </Button>
+                   <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
           </Box>
         </AccordionDetails>
       </Accordion>

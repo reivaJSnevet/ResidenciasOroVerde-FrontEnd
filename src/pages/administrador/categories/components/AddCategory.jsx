@@ -86,9 +86,14 @@ function AddCategory({ reset, setReset }) {
                 onChange={handleInputChange}
                 required
             />
-            <Button type="submit" variant="contained">
-                Crear
-            </Button>
+                   <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
             </Box>
         </AccordionDetails>
     </Accordion>

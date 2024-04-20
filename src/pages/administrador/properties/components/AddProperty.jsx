@@ -32,7 +32,7 @@ function AddProperty({ reset, setReset }) {
         <AccordionDetails>
           <Box>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid  xs={12}>
                 <TextField
                   fullWidth
                   label="Nombre"
@@ -40,15 +40,20 @@ function AddProperty({ reset, setReset }) {
                   defaultValue={"Casa en la playa"}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid  xs={12}>
                 <img src="/ping.png" alt="Descripción de la imagen" />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label="m²" variant="outlined" defaultValue={"2330"} />
+              <Grid  xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="m²"
+                  variant="outlined"
+                  defaultValue={"2330"}
+                />
               </Grid>
-              <Grid item xs={12} sm={6}>
-              <TextField
+              <Grid  xs={12} sm={6}>
+                <TextField
                   fullWidth
                   select
                   required
@@ -64,16 +69,31 @@ function AddProperty({ reset, setReset }) {
                   <option value="segundo">No</option>
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label="Cuartos" variant="outlined" defaultValue={4} />
+              <Grid  xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Cuartos"
+                  variant="outlined"
+                  defaultValue={4}
+                />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label="Baños" variant="outlined" defaultValue={2} />
+              <Grid  xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Baños"
+                  variant="outlined"
+                  defaultValue={2}
+                />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField fullWidth label="Garage" variant="outlined" defaultValue={2} />
+              <Grid  xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Garage"
+                  variant="outlined"
+                  defaultValue={2}
+                />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid  xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Precio de renta"
@@ -81,43 +101,47 @@ function AddProperty({ reset, setReset }) {
                   defaultValue={100000}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid  xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Precio de venta"
                   variant="outlined"
-                    defaultValue={1000}
+                  defaultValue={1000}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField fullWidth label="Descripción" variant="outlined" 
-                defaultValue={"Casa en la playa con vista al mar, 4 cuartos, 2 baños, 2 garages, 2330 m² de terreno, precio de renta $100,000, precio de venta $1,000,000"}
+              <Grid  xs={12}>
+                <TextField
+                  fullWidth
+                  label="Descripción"
+                  variant="outlined"
+                  defaultValue={
+                    "Casa en la playa con vista al mar, 4 cuartos, 2 baños, 2 garages, 2330 m² de terreno, precio de renta $100,000, precio de venta $1,000,000"
+                  }
                 />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <img src="/Homepotrero.jpeg" alt="Descripción de la imagen" />
+              <Grid  xs={12} sm={3}>
+                <img src="/Homepotrero.jpeg" alt="Descripción de la imagen" />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <img src="/Playa-Potrero.jpg" alt="Descripción de la imagen" />
+              <Grid  xs={12} sm={3}>
+                <img src="/Playa-Potrero.jpg" alt="Descripción de la imagen" />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <img src="/Villapinilla.jpg" alt="Descripción de la imagen" />
+              <Grid  xs={12} sm={3}>
+                <img src="/Villapinilla.jpg" alt="Descripción de la imagen" />
               </Grid>
-              <Grid item xs={12} sm={3}>
-              <img src="/Tamarindo.jpg" alt="Descripción de la imagen" />
+              <Grid  xs={12} sm={3}>
+                <img src="/Tamarindo.jpg" alt="Descripción de la imagen" />
               </Grid>
-              
             </Grid>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              fullWidth
-            >
-              Guardar
-            </Button>
           </Box>
         </AccordionDetails>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
       </Accordion>
     </>
   );

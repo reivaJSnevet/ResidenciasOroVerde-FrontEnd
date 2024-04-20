@@ -79,15 +79,14 @@ function UpdateCategory({ category, onUpdate }) {
                 value={categoryData.name}
                 onChange={handleInputChange}
             />
-            <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
-            >
-                Actualizar
-            </Button>
+                  <Button
+          variant="contained"
+          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
         </form>
     </Box>
    

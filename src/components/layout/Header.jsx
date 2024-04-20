@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Menu, ExitToApp } from "@mui/icons-material";
 import useLogout from "../../hooks/auth/useLogout";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 function Header() {
     const navigate = useNavigate();
@@ -29,7 +30,14 @@ function Header() {
   const ListOptions = () => {
     return (
       <>
-        <ListItem disablePadding>
+       <div
+                style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
+        {/* <ListItem disablePadding>
           <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Casas de Alquiler"} />
           </ListItemButton>
@@ -38,17 +46,22 @@ function Header() {
           <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Casas de Venta"} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         <ListItem disablePadding>
           <ListItemButton component={Link} to="admin/usuarios">
             <ListItemText primary={"Usuarios"} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> 
         <ListItem disablePadding>
+          <ListItemButton component={Link} to="admin/propiedades">
+            <ListItemText primary={"Propiedades"} />
+          </ListItemButton>
+        </ListItem>
+        {/* <ListItem disablePadding>
           <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Ranking"} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         <ListItem disablePadding>
           <ListItemButton component={Link} to="admin/roles">
             <ListItemText primary={"Roles"} />
@@ -59,19 +72,21 @@ function Header() {
             <ListItemText primary={"Categorias"} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="admin/propiedades">
-            <ListItemText primary={"Propiedades"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton onClick={signOut}>
-            <ListItemIcon>
-              <ExitToApp />
-            </ListItemIcon>
-          <ListItemText className="text-red-600" primary={"Cerrar Sesión"} />
-            </ListItemButton>
-        </ListItem>
+        </div>
+       
+        <div style={{ flexGrow: 1 }}>
+                <ListItem disablePadding>
+                    <ListItemButton onClick={signOut}>
+                        <ListItemIcon>
+                            <ExitToAppIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            className="text-red-600"
+                            primary={"Cerrar Sesión"}
+                        />
+                    </ListItemButton>
+                </ListItem>
+            </div>
       </>
     );
   };

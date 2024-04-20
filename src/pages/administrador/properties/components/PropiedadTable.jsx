@@ -202,26 +202,29 @@ function PropiedadTable({reset, setReset}) {
           <ReusableModal
             open={openModal}
             handleClose={handleCloseModal}
-            title="Editar Propiedad"
+            children={
+              <UpdateProperty
+              tittle={"Actualizar Propiedad"} onClose={handleCloseModal}
+              />
+            }
           >
-            <UpdateProperty
+            {/* <UpdateProperty
               property={selectedProperty}
               onUpdate={() => {
                 handleCloseModal();
                 setReset((prev) => !prev);
               }}
-            />
+            /> */}
           </ReusableModal>
 
           {selectedProperty && (
             <ReusableDialog
               open={openDeleteDialog}
-              handleClose={handleCloseDeleteDialog}
+              onClose={handleCloseDeleteDialog}
               title="Eliminar Propiedad"
               content={`¿Estás seguro de que deseas eliminar la propiedad ${selectedProperty.name}?`}
             onConfirm={() => {
               handleDelete();
-              setReset((prev) => !prev);
             }
           }
             />
