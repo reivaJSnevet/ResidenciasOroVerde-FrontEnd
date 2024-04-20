@@ -1,16 +1,13 @@
 import { useMediaQuery, useTheme } from "@mui/material";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/system/Unstable_Grid";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-function UpdateUser({ user, onUpdate }) {
+function UpdateUser({ user, onUpdate, tittle, onClose }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
@@ -19,13 +16,13 @@ function UpdateUser({ user, onUpdate }) {
     // e.preventDefault();
     // try {
     //   await api.put(`/roles/${role.id}`, roleData);
-      enqueueSnackbar("Rol actualizado con éxito", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
+    enqueueSnackbar("Rol actualizado con éxito", {
+      variant: "success",
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
     //   onUpdate();
     // } catch (error) {
     //   enqueueSnackbar("Error actualizando rol", {
@@ -45,7 +42,6 @@ function UpdateUser({ user, onUpdate }) {
     transform: "translate(-50%, -50%)",
     width: isSmallScreen ? "90%" : "75%",
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 1,
     margin: "auto",
@@ -56,14 +52,22 @@ function UpdateUser({ user, onUpdate }) {
 
   return (
     <>
-      <Box
-        sx={style}
-        component="form"
-        onSubmit={handleSubmit}
-      >
-        <Typography variant="h4" align="center">
-          Editar Usuario
+      <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Typography variant="h4" gutterBottom>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {tittle}
+            <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+              <CancelIcon />
+            </Button>
+          </div>
         </Typography>
+
         <Grid container spacing={2} margin={1}>
           <Grid xs={12}>
             <TextField
@@ -165,9 +169,15 @@ function UpdateUser({ user, onUpdate }) {
               <option value="segundo">Usuario</option>
             </TextField>
           </Grid>
-          <Button type="submit" variant="contained" fullWidth>
-          Actualizar
-        </Button>
+
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+            type="submit"
+            fullWidth
+          >
+            Guardar
+          </Button>
         </Grid>
       </Box>
     </>
