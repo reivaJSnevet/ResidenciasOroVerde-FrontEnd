@@ -89,7 +89,7 @@ function Header() {
 
   return (
     <>
-      <AppBar position="sticky" sx={{ backgroundColor: "#5c7e03" }}>
+      <AppBar position="sticky" sx={{ backgroundColor: "#3c6c42" }}>
         <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton
@@ -105,7 +105,7 @@ function Header() {
               Administrador
             </Typography>
           </div>
-          <Avatar src="/zyro-image.png" sx={{ width: 56, height: 56 }}></Avatar>
+          <Avatar src="/zyro-image-removebg-preview.png" sx={{ width: 70, height: 70 }}></Avatar>
         </Toolbar>
       </AppBar>
 

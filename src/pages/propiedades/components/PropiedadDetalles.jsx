@@ -50,7 +50,8 @@ const PropiedadDetalles = ({ propiedad }) => {
       <div className="-mt-12 flex flex-col md:flex-row">
         <main className="grid grid-cols-1 p-4 md:w-1/2">
           <section className="row-span-4 mb-4 bg-200 p-6 ">
-            <h2 className="text-2xl font-bold dark:text-gray-600 mb-6">
+           
+            <h2 className="text-2xl mb-6 mt-6">
               Detalles de la propiedad
             </h2>
             <p>{propiedad.nombre}</p>
@@ -139,7 +140,7 @@ const PropiedadDetalles = ({ propiedad }) => {
           </div>
           </section >
         </main>
-        <aside className="w-full p-4 bg-400 md:w-1/2 ">
+        <aside className="w-full p-4 bg-400 md:w-1/2 mt-6">
           <section className="mt-24 mb-4 bg-400 md:block p-6">
             <h3 className="mb-2 text-lg font-semibold">Ubicación</h3>
             <Map
@@ -151,17 +152,15 @@ const PropiedadDetalles = ({ propiedad }) => {
       </div>
 <div className="p-6">
 
-      < Accordion open={open === 0} >
-        <AccordionHeader className="flex items-center justify-between cursor-pointer  rounded-lg p-2 transition duration-300 hover:bg-gray-100"
-        onClick={() => handleOpen(0)}>Clic para ver los comentarios
+      < Accordion open={open === 1} >
+      <AccordionHeader className="flex items-center justify-between cursor-pointer rounded-lg p-2 transition duration-300 hover:bg-gray-100" onClick={() => handleOpen(0)}>
+        Ver comentarios
         </AccordionHeader>
-       
         <AccordionBody>
     <section className=" mb-4 bg-400 w-full ">
            {propiedad.renta && (
         <div className="bg-white p-4 rounded shadow md:w-full md:mr-4">
-
-          <div className="overflow-y-auto h-screen" style={{ maxHeight: "500px" }}>
+       <div className="bg-white p-4 rounded shadow md:w-full md:mr-4 max-h-96 overflow-y-auto">
             <CommentCards comments={comments} className="mb-4" />
           </div>
         </div>

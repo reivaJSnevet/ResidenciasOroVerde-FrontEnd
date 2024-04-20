@@ -1,7 +1,6 @@
 const CommentCard = ({ comments }) => {
   return (
     <div className="bg-300 p-4">
-      <h3 className="mb-2 text-lg font-semibold">Comentarios</h3>
       <div className="p-4 bg-200">
       <div className="grid grid-cols-1 gap-4 bg-400 md:grid-cols-2">
         {comments.map((comment, index) => (
@@ -23,10 +22,12 @@ const CommentCard = ({ comments }) => {
               <p>{comment.comment}</p>
             </div>
           </div>
+          
         ))}
       </div>
       </div>
     </div>
+
   );
 };
 
