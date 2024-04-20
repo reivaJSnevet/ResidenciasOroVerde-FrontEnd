@@ -23,21 +23,19 @@ function Header() {
     const signOut = async () => {
         await logout();
         navigate("/login");
-    }
-    
-
+    };
 
 
   const ListOptions = () => {
     return (
       <>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="">
+          <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Casas de Alquiler"} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="">
+          <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Casas de Venta"} />
           </ListItemButton>
         </ListItem>
@@ -47,7 +45,7 @@ function Header() {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="">
+          <ListItemButton component={Link} to="" disabled={true}>
             <ListItemText primary={"Ranking"} />
           </ListItemButton>
         </ListItem>
