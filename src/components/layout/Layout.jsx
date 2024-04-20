@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Header from "./Header";
-import Footer from "../../components/Footer.jsx"
+import Footer from "../Footer";
 import { Outlet } from "react-router-dom";
 
 function Layout() {

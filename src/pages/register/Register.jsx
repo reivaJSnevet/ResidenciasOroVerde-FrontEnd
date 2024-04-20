@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+// import Header from "../../components/Header";
+// import Footer from "../../components/Footer";
 
 const Register = () => {
   const [user, setUser] = useState({});
@@ -20,7 +20,7 @@ const Register = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="py-16">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <div className="w-full p-8 lg:w-1/2">
@@ -186,7 +186,7 @@ const Register = () => {
           ></div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
