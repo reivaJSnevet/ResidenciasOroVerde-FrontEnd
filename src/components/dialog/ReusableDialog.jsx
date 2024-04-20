@@ -37,7 +37,7 @@ function ReusableDialog({ open, onClose, title, content, onConfirm }) {
           <Button onClick={handleConfirm} color="primary">
             Confirmar
           </Button>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>
         </DialogActions>

@@ -1,71 +1,88 @@
 import { useEffect, useState } from "react";
-import {
-  DataGrid,
-  esES,
-  GridToolbar,
-  GridActionsCellItem,
-} from "@mui/x-data-grid";
+import { DataGrid, esES, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateRol from "./UpdateRol";
 import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
+import UpdateUser from "./UpdateUser";
 
-function RolesTable({ reset, setReset }) {
+function UsuariosTable({ reset, setReset}) {
   const api = useAxiosPrivate();
-  const [roles, setRoles] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10, 20];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const handleOpenModal = (role) => {
-    setSelectedRole(role);
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const response = await api.get("/users");
+        setUsuarios(response.data);
+      } catch (error) {
+        console.error("Error fetching usuarios", error.message);
+      }
+    };
+    fetchUsuarios();
+  }, [api, reset]);
+
+  const handleOpenModal = (user) => {
+    setSelectedUser(user);
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
-    setSelectedRole(null);
+    setSelectedUser(null);
   };
 
-  const handleOpenDeleteDialog = (role) => {
-    setSelectedRole(role);
+  const handleOpenDeleteDialog = (user) => {
+    setSelectedUser(user);
     setOpenDeleteDialog(true);
   };
 
   const handleCloseDeleteDialog = () => {
-    setSelectedRole(null);
+    setSelectedUser(null);
     setOpenDeleteDialog(false);
   };
 
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const response = await api.get("/roles");
-        setRoles(response.data);
-      } catch (error) {
-        console.error("Error fetching roles", error.message);
-      }
-    };
-    fetchRoles();
-  }, [api, reset]);
-
   const columns = [
     {
       field: "id",
-      headerName: "ID",
+      headerName: "Cedula",
       flex: 1,
     },
     {
-      field: "name",
-      headerName: "Nombre",
+      field: "nombreCompleto",
+      headerName: "Nombre Completo",
       flex: 1,
+      valueGetter: (params) => {
+        return `${params.row.name || ""} ${params.row.lastName || ""} ${
+          params.row.lastName2 || ""
+        }`;
+      },
+    },
+    {
+      field: "email",
+      headerName: "Correo Electronico",
+      flex: 1,
+    },
+    {
+      field: "phoneNumbers.principal",
+      headerName: "Teléfono Principal",
+      flex: 1,
+      valueGetter: (params) => params.row.phoneNumbers?.principal || "Sin Datos",
+    },
+    {
+      field: "phoneNumbers.secundario",
+      headerName: "Teléfono Secundario",
+      flex: 1,
+      valueGetter: (params) => params.row.phoneNumbers?.secundario || "Sin Datos",
     },
     {
       field: "actions",
@@ -94,11 +111,12 @@ function RolesTable({ reset, setReset }) {
         );
       },
     },
+    
   ];
 
   const handleDelete = async () => {
-    try {
-      await api.delete(`/roles/${selectedRole.id}`);
+    // try {
+    //   await api.delete(`/users/${selectedUser.id}`);
       enqueueSnackbar("Rol eliminado con éxito", {
         variant: "success",
         anchorOrigin: {
@@ -107,30 +125,30 @@ function RolesTable({ reset, setReset }) {
         },
       });
       handleCloseDeleteDialog();
-      setReset((prev) => !prev);
-    } catch (error) {
-      enqueueSnackbar("Error eliminando rol", {
-        variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
-    }
+    //   setReset((prev) => !prev);
+    // } catch (error) {
+    //   enqueueSnackbar("Error eliminando rol", {
+    //     variant: "error",
+    //     anchorOrigin: {
+    //       vertical: "top",
+    //       horizontal: "center",
+    //     },
+    //   });
+    // }
   };
 
   return (
     <>
-      <div className="flex justify-center mt-2">
+     
         <DataGrid
           sx={{
             boxShadow: 2,
           }}
           style={{ height: 500, width: "100%" }}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={roles}
+          rows={usuarios}
           getRowId={(row) => row.id}
-          loading={roles.length === 0}
+          loading={usuarios.length === 0}
           columns={columns}
           editMode="row"
           slots={{ toolbar: GridToolbar }}
@@ -144,40 +162,37 @@ function RolesTable({ reset, setReset }) {
           pageSize={pageSize}
           rowsPerPageOptions={pageSize}
           initialState={{
-            ...roles.initialState,
+            ...usuarios.initialState,
             pagination: { paginationModel: { pageSize } },
           }}
           pageSizeOptions={sizeOptions}
         />
-      </div>
-      <ReusableModal
-        open={openModal}
-        onClose={handleCloseModal}
-        title="Editar Rol"
-      >
-        <UpdateRol
-          role={selectedRole}
+
+        <ReusableModal
+          open={openModal}
+          onClose={handleCloseModal}
+          title="Editar Usuario"
+        >
+          <UpdateUser
+          user={selectedUser}
           onUpdate={() => {
             handleCloseModal();
             setReset((prev) => !prev);
-          }}
-        />
-      </ReusableModal>
+          }} />
+        </ReusableModal>
 
-      {selectedRole && (
-        <ReusableDialog
-          open={openDeleteDialog}
-          onClose={handleCloseDeleteDialog}
-          title={`Eliminar Rol`}
-          content={`¿Está seguro de que desea eliminar el rol con ID ${selectedRole.name}?`}
-          onConfirm={() => {
-            handleDelete();
-            setReset((prev) => !prev);
-          }}
-        />
-      )}
+        {selectedUser && (
+          <ReusableDialog
+            open={openDeleteDialog}
+            onClose={handleCloseDeleteDialog}
+            title="Eliminar Usuario"
+            content={`¿Estás seguro de eliminar a ${selectedUser.name} ${selectedUser.lastName}?`}
+            onConfirm={handleDelete}
+          />
+        )}
+
     </>
   );
 }
 
-export default RolesTable;
+export default UsuariosTable;

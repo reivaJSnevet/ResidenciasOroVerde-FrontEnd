@@ -5,55 +5,61 @@ import {
   GridToolbar,
   GridActionsCellItem,
 } from "@mui/x-data-grid";
+import { Backdrop, CircularProgress, Box, Typography } from "@mui/material";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateRol from "./UpdateRol";
-import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
+import ReusableModal from "../../../../components/modal/ReusableModal";
+import UpdateCategory from "./UpdateCategory";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-function RolesTable({ reset, setReset }) {
+
+function CategoriasTable({ reset, setReset}) {
   const api = useAxiosPrivate();
-  const [roles, setRoles] = useState([]);
+  const [categorias, setCategorias] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10, 20];
+  const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const handleOpenModal = (role) => {
-    setSelectedRole(role);
+  const handleOpenModal = (category) => {
+    setSelectedCategory(category);
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
-    setSelectedRole(null);
+    setSelectedCategory(null);
   };
 
-  const handleOpenDeleteDialog = (role) => {
-    setSelectedRole(role);
+  const handleOpenDeleteDialog = (category) => {
+    setSelectedCategory(category);
     setOpenDeleteDialog(true);
   };
 
   const handleCloseDeleteDialog = () => {
-    setSelectedRole(null);
+    setSelectedCategory(null);
     setOpenDeleteDialog(false);
   };
 
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    const fetchRoles = async () => {
+    const fetchCategorias = async () => {
       try {
-        const response = await api.get("/roles");
-        setRoles(response.data);
+        const response = await api.get("/categories");
+        setTimeout(() => {
+          setCategorias(response.data);
+          setLoading(false);
+        }, 1000);
       } catch (error) {
-        console.error("Error fetching roles", error.message);
+        console.error("Error fetching categorias", error.message);
       }
     };
-    fetchRoles();
+    fetchCategorias();
   }, [api, reset]);
 
   const columns = [
@@ -96,10 +102,10 @@ function RolesTable({ reset, setReset }) {
     },
   ];
 
-  const handleDelete = async () => {
+  const handleDeleteCategory = async () => {
     try {
-      await api.delete(`/roles/${selectedRole.id}`);
-      enqueueSnackbar("Rol eliminado con éxito", {
+      await api.delete(`/categories/${selectedCategory.id}`);
+      enqueueSnackbar("Categoría eliminada con éxito", {
         variant: "success",
         anchorOrigin: {
           vertical: "top",
@@ -107,9 +113,9 @@ function RolesTable({ reset, setReset }) {
         },
       });
       handleCloseDeleteDialog();
-      setReset((prev) => !prev);
+      setReset(!reset);
     } catch (error) {
-      enqueueSnackbar("Error eliminando rol", {
+      enqueueSnackbar("Error eliminando categoría", {
         variant: "error",
         anchorOrigin: {
           vertical: "top",
@@ -119,24 +125,49 @@ function RolesTable({ reset, setReset }) {
     }
   };
 
+
   return (
     <>
-      <div className="flex justify-center mt-2">
+      {/* <Backdrop
+        sx={{
+          color: "#5c7e03",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={loading}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
+          <CircularProgress color="inherit" />{" "}
+          <Typography variant="body1" mt={2} color="inherit">
+            Cargando datos...
+          </Typography>
+        </Box>
+      </Backdrop> */}
+
+      
         <DataGrid
           sx={{
             boxShadow: 2,
           }}
           style={{ height: 500, width: "100%" }}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={roles}
+          rows={categorias}
           getRowId={(row) => row.id}
-          loading={roles.length === 0}
+          //   loading={categorias.length === 0}
           columns={columns}
           editMode="row"
           slots={{ toolbar: GridToolbar }}
           slotProps={{
             toolbar: {
               showQuickFilter: true,
+              // csvOptions,
+              // printOptions,
             },
           }}
           disableSelectionOnClick
@@ -144,19 +175,19 @@ function RolesTable({ reset, setReset }) {
           pageSize={pageSize}
           rowsPerPageOptions={pageSize}
           initialState={{
-            ...roles.initialState,
+            ...categorias.initialState,
             pagination: { paginationModel: { pageSize } },
           }}
           pageSizeOptions={sizeOptions}
         />
-      </div>
+
       <ReusableModal
         open={openModal}
         onClose={handleCloseModal}
-        title="Editar Rol"
+        title="Editar Categoría"
       >
-        <UpdateRol
-          role={selectedRole}
+        <UpdateCategory
+          category={selectedCategory}
           onUpdate={() => {
             handleCloseModal();
             setReset((prev) => !prev);
@@ -164,20 +195,17 @@ function RolesTable({ reset, setReset }) {
         />
       </ReusableModal>
 
-      {selectedRole && (
+      {selectedCategory && (
         <ReusableDialog
           open={openDeleteDialog}
           onClose={handleCloseDeleteDialog}
-          title={`Eliminar Rol`}
-          content={`¿Está seguro de que desea eliminar el rol con ID ${selectedRole.name}?`}
-          onConfirm={() => {
-            handleDelete();
-            setReset((prev) => !prev);
-          }}
+          title="Eliminar Categoría"
+          content={`¿Estás seguro de eliminar la categoría ${selectedCategory.name}?`}
+          onConfirm={handleDeleteCategory}
         />
       )}
     </>
   );
 }
 
-export default RolesTable;
+export default CategoriasTable;
