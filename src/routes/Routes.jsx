@@ -14,6 +14,7 @@ import BusquedaCliente from "../pages/cliente/BusquedaCliente";
 import Home2 from "../pages/home/Home2";
 import ForRent from "../pages/propiedades/components/category/ForRent";
 import ForSale from "../pages/propiedades/components/category/ForSale";
+import Register from "../pages/register/Register";
 
 const routes = (
     <>
@@ -21,6 +22,7 @@ const routes = (
      <Route path="/" element={<Home/>} /> 
      <Route path="/home2" element={<Home2 />} /> 
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="cliente" element={<BusquedaCliente />} /> 
             <Route path="/forRent" element={<ForRent/>} />
             <Route path="/forSale" element={<ForSale/>} />
