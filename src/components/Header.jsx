@@ -7,7 +7,7 @@ function Header() {
 
 
     return (
-      <nav className="header">
+      <nav className="header" >
         <div> 
         <img src="/zyro-image-removebg-preview.png" alt="Logo de la empresa" className="h-20 w-20 mr-6" />
         <span className="font-semibold text-xl tracking-tight"></span>
@@ -19,8 +19,8 @@ function Header() {
         <div className="dropdown">
         <button className="boton1">SERVICIOS</button>
         <div className="dropdown-content">
-          <Link to="/" className="boton1 sub-option">ALQUILER</Link>
-          <Link to="/" className="boton1 sub-option">VENTA</Link>
+          <Link to="/forRent" className="boton1 sub-option">ALQUILER</Link>
+          <Link to="/forSale" className="boton1 sub-option">VENTA</Link>
         </div>
       </div>
          <a href="#contacto" className="boton1">CONTACTO</a> 

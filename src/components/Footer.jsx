@@ -7,7 +7,7 @@ import '../stylesheets/Footer.css';
 function Footer() {
   return (
     <>
-    <footer className="footer">
+    <footer className="footer" id='contacto'>
       <div className="footerContent">
         <div>
           <h3>C O N T A C T O</h3>
@@ -18,11 +18,11 @@ function Footer() {
             </div>
             <div className="contactItem">
               
-              <p><AttachEmailIcon /> example@email.com</p>
+              <p><AttachEmailIcon /> residenciasoroverde@gmail.com</p>
             </div>
             <div className="contactItem">
              
-              <p>  <LocationOnIcon /> 123 Street, City, Country</p>
+              <p>  <LocationOnIcon /> Nicoya, Guanacaste</p>
             </div>
           </div>
         </div>

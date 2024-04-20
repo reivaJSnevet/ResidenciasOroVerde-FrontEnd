@@ -9,7 +9,6 @@ import api from '../../database/api';
 import CardsHome from './components/CardsHome';
 import { Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { CarouselTransition } from '../../components/carousel/CarouselTransition';
 
 function Home() {
   const [propiedades, setPropiedades] = useState([]);
@@ -61,16 +60,14 @@ function Home() {
 
   return (
     <>
- <div className="relative">
+ 
   
-      <Header />
-
+      <Header/>
+      <div className="relative">
         <Switch className="switchThumb" onChange={handleSwitchChange} />
 
-      <div className="relative">
-      
-        <div
-          className="relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center"
+        <div 
+          className="relative overflow-hidden rounded-lg bg-cover bg-no-repeat text-center "
           id='home'
           style={{
             backgroundImage: 'url("/Homepotrero.jpeg")',
@@ -78,20 +75,20 @@ function Home() {
           }}
         >
           <div
-            className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+            className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed "
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           >
-            <div className="flex h-full items-center justify-center px-12 font-serif">
+            <div className="flex h-full items-center justify-center px-12 font-mono">
               <div className="text-white">
-                <h2 className="mb-4 text-6xl font-semibold">Residencias</h2>
-                <h4 className="mb-6 text-4xl font-semibold">Oro Verde</h4>
+                <h2 className="mb-4 text-8xl font-bold">Residencias</h2>
+                <h4 className="mb-6 text-6xl font-serif font-bold">Oro Verde</h4>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-        <div className='page-container '>
+
+        <div className='page-container p-8'>
           <MapContainer center={[10.6313, -85.4378]} zoom={9}
             scrollWheelZoom={false} className="mapContainer" style={{ height: '600px' }}>
             <TileLayer

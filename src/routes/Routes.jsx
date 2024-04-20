@@ -11,7 +11,9 @@ import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedades from "../pages/propiedades/Propiedades";
 import BusquedaCliente from "../pages/cliente/BusquedaCliente";
- import Home2 from "../pages/home/Home2";
+import Home2 from "../pages/home/Home2";
+import ForRent from "../pages/propiedades/components/category/ForRent";
+import ForSale from "../pages/propiedades/components/category/ForSale";
 
 const routes = (
     <>
@@ -20,6 +22,8 @@ const routes = (
      <Route path="/home2" element={<Home2 />} /> 
             <Route path="login" element={<Login />} />
             <Route path="cliente" element={<BusquedaCliente />} /> 
+            <Route path="/forRent" element={<ForRent/>} />
+            <Route path="/forSale" element={<ForSale/>} />
             <Route path="propiedades" element={<Propiedades />} /> 
             <Route element={<PersistLogin />}>
                
