@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function Categories() {
   const [reset, setReset] = useState(false);
-
+//aqui se mandan a hacer los get por props a los componentes
   return (
     <>
       <div className="m-10 shadow-lg">

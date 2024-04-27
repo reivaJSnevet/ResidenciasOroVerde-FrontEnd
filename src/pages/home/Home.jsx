@@ -1,8 +1,6 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import '../../stylesheets/Home.css'
 import { useState, useEffect } from 'react';
 import api from '../../database/api';
@@ -61,13 +59,10 @@ function Home() {
   return (
     <>
  
-  
-      <Header/>
-      <div className="relative">
-      
 
+      <div className="relative">
         <div 
-          className="relative overflow-hidden  bg-cover bg-no-repeat text-center "
+          className="relative overflow-hidden text-center bg-no-repeat bg-cover "
           id='home'
           style={{
             backgroundImage: 'url("/Homepotrero.jpeg")',
@@ -75,21 +70,21 @@ function Home() {
           }}
         >
           <div
-            className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed "
+            className="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed "
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           >
-            <div className="flex h-full items-center justify-center px-12 font-mono">
+            <div className="flex items-center justify-center h-full px-12 font-mono">
               <div className="text-white">
-                <h2 className="mb-4 text-8xl font-bold">Residencias</h2>
-                <h4 className="mb-6 text-6xl font-serif font-bold">Oro Verde</h4>
-                {/* <Switch className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 border border-white " onChange={handleSwitchChange} /> */}
+                <h2 className="mb-4 font-bold text-8xl">Residencias</h2>
+                <h4 className="mb-6 font-serif text-6xl font-bold">Oro Verde</h4>
+                {/* <Switch className="text-sm font-medium text-gray-900 border border-white ms-3 dark:text-gray-300 " onChange={handleSwitchChange} /> */}
               </div>
             </div>
           </div>
         </div>
 
 
-        <div className='page-container p-8'>
+        <div className='p-8 page-container'>
           <MapContainer center={[10.6313, -85.4378]} zoom={9}
             scrollWheelZoom={false} className="mapContainer" style={{ height: '600px' }}>
             <TileLayer
@@ -105,8 +100,8 @@ function Home() {
                   <div className="flex flex-col items-center justify-center h-full">
                     <img src={property.photos.split(',')[0]} alt="Property" className="w-full" style={{ maxWidth: "200px", maxHeight: "200px" }} />
                     <div className="relative px-10 py-5">
-                      <h3 className="font-semibold text-lg mb-2">{property.name}</h3>
-                      <p className="text-gray-500 text-sm">{property.description}</p>
+                      <h3 className="mb-2 text-lg font-semibold">{property.name}</h3>
+                      <p className="text-sm text-gray-500">{property.description}</p>
                     </div>
                   </div>
                 </Popup>
@@ -120,7 +115,7 @@ function Home() {
         <div id="contacto">
         </div>
       </div>
-        <Footer />
+
       
     </>
   );

@@ -1,14 +1,12 @@
 import React from "react";
 import Rating from "@mui/material/Rating";
-import useAuthStore from "../../../hooks/auth/useAuth";
-import CarouselComponent from "../../../components/carousel/Carousel";
-import CommentCards from "./CommentCards";
-import PostComment from "./PostComment";
+import useAuthStore from "../../../../hooks/auth/useAuth";
+import CarouselComponent from "../../../../components/carousel/Carousel";
+import CommentCards from "./comments/CommentCards";
+import PostComment from "./comments/PostComment";
 import Map from "./map/Map";
 import { Grid } from '@mui/material';
 import {Shower, Garage, KingBed, Home, Paid, AttachMoney, Email, Phone, WhatsApp, Pin, PinDropOutlined, Flag } from '@mui/icons-material';
-import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
 import { Accordion, AccordionHeader, AccordionBody, } from "@material-tailwind/react";
 
 const comments = [
@@ -46,7 +44,7 @@ const PropiedadDetalles = ({ propiedad }) => {
 
   return (
     <div>
-        <Header/>
+     
       <div className="-mt-12 flex flex-col md:flex-row">
         <main className="grid grid-cols-1 p-4 md:w-1/2">
           <section className="row-span-4 mb-4 bg-200 p-6 ">
@@ -176,8 +174,6 @@ const PropiedadDetalles = ({ propiedad }) => {
         </div>
     </section>
  
-
- <Footer/>
     </div>
   );
 };

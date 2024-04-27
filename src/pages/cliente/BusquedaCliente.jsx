@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../database/api';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import BarraBusqueda from './components/BarraBusqueda.jsx';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +24,7 @@ function BusquedaCliente() {
   
       return (
         <div>
-            <Header />
+
             <BarraBusqueda/>
             <div className="container mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-3">
                 {propiedades.map(property => (
@@ -49,7 +47,6 @@ function BusquedaCliente() {
                     </div>
                 ))}
             </div>
-            <Footer />
         </div>
     );
 }
