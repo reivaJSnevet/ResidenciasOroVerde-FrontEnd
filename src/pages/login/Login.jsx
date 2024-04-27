@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
-
 
 const Login = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -76,16 +75,13 @@ const Login = () => {
 
   return (
     <>
-
       <div className="py-16">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
-          <div
-            className="hidden bg-cover lg:block lg:w-1/2 brightness-50"
-            style={{
-              backgroundImage:
-                "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/402099282.jpg?k=1062818d79cc9e9c82c7be5059e68f4043e0726420b0a39e20b491dbefc34102&o=&hp=1')",
-            }}
-          ></div>
+          <img
+            className="hidden lg:block lg:w-1/2 brightness-50"
+            src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/402099282.jpg?k=1062818d79cc9e9c82c7be5059e68f4043e0726420b0a39e20b491dbefc34102&o=&hp=1"
+            alt="casa pequeña con jardín y piscina"
+          />
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl text-center text-gray-700 font-regular">
               Inicio de Sesión
@@ -138,11 +134,12 @@ const Login = () => {
                   value={password}
                   required
                 />
-                <p className="float-right mb-6 text-sm text-black ">
-                <span className="text-blue-500">
-                   <a href="/Admin">¿Olvidaste tu contraseña?</a>
-                </span>
-              </p>
+                <Link
+                  to="/forgot-password"
+                  className="float-right mb-6 text-sm text-blue-500"
+                >
+                  ¿Has olvidado tu contraseña?
+                </Link>
               </div>
               <div className="mt-6">
                 <button
@@ -165,19 +162,17 @@ const Login = () => {
                   Mantener sesión iniciada
                 </label>
               </div>
-              <div className="mb-6"></div>
-              
-              <p className="ml-2 text-sm text-black">
-                ¿Aún no tienes cuenta?{" "}
-                <span className="text-blue-500">
-                  Regístrate <a href="/register">aquí</a>
-                </span>
-              </p>
+
+              <div className="mt-6">
+                <Link to="/register" className="text-sm text-black">
+                  ¿Aún no tienes cuenta?{" "}
+                  <span className="text-blue-500">Regístrate aquí</span>
+                </Link>
+              </div>
             </form>
           </div>
         </div>
       </div>
-
     </>
   );
 };
