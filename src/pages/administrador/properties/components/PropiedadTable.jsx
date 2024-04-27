@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid, esES, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
-import { Card, CardMedia } from "@mui/material";
+import { Box, Card, CardMedia } from "@mui/material";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import renderCalificacion from "../../services/renderCalificacion";
 import { useSnackbar } from "notistack";
@@ -9,6 +9,7 @@ import ReusableModal from "../../../../components/modal/ReusableModal";
 import UpdateProperty from "./UpdateProperty";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { render } from "react-dom";
 
 
 function PropiedadTable({reset, setReset}) {
@@ -63,6 +64,13 @@ function PropiedadTable({reset, setReset}) {
     {
       field: "name",
       headerName: "Nombre",
+      flex: 1,
+    },
+    {
+      headerName: "Tipo de propiedad",
+      renderCell: (params) => {
+        return params.row.forRent ? "Alquiler" : "Venta";
+      },
       flex: 1,
     },
     {
@@ -202,18 +210,17 @@ function PropiedadTable({reset, setReset}) {
           <ReusableModal
             open={openModal}
             handleClose={handleCloseModal}
-            children={
-              <UpdateProperty
-              tittle={"Actualizar Propiedad"} onClose={handleCloseModal}
-              />
-            }
+            children={<UpdateProperty 
+              tittle={"Actualizar Propiedad"}
+              onClose={handleCloseModal}
+            />}
           >
             {/* <UpdateProperty
+            open={openModal}
               property={selectedProperty}
-              onUpdate={() => {
-                handleCloseModal();
-                setReset((prev) => !prev);
-              }}
+              onUpdate={handleCloseModal}
+              tittle={"Actualizar Propiedad"}
+              onClose={handleCloseModal}
             /> */}
           </ReusableModal>
 

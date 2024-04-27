@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-function UpdateProperty({ property, onUpdate, tittle, onClose}) {
+function UpdateProperty({ property, onUpdate, tittle, onClose, children}) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
@@ -39,6 +39,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose}) {
   };
   return (
     <>
+      
       <Box sx={style} component={"form"} onSubmit={handleSubmit}>
       <Typography variant="h4" gutterBottom>
           <div
