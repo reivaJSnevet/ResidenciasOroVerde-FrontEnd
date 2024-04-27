@@ -1,11 +1,8 @@
 import React from 'react';
-import '../stylesheets/Header.css' 
+import '../../../stylesheets/Header.css' 
 import { Link } from 'react-router-dom';
 
 function Header() {
-
-
-
     return (
       <nav className="header" >
         <div> 

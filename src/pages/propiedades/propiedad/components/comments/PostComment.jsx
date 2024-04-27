@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
+import useAxiosPrivate from "../../../../../hooks/auth/useAxiosPrivate";
 
 const PostComment = ({ user }) => {
   const api = useAxiosPrivate();

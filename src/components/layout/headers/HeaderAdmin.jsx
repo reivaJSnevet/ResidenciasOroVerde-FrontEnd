@@ -14,10 +14,11 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import { Menu, ExitToApp } from "@mui/icons-material";
-import useLogout from "../../hooks/auth/useLogout";
+import useLogout from "../../../hooks/auth/useLogout";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-function Header() {
+function HeaderAdmin() {
+  
     const navigate = useNavigate();
     const logout = useLogout();
 
@@ -155,4 +156,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderAdmin;

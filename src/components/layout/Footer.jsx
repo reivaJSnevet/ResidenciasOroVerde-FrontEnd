@@ -1,80 +1,42 @@
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import React from 'react';
+import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AttachEmailIcon from '@mui/icons-material/AttachEmail';
+import "../../stylesheets/Footer.css"
 
 function Footer() {
   return (
-  <>
-   <Box
-      component="footer"
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light"
-            ? theme.palette.success.main
-            : theme.palette.success.dark,
-        p:2,
-      }}
-    >
-      <Container maxWidth="lg">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="white" gutterBottom>
-             Sobre Nosotros
-            </Typography>
-            <Typography variant="body2" color="white">
-              Somos una adnaodjaojdoaijdiaojd aodajdoaj adjaodjajd adolajodj
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="white" gutterBottom>
-             Contactanos
-            </Typography>
-            <Typography variant="body2" color="white">
-              123 Main Street, Anytown, USA
-            </Typography>
-            <Typography variant="body2" color="white">
-              Email: oroVeerde.com
-            </Typography>
-            <Typography variant="body2" color="white">
-              Phone: +1 234 567 8901
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="white" gutterBottom>
-             Siguenos en nuestras redes!
-            </Typography>
-            <Link href="https://www.facebook.com/" color="inherit">
-              <Facebook className= "text-white"/>
-            </Link>
-            <Link
-              href="https://www.instagram.com/"
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}
-            >
-              <Instagram  className= "text-white" />
-            </Link>
-            <Link href="https://www.twitter.com/" color="inherit">
-              <Twitter  className= "text-white" />
-            </Link>
-          </Grid>
-        </Grid>
-        <Box mt={5}>
-          <Typography variant="body2" color="white" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://oroVerde.com">
-             OroVerde
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-          </Typography>
-        </Box>
-      </Container>
-    </Box>
-  </>
-  )
-}
+    <>
+    <footer className="footer" id='contacto'>
+      <div className="footerContent">
+        <div>
+          <h3>C O N T A C T O</h3>
+          <div className="contactInfo">
+            <div className="contactItem">
+              
+              <p> <PhoneCallbackIcon /> +123456789</p>
+            </div>
+            <div className="contactItem">
+              
+              <p><AttachEmailIcon /> residenciasoroverde@gmail.com</p>
+            </div>
+            <div className="contactItem">
+             
+              <p>  <LocationOnIcon /> Nicoya, Guanacaste</p>
+            </div>
+          </div>
+        </div>
+        <div>
+        <h3>S O B R E &nbsp;&nbsp; N O S O T R O S</h3>
+        </div>
+      </div>
+    </footer>
+     <div className="copyright">
+     <p>© 2024. Residencias Oro Verde. Todos los derechos reservados.</p>
+   </div>
+   </>
+   );
+ }
+
 
 export default Footer

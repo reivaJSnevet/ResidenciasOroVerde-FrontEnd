@@ -3,8 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
-// import Header from "../../components/Header";
-// import Footer from "../../components/Footer";
+
 
 const Login = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -52,6 +51,7 @@ const Login = () => {
         }
       );
 
+      console.log(response.data);
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
@@ -76,7 +76,7 @@ const Login = () => {
 
   return (
     <>
-      {/* <Header /> */}
+
       <div className="py-16">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <div
@@ -138,7 +138,7 @@ const Login = () => {
                   value={password}
                   required
                 />
-                <p className=" mb-6 float-right text-sm text-black">
+                <p className="float-right mb-6 text-sm text-black ">
                 <span className="text-blue-500">
                    <a href="/Admin">¿Olvidaste tu contraseña?</a>
                 </span>
@@ -177,7 +177,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
+
     </>
   );
 };
