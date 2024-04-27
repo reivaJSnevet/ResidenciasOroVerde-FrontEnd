@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BarraBusqueda from '../../../cliente/components/BarraBusqueda';
+import BarraBusqueda from '../../cliente/components/BarraBusqueda';
 import { useState, useEffect } from 'react';
-import api from '../../../../database/api';
+import api from '../../../database/api';
 
 function ForRent() {
     const [propiedades, setPropiedades] = useState([]);

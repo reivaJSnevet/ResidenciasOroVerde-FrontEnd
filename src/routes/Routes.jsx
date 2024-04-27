@@ -11,9 +11,9 @@ import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedad from "../pages/propiedades/propiedad/Propiedad";
 import BusquedaCliente from "../pages/cliente/BusquedaCliente";
-import Home2 from "../pages/home/Home2";
-import ForRent from "../pages/propiedades/components/category/ForRent";
-import ForSale from "../pages/propiedades/components/category/ForSale";
+import Home2 from "../pages/home/Home2.jsx"
+import ForRent from "../pages/propiedades/category/ForRent.jsx";
+import ForSale from "../pages/propiedades/category/ForSale.jsx";
 import Register from "../pages/register/Register";
 
 const routes = (
@@ -37,7 +37,7 @@ const routes = (
                         <Route path="roles" element={<Roles />} />
                         <Route path="categorias" element={<Categories />} />
                         <Route path="propiedades" element={<Properties />} />
-                        <Route path="propiedad" element={<Propiedades />} />
+                        <Route path="propiedad" element={<Propiedad />} />
                     </Route>
 
                 </Route>
