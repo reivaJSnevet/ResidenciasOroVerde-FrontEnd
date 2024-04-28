@@ -15,11 +15,13 @@ import Home2 from "../pages/home/Home2.jsx"
 import ForRent from "../pages/propiedades/category/ForRent.jsx";
 import ForSale from "../pages/propiedades/category/ForSale.jsx";
 import Register from "../pages/register/Register";
+import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 
 const routes = (
     <>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/home2" element={<Home2 />} />

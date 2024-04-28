@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [user, setUser] = useState({});
@@ -19,7 +19,6 @@ const Register = () => {
 
   return (
     <>
-
       <div className="py-16">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <div className="w-full p-8 lg:w-1/2">
@@ -167,25 +166,22 @@ const Register = () => {
                 </button>
               </div>
 
-              <div className="mb-6"></div>
-              <p className="ml-2 text-sm text-black">
-                ¿Ya tienes cuenta?{" "}
-                <span className="text-blue-500">
-                  <a href="/login">Iniciar Sesión</a>
-                </span>
-              </p>
+              <div className="mt-2">
+                <Link to="/login" className="text-sm text-black">
+                  ¿Ya tienes cuenta?{" "}
+                  <span className="text-blue-500">Iniciar sesión</span>
+                </Link>
+              </div>
+              
             </form>
           </div>
-          <div
-            className="hidden bg-cover lg:block lg:w-1/2 brightness-50"
-            style={{
-              backgroundImage:
-                "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/402099282.jpg?k=1062818d79cc9e9c82c7be5059e68f4043e0726420b0a39e20b491dbefc34102&o=&hp=1')",
-            }}
-          ></div>
+          <img
+            className="hidden object-cover w-1/2 bg-cover lg:block brightness-50"
+            src="https://s42814.pcdn.co/wp-content/uploads/2019/12/iStock_172413371-1-scaled-1.jpg.webp"
+            alt="home under construction"
+          />
         </div>
       </div>
-  
     </>
   );
 };
