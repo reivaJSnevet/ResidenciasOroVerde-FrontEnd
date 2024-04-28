@@ -1,42 +1,53 @@
 import React from 'react';
-import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AttachEmailIcon from '@mui/icons-material/AttachEmail';
-import "../../stylesheets/Footer.css"
+import { PhoneCallback, LocationOn, AttachEmail } from '@mui/icons-material';
 
 function Footer() {
   return (
-    <>
-    <footer className="footer" id='contacto'>
-      <div className="footerContent">
-        <div>
-          <h3>C O N T A C T O</h3>
-          <div className="contactInfo">
-            <div className="contactItem">
-              
-              <p> <PhoneCallbackIcon /> +123456789</p>
-            </div>
-            <div className="contactItem">
-              
-              <p><AttachEmailIcon /> residenciasoroverde@gmail.com</p>
-            </div>
-            <div className="contactItem">
-             
-              <p>  <LocationOnIcon /> Nicoya, Guanacaste</p>
-            </div>
-          </div>
+    <footer className="bg-[#3c6c43] p-4 font-[sans-serif]">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center lg:justify-between">
+        <div className="lg:mr-4 mb-4 lg:mb-0">
+          <a >
+            <img src="/residenciasLogo.png" alt="logo" className="w-64" />
+          </a>
+        </div>
+        <div className="mb-4 lg:mb-0">
+          <h4 className="text-lg font-semibold mb-4 text-white">CONTÁCTANOS</h4>
+          <ul className="space-y-2">
+            <li>
+              <a  className="text-gray-300 hover:text-white text-sm">
+                <AttachEmail/> residenciasoroverde@gmail.com
+              </a>
+            </li>
+            <li>
+              <a  className="text-gray-300 hover:text-white text-sm">
+                <PhoneCallback/> +123456789
+              </a>
+            </li>
+            <li>
+              <a  className="text-gray-300 hover:text-white text-sm">
+                <LocationOn/> Nicoya, Guanacaste.
+              </a>
+            </li>
+          </ul>
         </div>
         <div>
-        <h3>S O B R E &nbsp;&nbsp; N O S O T R O S</h3>
+          <h4 className="text-lg font-semibold mb-4 mr-20 text-white">SOBRE NOSOTROS</h4>
+          <ul className="space-y-2">
+            <li>
+              <a  className="text-gray-300 hover:text-white text-sm">About Us</a>
+            </li>
+            <li>
+              <a className="text-gray-300 hover:text-white text-sm">Terms &amp; Conditions</a>
+            </li>
+            <li>
+              <a className="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+            </li>
+          </ul>
         </div>
       </div>
+      <p className="  text-gray-300 text-xs mt-4 text-center">© 2024 <a href='/'  className="hover:underline mx-1">Residencias Oro Verde.</a> Todos los derechos reservados.</p>
     </footer>
-     <div className="copyright">
-     <p>© 2024. Residencias Oro Verde. Todos los derechos reservados.</p>
-   </div>
-   </>
-   );
- }
+  );
+}
 
-
-export default Footer
+export default Footer;

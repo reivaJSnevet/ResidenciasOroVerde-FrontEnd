@@ -1,4 +1,4 @@
-
+/* 
   .background-image {
     position:-webkit-sticky; 
     margin-top: 5%;
@@ -18,9 +18,9 @@
     align-items: center;
     flex-wrap: wrap; 
     gap: 20px; 
-  }
+  } */
 
-  .card {
+  /* .card {
     width: 300px;
     height: 250px;
     background-color: #fff;
@@ -77,4 +77,4 @@
 .green-icon {
   color: #fff; 
 }
-
+ */

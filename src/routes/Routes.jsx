@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 import Layout from "../components/layout/Layout";
-import Home from "../pages/home/Home";
+import Home from "../pages/home/home1/Home.jsx";
 import Admin from "../pages/administrador/Administrador";
 import Users from "../pages/administrador/users/Users";
 import Roles from "../pages/administrador/roles/Roles"
@@ -10,12 +10,13 @@ import Login from "../pages/login/Login";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedad from "../pages/propiedades/propiedad/Propiedad";
-import BusquedaCliente from "../pages/cliente/BusquedaCliente";
+import Propiedades from "../pages/propiedades/Propiedades.jsx";
 import Home2 from "../pages/home/Home2.jsx"
-import ForRent from "../pages/propiedades/category/ForRent.jsx";
-import ForSale from "../pages/propiedades/category/ForSale.jsx";
+import ForSale from "../pages/propiedades/components/category/ForSale.jsx";
+import ForRent from "../pages/propiedades/components/category/ForRent.jsx";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
+
 
 const routes = (
     <>
@@ -26,7 +27,7 @@ const routes = (
             <Route path="/" element={<Home />} />
             <Route path="/home2" element={<Home2 />} />
 
-            <Route path="cliente" element={<BusquedaCliente />} />
+            <Route path="propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
             <Route path="/forSale" element={<ForSale />} />
             <Route path="propiedad" element={<Propiedad />} />
