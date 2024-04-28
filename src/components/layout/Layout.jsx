@@ -15,8 +15,9 @@ function Layout() {
     <Grid item>
       {auth?.user?.Role?.name === "admin" ? <HeaderAdmin /> : <Header />}
     </Grid>
+  
     <Grid item xs>
-      <Container maxWidth="lg">
+    <Container maxWidth="xl">
         <Outlet />
       </Container>
     </Grid>

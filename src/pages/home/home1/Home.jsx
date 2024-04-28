@@ -1,9 +1,8 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import '../../stylesheets/Home.css'
 import { useState, useEffect } from 'react';
-import api from '../../database/api';
+import api from '../../../database/api';
 import CardsHome from './components/CardsHome';
 import { Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
