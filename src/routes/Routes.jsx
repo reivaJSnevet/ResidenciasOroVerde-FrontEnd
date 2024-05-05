@@ -17,6 +17,8 @@ import ForSale from "../pages/propiedades/category/ForSale.jsx";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
+import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
+import NotFound from "../pages/notFound/NotFound.jsx";
 
 const routes = (
     <>
@@ -47,6 +49,8 @@ const routes = (
                 </Route>
             </Route>
         </Route>
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
     </>
 );
 
