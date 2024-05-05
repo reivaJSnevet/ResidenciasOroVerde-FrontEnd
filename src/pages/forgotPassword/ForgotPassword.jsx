@@ -81,22 +81,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-<div className="relative max-w-md px-4 py-3 borderrounded ">
-  <span className="block sm:inline">
-    Por favor, introduce tu <strong>correo electrónico</strong> para que podamos
-    enviarte un enlace de recuperación.
-  </span>
-  <div className="relative mt-6">
-    <label className="block mb-2 font-semibold text-gray-700" htmlFor="email">
-      Correo electrónico
-    </label>
-    <input
-      className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded focus:outline-none focus:shadow-outline"
-      id="email"
-      type="email"
-      placeholder="Ingrese su correo electrónico"
-      autoComplete="off"
-    />
-  </div>
-</div>;
