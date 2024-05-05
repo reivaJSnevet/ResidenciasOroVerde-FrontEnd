@@ -16,6 +16,9 @@ import ForSale from "../pages/propiedades/components/category/ForSale.jsx";
 import ForRent from "../pages/propiedades/components/category/ForRent.jsx";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
+import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
+import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
+import NotFound from "../pages/notFound/NotFound.jsx";
 
 
 const routes = (
@@ -23,6 +26,7 @@ const routes = (
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/home2" element={<Home2 />} />
@@ -46,6 +50,8 @@ const routes = (
                 </Route>
             </Route>
         </Route>
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
     </>
 );
 
