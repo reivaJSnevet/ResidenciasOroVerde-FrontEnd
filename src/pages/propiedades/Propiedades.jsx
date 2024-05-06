@@ -25,7 +25,7 @@ function Propiedades() {
       return (
         <div>
 
-            <BarraBusqueda onSearch={handleSearch} />
+            <BarraBusqueda />
             <div className="container mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-3">
                 {propiedades.map(property => (
                     <div key={property.id} className="max-w-xs lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow">
