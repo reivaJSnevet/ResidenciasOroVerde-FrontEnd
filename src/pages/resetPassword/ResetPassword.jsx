@@ -8,7 +8,6 @@ const ResetPassword = () => {
 
   const comparePasswords = (password, confirmPassword) => {
     if (password !== confirmPassword) {
-        console.log("Las contraseñas no coinciden");
       throw new Error("Las contraseñas no coinciden");
     }
   };

@@ -50,7 +50,6 @@ const Login = () => {
         }
       );
 
-      console.log(response.data);
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
@@ -58,7 +57,7 @@ const Login = () => {
 
       if (response.data.user.Role.name === "admin") {
         navigate("/admin", { replace: true });
-      } else if (response.data.user.Role.name === "user") {
+      } else if (response.data.user.Role.name === "cliente") {
         navigate(from);
       } else {
         navigate("login", { replace: true });
