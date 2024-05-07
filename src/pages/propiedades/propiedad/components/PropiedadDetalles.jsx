@@ -1,13 +1,187 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Rating from "@mui/material/Rating";
-import useAuthStore from "../../../../hooks/auth/useAuth";
 import CarouselComponent from "../../../../components/carousel/Carousel";
 import CommentCards from "./comments/CommentCards";
 import PostComment from "./comments/PostComment";
 import Map from "./map/Map";
-import { Grid } from '@mui/material';
-import {Shower, Garage, KingBed, Home, Paid, AttachMoney, Email, Phone, WhatsApp, Pin, PinDropOutlined, Flag } from '@mui/icons-material';
-import { Accordion, AccordionHeader, AccordionBody, } from "@material-tailwind/react";
+import { Grid } from "@mui/material";
+import {
+  Shower,
+  Garage,
+  KingBed,
+  Home,
+  Paid,
+  AttachMoney,
+  Email,
+  Phone,
+  WhatsApp,
+  PinDropOutlined,
+} from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
+
+const PropiedadDetalles = ({ property, auth }) => {
+  const [coordinates, setCoordinates] = useState({ lat: 9.7489, lng: -83.7534 });
+
+  const [open, setOpen] = useState(0);
+  const handleOpen = (value) => setOpen(open === value ? 1 : value);
+
+  useEffect(() => {
+    if (property?.coordinates) {
+      setCoordinates({
+        lat: property.coordinates.coordinates[0],
+        lng: property.coordinates.coordinates[1],
+      });
+    }
+  }, [property]);
+
+  return (
+    <div>
+      <div className="flex flex-col -mt-12 md:flex-row">
+        <main className="grid grid-cols-1 p-4 md:w-1/2">
+          <section className="row-span-4 p-6 mb-4 bg-200 ">
+            <h2 className="mt-6 mb-6 text-2xl ">Detalles de la property</h2>
+            <p>{property?.name}</p>
+            <p>{property?.description}</p>
+
+            <section className="bg-500">
+              <h3 className="mb-2 text-lg font-semibold"></h3>
+              {/* <CarouselComponent
+                photos={property?.photos.split(",")}
+                height={350}
+              /> */}
+            </section>
+
+            <div className="bg-white rounded shadow">
+              <h3 className="mb-2 text-lg font-semibold">Calificación</h3>
+
+              {auth.user && property?.renta && (
+                <Rating
+                  name="property-rating"
+                  precision={0.1}
+                  value={property?.rating}
+                  size="large"
+                  readOnly
+                />
+              )}
+              <h3 className="mt-6 text-lg font-semibold">Características</h3>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={4}>
+                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                    <Home /> DIMENSIONES
+                    <p className="mx-10 mt-2"> {property?.squareMeters}</p>
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                    <KingBed /> HABITACIONES
+                    <p className="mx-10 mt-2"> {property?.bedroomNum}</p>
+                  </div>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                    <Shower /> DUCHAS
+                    <p className="mx-10 mt-2"> {property?.bathroomNum}</p>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                    <Garage /> GARAJE
+                    <p className="mx-10 mt-2">
+                      {property?.garage ? "Sí" : "No"}
+                    </p>
+                  </div>
+                </Grid>
+
+                {(!property?.forRent || property?.salePrice) && (
+                  <Grid item xs={12} md={4}>
+                    <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                      <Paid /> PRECIO VENTA
+                      <p className="mx-6 mt-2">
+                        {" "}
+                        {property?.salePrice} dólares
+                      </p>
+                    </div>
+                  </Grid>
+                )}
+
+                {property?.forRent && property?.rentalPrice && (
+                  <Grid item xs={12} md={4}>
+                    <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
+                      <AttachMoney />
+                      PRECIO ALQUILER
+                      <p className="mx-6 mt-2">
+                        {" "}
+                        {property?.rentalPrice} dólares
+                      </p>
+                    </div>
+                  </Grid>
+                )}
+              </Grid>
+
+              {auth.user && (
+                <section className="p-6 mt-4">
+                  <h3 className="mb-2 text-lg font-semibold">
+                    Para más información puedes comunicarte al:
+                  </h3>
+                  <p className="mb-2">
+                    <Email /> correoanfitrion@gmail.com
+                  </p>
+                  <p className="mb-2">
+                    <Phone /> 2256-7878
+                  </p>
+                  <p>
+                    <WhatsApp /> 8677-1232
+                  </p>
+                  <p className="mt-2">
+                    <PinDropOutlined /> Santa Cruz, Guanacaste.
+                  </p>
+                </section>
+              )}
+            </div>
+          </section>
+        </main>
+        <aside className="w-full p-4 mt-6 bg-400 md:w-1/2">
+          <section className="p-6 mt-24 mb-4 bg-400 md:block">
+            <h3 className="mb-2 text-lg font-semibold">Ubicación</h3>
+            <Map center={coordinates} zoom={14} />
+          </section>
+        </aside>
+      </div>
+      <div className="p-6">
+        <Accordion open={open === 1}>
+          <AccordionHeader
+            className="flex items-center justify-between p-2 transition duration-300 rounded-lg cursor-pointer hover:bg-gray-200"
+            onClick={() => handleOpen(0)}
+          >
+            Ver comentarios
+          </AccordionHeader>
+          <AccordionBody>
+            <section className="w-full mb-4 bg-400">
+              {property?.renta && (
+                <div className="p-4 bg-white rounded shadow md:w-full md:mr-4">
+                  <div className="p-4 overflow-y-auto bg-white rounded shadow md:w-full md:mr-4 max-h-96">
+                    <CommentCards comments={comments} className="mb-4" />
+                  </div>
+                </div>
+              )}
+            </section>
+          </AccordionBody>
+        </Accordion>
+      </div>
+
+      <section className="bg-500">
+        <div className="p-4 bg-white rounded shadow">
+          <PostComment user={auth.user} />
+        </div>
+      </section>
+    </div>
+  );
+};
 
 const comments = [
   {
@@ -32,150 +206,5 @@ const comments = [
     comment: "I have a question regarding this topic...",
   },
 ];
-
-const PropiedadDetalles = ({ propiedad }) => {
-  const auth = useAuthStore((state) => state.auth);
-  /* const auth = {user: false} */
-
-  const [open, setOpen] = React.useState(0);
- 
-  const handleOpen = (value) => setOpen(open === value ? 1 : value);
- 
-
-  return (
-    <div>
-     
-      <div className="-mt-12 flex flex-col md:flex-row">
-        <main className="grid grid-cols-1 p-4 md:w-1/2">
-          <section className="row-span-4 mb-4 bg-200 p-6 ">
-           
-            <h2 className="text-2xl mb-6 mt-6 ">
-              Detalles de la propiedad
-            </h2>
-            <p>{propiedad.nombre}</p>
-        <p>{propiedad.descripcion}</p>
-
-              <section className="bg-500">
-            <h3 className="mb-2 text-lg font-semibold"></h3>
-            <CarouselComponent
-              photos={propiedad.fotos.split(",")}
-              height={350}
-            />
-          </section>
-
-      <div className="bg-white rounded shadow">
-        <h3 className="text-lg font-semibold mb-2">Calificación</h3>
-    
-        {auth.user && propiedad.renta && ( 
-          <Rating
-            name="property-rating"
-            precision={0.1}
-            value={propiedad.calificacion}
-            size="large"
-            readOnly
-          />
-        )}
-        <h3 className="text-lg font-semibold mt-6">Características</h3>
-        <Grid container spacing={2}>
-      
-      <Grid item xs={12} md={4}>
-        <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-          <Home/> DIMENSIONES
-          <p className="mt-2 mx-10"> {propiedad.dimensiones}</p>
-        </div>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-          <KingBed/> HABITACIONES
-          <p className="mt-2 mx-10"> {propiedad.numHabitaciones}</p>
-        </div>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-          <Shower /> DUCHAS
-          <p className="mt-2 mx-10"> {propiedad.numducha}</p>
-        </div>
-      </Grid>
-
-      <Grid item xs={12} md={4}>
-        <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-          <Garage />  GARAJE
-          <p className="mt-2 mx-10">{propiedad.garaje ? "Sí" : "No"}</p>
-        </div>
-      </Grid>
-
-      {(!propiedad.renta || propiedad.precioVenta) && (
-        <Grid item xs={12} md={4}>
-          <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-          <Paid /> PRECIO VENTA
-            <p className="mt-2 mx-6"> {propiedad.precioVenta} dólares</p>
-          </div>
-        </Grid>
-      )}
-
-      {propiedad.renta && propiedad.precioAlquiler && (
-        <Grid item xs={12} md={4}>
-          <div className="bg-white p-4 rounded shadow transition duration-300 hover:bg-gray-100">
-            <AttachMoney/>PRECIO ALQUILER 
-            <p className="mt-2 mx-6"> {propiedad.precioAlquiler} dólares</p>
-          </div>
-        </Grid>
-      )}
-      
-    </Grid>
-    
-    {auth.user && (
-            <section className="p-6 mt-4" >
-                <h3 className="mb-2 text-lg font-semibold">Para más información puedes comunicarte al:</h3>
-                <p className="mb-2"><Email/> correoanfitrion@gmail.com</p>
-                <p className="mb-2"><Phone/> 2256-7878</p>
-                <p><WhatsApp/> 8677-1232</p>
-                <p className="mt-2">
-                  <PinDropOutlined/> Santa Cruz, Guanacaste.
-                </p>
-            </section>
-          )}
-          </div>
-          </section >
-        </main>
-        <aside className="w-full p-4 bg-400 md:w-1/2 mt-6">
-          <section className="mt-24 mb-4 bg-400 md:block p-6">
-            <h3 className="mb-2 text-lg font-semibold">Ubicación</h3>
-            <Map
-              center={{ lat: 10.2666269, lng: -85.5841026 }}
-              markerPosition={{ lat: 10.2663269, lng: -85.5844026 }}
-            />
-          </section>
-    </aside>
-      </div>
-<div className="p-6">
-
-      < Accordion open={open === 1} >
-      <AccordionHeader className="flex items-center justify-between cursor-pointer rounded-lg p-2 transition duration-300 hover:bg-gray-200" onClick={() => handleOpen(0)}>
-        Ver comentarios
-        </AccordionHeader>
-        <AccordionBody>
-    <section className=" mb-4 bg-400 w-full ">
-           {propiedad.renta && (
-        <div className="bg-white p-4 rounded shadow md:w-full md:mr-4">
-       <div className="bg-white p-4 rounded shadow md:w-full md:mr-4 max-h-96 overflow-y-auto">
-            <CommentCards comments={comments} className="mb-4" />
-          </div>
-        </div>
-        )}
-     </section>
-    </AccordionBody>
-      </Accordion>
-      </div>
-     
-    <section className="bg-500">
-        <div className="bg-white p-4 rounded shadow">
-          <PostComment user={auth.user} />
-        </div>
-    </section>
- 
-    </div>
-  );
-};
 
 export default PropiedadDetalles;
