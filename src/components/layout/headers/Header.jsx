@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
@@ -15,11 +15,11 @@ function Header() {
     return (
         <nav className="flex items-center justify-between bg-[#3c6c42] p-4 shadow-lg">
             <div className="flex items-center flex-shrink-0 text-white">
-                <img className="h-12 w-12" src="/zyro-image-removebg-preview.png" alt="Logo"></img>
+                <img className="w-12 h-12" src="/zyro-image-removebg-preview.png" alt="Logo"></img>
             </div>
             <div className="block lg:hidden">
                 <button className="flex items-center px-3 py-2 border rounded text-[#c6c9c3] border-[#3c6c42] transition-all duration-500 ease-in-out hover:bg-[#61dd67] hover:text-white">
-                    <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                    <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
                 </button>
             </div>
             <div className="w-full lg:flex lg:items-center lg:w-auto">
