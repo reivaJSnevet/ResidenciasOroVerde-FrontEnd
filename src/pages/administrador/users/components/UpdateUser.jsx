@@ -6,33 +6,102 @@ import Grid from "@mui/system/Unstable_Grid";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
+import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
+import { useState, useEffect } from "react";
+import MenuItem from "@mui/material/MenuItem";
+
 
 function UpdateUser({ user, onUpdate, tittle, onClose }) {
+  const api = useAxiosPrivate();
+  const [roleData, setRoleData] = useState({
+    id: "",
+    name: "",
+    lastName: "",
+    lastName2: "",
+    email: "",
+    password: "",
+    phoneNumbers: {
+      principal: "",
+      secundario: "",
+    },
+    RoleId: 0,
+  });
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      setRoleData({
+        ...user,
+        principal: user.phoneNumbers.principal || "",
+        secundario: user.phoneNumbers.secundario || "",
+      });
+    }
+    const fetchData = async () => {
+    try {
+      const response = await api.get("/roles");
+      const rolOpcion = response.data.map((rol) => {
+        return {
+          label: rol.name,
+          idRol: rol.id,
+        };
+      }
+      );
+      setRoles(rolOpcion);
+    } catch (error) {
+      console.error("Error fetching roles", error.message);
+    }
+  };
+  fetchData();
+  }, [user], api);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "principal" || name === "secundario") {
+      setRoleData((prevData) => ({
+        ...prevData,
+        [name]: value || "",
+      }));
+    } else {
+      setRoleData((prevData) => ({
+        ...prevData,
+        [name]: value || "",
+      }));
+    }
+  };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // try {
-    //   await api.put(`/roles/${role.id}`, roleData);
-    enqueueSnackbar("Rol actualizado con éxito", {
-      variant: "success",
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
-    //   onUpdate();
-    // } catch (error) {
-    //   enqueueSnackbar("Error actualizando rol", {
-    //     variant: "error",
-    //     anchorOrigin: {
-    //       vertical: "top",
-    //       horizontal: "center",
-    //     },
-    //   });
-    // }
+    e.preventDefault();
+    try {
+
+      await api.put(`/users/${user.id}`, {
+        ...roleData,
+        phoneNumbers: {
+          principal: roleData.principal,
+          secundario: roleData.secundario,
+        },
+      });
+      console.log(roleData);
+      enqueueSnackbar("Usuario actualizado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      onUpdate();
+    } catch (error) {
+      enqueueSnackbar("Error actualizando usuario", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
   };
 
   const style = {
@@ -69,105 +138,101 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
         </Typography>
 
         <Grid container spacing={2} margin={1}>
-          <Grid xs={12}>
+          <Grid xs={12} sm={6}>
+            <TextField
+              fullWidth
+              disabled
+              name="id"
+              label="Identificación"
+              value={roleData.id}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               required
-              id="name"
               name="name"
               label="Nombre"
-              // value={formData.name}
-              //onChange={handleInputChange}
-              defaultValue={"Juan Diaz"}
+              value={roleData.name}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               required
-              id="lastName"
               name="lastName"
               label="Primer Apellido"
-              // value={formData.lastName}
-              //onChange={handleInputChange}
-              defaultValue={"Perez"}
+              value={roleData.lastName}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               required
-              id="lastName2"
               name="lastName2"
               label="Segundo Apellido"
-              // value={formData.lastName2}
-              //onChange={handleInputChange}
-              defaultValue={"Gomez"}
+              value={roleData.lastName2}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid xs={12}>
             <TextField
               fullWidth
               required
-              id="email"
               name="email"
               label="Correo Electrónico"
-              // value={formData.email}
-              //onChange={handleInputChange}
-              defaultValue={"example@gmail.com"}
+              value={roleData.email}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid xs={12}>
             <TextField
               fullWidth
-              required
-              id="password"
               name="password"
               label="Contraseña"
-              // value={formData.password}
-              //onChange={handleInputChange}
-              defaultValue={"123456"}
+              value={roleData.password || ""}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12} sm={6}>
+          <Grid xs={12} sm={4}>
             <TextField
               fullWidth
               required
-              id="phoneNumbers"
-              name="phoneNumbers"
+              name="principal"
               label="Teléfono principal"
-              // value={formData.phoneNumbers.principal}
-              //onChange={handleInputChange}
-              defaultValue={"1234567890"}
+              value={roleData.principal || ""}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12} sm={6}>
+          <Grid xs={12} sm={4}>
             <TextField
               fullWidth
-              id="phoneNumbers"
-              name="phoneNumbers"
+              name="secundario"
               label="Teléfono secundario"
-              // value={formData.phoneNumbers.secundario}
-              //onChange={handleInputChange}
-              defaultValue={"0987654321"}
+              value={roleData.secundario || ""}
+              onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12}>
+          <Grid xs={12} sm={4}>
+         
             <TextField
               fullWidth
               select
-              required
-              id=""
-              name=""
-              label=""
-              SelectProps={{ native: true }}
-              // value={formData.RoleId}
-              //onChange={handleInputChange}
+              name="RoleId"
+              label="Seleccione un rol"
+              value={roles.length > 0 ? roleData.RoleId : ""}
+              onChange={handleInputChange}
             >
-              <option value="">Seleccione un Rol</option>
-              <option value="primero">Administrador</option>
-              <option value="segundo">Usuario</option>
+              {roles.map((rol) => (
+                <MenuItem key={rol.idRol} value={rol.idRol}>
+                  {rol.label}
+                </MenuItem>
+              ))}
             </TextField>
+
           </Grid>
 
           <Button

@@ -10,73 +10,102 @@ import Button from "@mui/material/Button";
 import { create } from "zustand";
 import { useSnackbar } from "notistack";
 import Grid from "@mui/system/Unstable_Grid";
+import { useState, useEffect } from "react";
+import MenuItem from "@mui/material/MenuItem";
+import { FormControl } from "@mui/material";
 
-// const useFormStore = create((set) => ({
-//   formData: {
-//     id: "",
-//     name: "",
-//     lastName: "",
-//     lastName2: "",
-//     email: "",
-//     password: "",
-//     phoneNumbers: "",
-//     principal: "",
-//     secundario: "",
-//     RoleId: "",
-//   },
-//   setFormData: (newFormData) =>
-//     set((state) => ({ formData: { ...state.formData, ...newFormData } })),
-//   resetFormData: () =>
-//     set(() => ({
-//       formData: {
-//         id: "",
-//         name: "",
-//         lastName: "",
-//         lastName2: "",
-//         email: "",
-//         password: "",
-//         phoneNumbers: "",
-//         principal: "",
-//         secundario: "",
-//         RoleId: "",
-//       },
-//     })),
-// }));
+const useFormStore = create((set) => ({
+  formData: {
+    name: "",
+    lastName: "",
+    lastName2: "",
+    email: "",
+    password: "",
+    phoneNumbers: "",
+    principal: "",
+    secundario: "",
+    RoleId: 0,
+  },
+  setFormData: (newFormData) =>
+    set((state) => ({ formData: { ...state.formData, ...newFormData } })),
+  resetFormData: () =>
+    set(() => ({
+      formData: {
+        name: "",
+        lastName: "",
+        lastName2: "",
+        email: "",
+        password: "",
+        phoneNumbers: "",
+        principal: "",
+        secundario: "",
+        RoleId: 0,
+      },
+    })),
+}));
 
 function AddUser({ reset, setReset }) {
-  //   const api = useAxiosPrivate();
 
-  //   const { formData, setFormData, resetFormData } = useFormStore();
-    const { enqueueSnackbar } = useSnackbar();
+  const api = useAxiosPrivate();
 
-  //   const handleInputChange = (event) => {
-  //     const { name, value } = event.target;
-  //     setFormData({ [name]: value });
-  //   };
+  const { formData, setFormData, resetFormData } = useFormStore();
+  const { enqueueSnackbar } = useSnackbar();
+  const [roles, setRoles] = useState([])
 
-    const handleSubmit = async (event) => {
-  //     event.preventDefault();
-  //     try {
-  //       await api.post("/users", formData);
-        enqueueSnackbar("Usuario creado con éxito", {
-          variant: "success",
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/roles");
+        setRoles(response.data);
+      } catch (error) {
+        enqueueSnackbar("Error cargando roles", {
+          variant: "error",
           anchorOrigin: {
             vertical: "top",
             horizontal: "center",
           },
         });
-  //       resetFormData();
-  //       setReset(!reset);
-  //     } catch (error) {
-  //       enqueueSnackbar("Error creando usuario", {
-  //         variant: "error",
-  //         anchorOrigin: {
-  //           vertical: "top",
-  //           horizontal: "center",
-  //         },
-  //       });
-  //     }
+      }
     };
+    fetchData();
+  }, [api, enqueueSnackbar]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { principal, secundario, ...rest } = formData;
+    try {
+      await api.post("/users", {
+        ...rest,
+        phoneNumbers: {
+          principal,
+          secundario,
+        },
+      });
+      resetFormData();
+      setReset(!reset);
+      enqueueSnackbar("Usuario creado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    } catch (err) {
+      enqueueSnackbar("Error creando usuario", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
+  };
 
   return (
     <>
@@ -95,116 +124,124 @@ function AddUser({ reset, setReset }) {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Grid container spacing={2} margin={1}>
-              <Grid xs={12}>
-                <TextField
-                  fullWidth
-                  required
-                  id="name"
-                  name="name"
-                  label="Nombre"
-                  // value={formData.name}
-                  //onChange={handleInputChange}
-                  defaultValue={"Juan Diaz"}
-                />
+            <FormControl>
+              <Grid container spacing={2} margin={1}>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="name"
+                    label="Nombre"
+                    variant="outlined"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="lastName"
+                    label="Primer Apellido"
+                    variant="outlined"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="lastName2"
+                    label="Segundo Apellido"
+                    variant="outlined"
+                    value={formData.lastName2}
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    label="Correo Electrónico"
+                    variant="outlined"
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    label="Contraseña"
+                    variant="outlined"
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    select
+                    required
+                    name="RoleId"
+                    label="Seleccione un rol"
+                    value={formData.RoleId}
+                    onChange={handleInputChange}
+                    
+                  >
+                    <MenuItem value={0}>Selecciona un rol</MenuItem>
+                    {roles.map((role) => (
+                      <MenuItem key={role.id} value={role.id}>
+                        {role.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    name="principal"
+                    label="Teléfono principal"
+                    value={formData.principal}
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+                <Grid xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="secundario"
+                    label="Teléfono secundario"
+                    value={formData.secundario}
+                    onChange={handleInputChange}
+                    
+                  />
+                </Grid>
+            
               </Grid>
-              <Grid xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  required
-                  id="lastName"
-                  name="lastName"
-                  label="Primer Apellido"
-                  // value={formData.lastName}
-                  //onChange={handleInputChange}
-                  defaultValue={"Perez"}
-                />
-              </Grid>
-              <Grid xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  required
-                  id="lastName2"
-                  name="lastName2"
-                  label="Segundo Apellido"
-                  // value={formData.lastName2}
-                  //onChange={handleInputChange}
-                  defaultValue={"Gomez"}
-                />
-              </Grid>
-              <Grid xs={12}>
-                <TextField
-                  fullWidth
-                  required
-                  id="email"
-                  name="email"
-                  label="Correo Electrónico"
-                  // value={formData.email}
-                  //onChange={handleInputChange}
-                  defaultValue={"example@gmail.com"}
-                />
-              </Grid>
-              <Grid xs={12}>
-                <TextField
-                  fullWidth
-                  required
-                  id="password"
-                  name="password"
-                  label="Contraseña"
-                  // value={formData.password}
-                  //onChange={handleInputChange}
-                  defaultValue={"123456"}
-                />
-              </Grid>
-              <Grid xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  required
-                  id="phoneNumbers"
-                  name="phoneNumbers"
-                  label="Teléfono principal"
-                  // value={formData.phoneNumbers.principal}
-                  //onChange={handleInputChange}
-                  defaultValue={"1234567890"}
-                />
-              </Grid>
-              <Grid xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  id="phoneNumbers"
-                  name="phoneNumbers"
-                  label="Teléfono secundario"
-                  // value={formData.phoneNumbers.secundario}
-                  //onChange={handleInputChange}
-                  defaultValue={"0987654321"}
-                />
-              </Grid>
-              <Grid xs={12}>
-                <TextField
-                  fullWidth
-                  select
-                  required
-                  id=""
-                  name=""
-                  label=""
-                  SelectProps={{ native: true }}
-                  // value={formData.RoleId}
-                  //onChange={handleInputChange}
-                >
-                  <option value="">Seleccione un Rol</option>
-                  <option value="primero">Administrador</option>
-                  <option value="segundo">Usuario</option>
-                </TextField>
-              </Grid>
-            </Grid>
-            <Button
-          variant="contained"
-          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+                type="submit"
+                fullWidth
+              >
+                Guardar
+              </Button>
+            </FormControl>
           </Box>
         </AccordionDetails>
       </Accordion>
