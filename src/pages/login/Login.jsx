@@ -50,7 +50,6 @@ const Login = () => {
         }
       );
 
-      console.log(response.data);
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,

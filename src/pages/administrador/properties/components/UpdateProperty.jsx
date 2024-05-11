@@ -6,11 +6,78 @@ import Grid from "@mui/system/Unstable_Grid";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
+import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
+import { useState, useEffect } from "react";
+import MenuItem from "@mui/material/MenuItem";
 
-function UpdateProperty({ property, onUpdate, tittle, onClose, children}) {
+
+function UpdateProperty({ property, onUpdate, tittle, onClose }) {
+  const api = useAxiosPrivate();
+  const [propertyData, setPropertyData] = useState({
+    name: "",
+    coordinates: "",
+    type: "Point",
+    squareMeters: "",
+    forRent: "",
+    bedroomNum: "",
+    bathroomNum: "",
+    garage: "",
+    rentalPrice: "",
+    salePrice: "",
+    description: "",
+    restriction: "",
+    photos: "",
+    UserId: 0,
+    CategoryId: 0,
+  });
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
+  const [users, setUsers] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (property) {
+      setPropertyData({
+        ...property,
+        UserId: property.User.id,
+        CategoryId: property.Category.id,
+      });
+    }
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/users");
+        const userOptions = response.data.map((user) => {
+          return {
+            label: `${user.name} ${user.lastName} ${user.lastName2}`,
+            idUser: user.id,
+          };
+        });
+        setUsers(userOptions);
+      } catch (error) {
+        console.error("Error fetching users", error.message);
+      }
+    };
+    fetchData();
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/categories");
+        const categoryOptions = response.data.map((category) => {
+          return {
+            label: category.name,
+            idCategory: category.id,
+          };
+        });
+        setCategories(categoryOptions);
+      } catch (error) {
+        console.error("Error fetching categories", error.message);
+      }
+    };
+    fetchCategories();
+  }, [property, api]);
+
+  //InputChange
 
   const handleSubmit = async (e) => {
     enqueueSnackbar("Propiedad actualizada con éxito", {
