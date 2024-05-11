@@ -1,7 +1,10 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 
 function MapHome({propiedades}) {
+
+    const navigate = useNavigate();
   
     const redIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -39,6 +42,33 @@ function MapHome({propiedades}) {
               <div className="relative px-10 py-5">
                 <h3 className="mb-2 text-lg font-semibold">{property.name}</h3>
                 <p className="text-sm text-gray-500">{property.description}</p>
+                <div className="mt-4">
+                    <div 
+                        className="flex items-center justify-between text-sm text-gray-500 ">
+                    { 
+                        property.rentalPrice && 
+                        <>
+                            <span className="mr-2 font-semibold">Precio de renta:</span>
+                            <span className="font-semibold">₡{property.rentalPrice}</span>
+                        </>
+                    }
+                    {
+                        property.salePrice && 
+                        <>
+                            <span className="mr-2 font-semibold">Precio de venta:</span>
+                            <span className="font-semibold">₡{property.salePrice}</span>
+                        </>
+                    }
+                    </div>
+                    <div className="flex items-center justify-center w-full mt-4">
+                        <button 
+                            className="px-4 py-2 mt-4 font-semibold text-white transition duration-300 ease-in-out bg-green-500 rounded hover:bg-green-600"
+                            onClick={() => navigate(`/propiedad/${property.id}`)}
+                        >
+                            Ver propiedad
+                        </button>
+                    </div>
+                </div>
               </div>
             </div>
           </Popup>

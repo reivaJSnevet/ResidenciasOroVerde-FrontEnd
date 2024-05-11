@@ -1,44 +1,39 @@
-import PropiedadDetalles from "./components/PropiedadDetalles"
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import PropiedadDetalles from "./components/PropiedadDetalles";
+import api from "../../../database/api";
+import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
+import useAuthStore from "../../../hooks/auth/useAuth";
 
 const Propiedad = () => {
-    const propiedad = {
-        "nombre": "Casa de Campito",
-        "coordenadas": {
-          "type": "Point",
-          "coordinates": [-75.689728, 45.420943]
-        },
-        "dimensiones": "200m²",
-        "renta": true,
-        "numHabitaciones": 3,
-        "precioAlquiler": 1200.50,
-        "precioVenta": "50M",
-        "numducha": 2,
-        "garaje": null,
-        "descripcion": "Acogedora casa de campo con amplio jardín.",
-        "restricciones": "No se permiten mascotas.",
-        "calificacion": 4.4,
-        "UsuarioId": "267317282",
-        "fotos": "https://definicion.de/wp-content/uploads/2011/01/casa-2.jpg,https://www.esneca.lat/wp-content/uploads/disen%CC%83o-interior.jpg,https://planner5d.com/blog/content/images/2022/05/andre-francois-mckenzie-sZ5CteK2r6E-unsplash.jpg,https://static.vecteezy.com/system/resources/previews/011/444/845/large_2x/home-interior-rendering-with-empty-room-decorate-gray-color-wall-free-photo.jpg",
-        "Usuario": {
-            "id": "80233d31-ca00-4648-b1fb-e66d7db063fe",
-            "nombre": "Topadora",
-            "apellido1": "Guerrero",
-            "apellido2": "Lopez",
-            "correo": "b@gmail.com",
-            "telefonos": {
-              "principal": "73650641",
-              "secundario": "22427308"
-            },
-            "verificarEmail": true,
-            "RolId": "8fcdc613-744b-449e-b23c-e8ef28b40838"
-          }
+  const auth = useAuthStore((state) => state.auth);
+  const { id } = useParams();
+  const privateApi = useAxiosPrivate();
+
+  const [property, setProperty] = useState({});
+
+  useEffect(() => {
+    const getProperty = async () => {
+      try {
+        if (auth.accessToken) {
+          const { data } = await privateApi.get(`/properties/${id}`);
+          setProperty(data);
+        } else {
+          const { data } = await api.get(`/properties/${id}`);
+          setProperty(data);
+        }
+      } catch (error) {
+        console.error(error);
       }
+    };
+    getProperty();
+  }, [id, privateApi, auth]);
 
   return (
     <div id="propiedades">
-        <PropiedadDetalles propiedad={propiedad} />
+      <PropiedadDetalles property={property} auth={auth} />
     </div>
-  )
-}
+  );
+};
 
-export default Propiedad
+export default Propiedad;

@@ -31,10 +31,12 @@ const routes = (
             <Route path="/" element={<Home />} />
             <Route path="/home2" element={<Home2 />} />
 
-            <Route path="propiedades" element={<Propiedades />} />
+            <Route path="/propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
             <Route path="/forSale" element={<ForSale />} />
-            <Route path="propiedad" element={<Propiedad />} />
+            <Route path="/propiedad" element={<Propiedad />}>
+                <Route path=":id" element={<Propiedad />} />
+            </Route>
             <Route element={<PersistLogin />}>
 
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
