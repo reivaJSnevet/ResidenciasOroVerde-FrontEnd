@@ -3,7 +3,7 @@ import { PhoneCallback, LocationOn, AttachEmail } from '@mui/icons-material';
 
 function Footer() {
   return (
-    <footer className="bg-[#3c6c43] p-4 font-[sans-serif]">
+    <footer className="bg-[#3c6c43] p-4 font-[sans-serif]" id='contacto'>
       <div className="container mx-auto flex flex-col lg:flex-row items-center lg:justify-between">
         <div className="lg:mr-4 mb-4 lg:mb-0">
           <a >
