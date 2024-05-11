@@ -24,6 +24,10 @@ function Home() {
         const response = await api.get("/properties");
         setPropiedades(response.data);
 
+        const alquiladas = response.data.filter(property => property.forRent).length;
+        const vendidas = response.data.filter(property => !property.forRent).length;
+        setTotalAlquiladas(alquiladas);
+        setTotalVendidas(vendidas);
       } catch (error) {
         console.error(error);
       }
@@ -31,6 +35,7 @@ function Home() {
 
     getPropiedades();
   }, []);
+
 
   // Coordenadas aproximadas de los límites de Guanacaste
   // lat >= 9.682 && lat <= 11.214 && lng >= -86.139 && lng <= -84.641;
