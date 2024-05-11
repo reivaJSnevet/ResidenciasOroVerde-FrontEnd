@@ -1,65 +1,64 @@
-import { useEffect, useState } from "react";
-import { DataGrid, esES, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
-import { Box, Card, CardMedia } from "@mui/material";
+import { useEffect, useState } from "react"
+import {
+  DataGrid,
+  esES,
+  GridToolbar,
+  GridActionsCellItem,
+} from "@mui/x-data-grid";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
-import renderCalificacion from "../../services/renderCalificacion";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
-import ReusableModal from "../../../../components/modal/ReusableModal";
 import UpdateProperty from "./UpdateProperty";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { render } from "react-dom";
+import renderCalificacion from "../../services/renderCalificacion";
+import { Card, CardMedia } from "@mui/material";
 
-
-function PropiedadTable({reset, setReset}) {
+function PropiedadTable({ reset, setReset }) {
   const api = useAxiosPrivate();
-  const [propiedades, setPropiedades] = useState([]);
+  const [properties, setProperties] = useState([]);
   const pageSize = 5;
   const sizeOptions = [5, 10, 20];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
 
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await api.get("/properties");
+        setProperties(response.data);
+      } catch (error) {
+        console.error("Error fetching properties", error.message);
+      }
+    };
+    fetchProperties();
+  }, [api, reset]);
+
   const handleOpenModal = (property) => {
     setSelectedProperty(property);
     setOpenModal(true);
-  };
+  }
 
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedProperty(null);
-  };
+  }
 
   const handleOpenDeleteDialog = (property) => {
     setSelectedProperty(property);
     setOpenDeleteDialog(true);
-  };
+  }
 
   const handleCloseDeleteDialog = () => {
     setSelectedProperty(null);
     setOpenDeleteDialog(false);
-  };
+  }
 
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    const getPropiedades = async () => {
-      try {
-        const response = await api.get("/properties");
-        setPropiedades(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    getPropiedades();
-  }, [api, reset]);
-
-
-
-
-  
   const columns = [
     {
       field: "name",
@@ -67,6 +66,7 @@ function PropiedadTable({reset, setReset}) {
       flex: 1,
     },
     {
+      field: "type",
       headerName: "Tipo de propiedad",
       renderCell: (params) => {
         return params.row.forRent ? "Alquiler" : "Venta";
@@ -162,82 +162,88 @@ function PropiedadTable({reset, setReset}) {
     },
   ];
 
-  const handleDelete = async () => {
-    enqueueSnackbar("Propiedad eliminada con éxito", {
-      variant: "success",
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
+  const handleDeleteProperty = async () => {
+    try {
+      await api.delete(`/properties/${selectedProperty.id}`);
+      enqueueSnackbar("Propiedad eliminada con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      setReset(!reset);
+    } catch (error) {
+      enqueueSnackbar("Error eliminando propiedad", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
     handleCloseDeleteDialog();
-    setReset((prev) => !prev);
-  };
+  }
+
 
   return (
     <>
-      
-        <DataGrid
-          sx={{
-            boxShadow: 2,
-          }}
-          style={{ height: 500, width: "100%" }}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={propiedades}
-          getRowId={(row) => row.id}
-          loading={propiedades.length === 0}
-          columns={columns}
-          editMode="row"
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              // csvOptions,
-              // printOptions,
-            },
-          }}
-          disableSelectionOnClick
-          getRowHeight={() => "auto"}
-          pageSize={pageSize}
-          rowsPerPageOptions={pageSize}
-          initialState={{
-            ...propiedades.initialState,
-            pagination: { paginationModel: { pageSize } },
-          }}
-          pageSizeOptions={sizeOptions}
-        />
-    
-          <ReusableModal
-            open={openModal}
-            handleClose={handleCloseModal}
-            children={<UpdateProperty 
-              tittle={"Actualizar Propiedad"}
-              onClose={handleCloseModal}
-            />}
-          >
-            {/* <UpdateProperty
-            open={openModal}
-              property={selectedProperty}
-              onUpdate={handleCloseModal}
-              tittle={"Actualizar Propiedad"}
-              onClose={handleCloseModal}
-            /> */}
-          </ReusableModal>
+      <DataGrid
+        sx={{
+          boxShadow: 2,
+        }}
+        style={{ height: 500, width: "100%" }}
+        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+        rows={properties}
+        getRowId={(row) => row.id}
+        loading={properties.length === 0}
+        columns={columns}
+        editMode="row"
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
+        disableSelectionOnClick
+        getRowHeight={() => "auto"}
+        pageSize={pageSize}
+        rowsPerPageOptions={pageSize}
+        initialState={{
+          ...properties.initialState,
+          pagination: { paginationModel: { pageSize } },
+        }}
+        pageSizeOptions={sizeOptions}
+      />
 
-          {selectedProperty && (
-            <ReusableDialog
-              open={openDeleteDialog}
-              onClose={handleCloseDeleteDialog}
-              title="Eliminar Propiedad"
-              content={`¿Estás seguro de que deseas eliminar la propiedad ${selectedProperty.name}?`}
-            onConfirm={() => {
-              handleDelete();
-            }
-          }
-            />
-          )}
+      <ReusableModal
+        open={openModal}
+        onClose={handleCloseModal}
+        title="Editar propiedad"
+        children={<UpdateProperty
+          tittle={"Actualizar propiedad"}
+          onClose={handleCloseModal}
+          property={selectedProperty}
+          onUpdate={() => {
+            handleCloseModal();
+            setReset((prev) => !prev);
+          }}
+        />}
+      />
+
+      {selectedProperty && (
+        <ReusableDialog
+          open={openDeleteDialog}
+          onClose={handleCloseDeleteDialog}
+          title="Eliminar propiedad"
+          content={`¿Estás seguro de que deseas eliminar la propiedad ${selectedProperty.name}?`}
+          onConfirm={handleDeleteProperty}
+        />
+      )}
     </>
-  );
+
+    
+  )
 }
 
-export default PropiedadTable;
+export default PropiedadTable

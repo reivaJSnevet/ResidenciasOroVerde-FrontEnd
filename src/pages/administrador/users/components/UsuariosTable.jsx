@@ -12,7 +12,7 @@ import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import UpdateUser from "./UpdateUser";
-import { Button } from "@mui/material";
+
 
 function UsuariosTable({ reset, setReset }) {
   const api = useAxiosPrivate();
@@ -122,8 +122,8 @@ function UsuariosTable({ reset, setReset }) {
   ];
 
   const handleDelete = async () => {
-    // try {
-    //   await api.delete(`/users/${selectedUser.id}`);
+    try {
+      await api.delete(`/users/${selectedUser.id}`);
     enqueueSnackbar("Rol eliminado con éxito", {
       variant: "success",
       anchorOrigin: {
@@ -132,16 +132,16 @@ function UsuariosTable({ reset, setReset }) {
       },
     });
     handleCloseDeleteDialog();
-    //   setReset((prev) => !prev);
-    // } catch (error) {
-    //   enqueueSnackbar("Error eliminando rol", {
-    //     variant: "error",
-    //     anchorOrigin: {
-    //       vertical: "top",
-    //       horizontal: "center",
-    //     },
-    //   });
-    // }
+      setReset((prev) => !prev);
+    } catch (error) {
+      enqueueSnackbar("Error eliminando rol", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
   };
 
   return (
@@ -174,19 +174,20 @@ function UsuariosTable({ reset, setReset }) {
         pageSizeOptions={sizeOptions}
       />
 
-      <ReusableModal
+     <ReusableModal
         open={openModal}
         onClose={handleCloseModal}
-        children={
-          <UpdateUser tittle={"Editar Usuario"} onClose={handleCloseModal} />
-        }
-      >
-        {/* <UpdateUser
+        title="Editar Usuario"
+        children={<UpdateUser 
+          tittle={"Actualizar Usuario"}
+          onClose={handleCloseModal}
           user={selectedUser}
           onUpdate={() => {
             handleCloseModal();
             setReset((prev) => !prev);
-          }} /> */}
+          }}
+        />}
+      >
       </ReusableModal>
 
       {selectedUser && (
