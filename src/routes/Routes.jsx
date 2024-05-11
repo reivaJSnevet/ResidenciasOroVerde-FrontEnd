@@ -11,7 +11,7 @@ import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Propiedad from "../pages/propiedades/propiedad/Propiedad";
 import Propiedades from "../pages/propiedades/Propiedades.jsx";
-import Home2 from "../pages/home/Home2.jsx"
+import Home2 from "../pages/home/home2/Home2.jsx";
 import ForSale from "../pages/propiedades/components/category/ForSale.jsx";
 import ForRent from "../pages/propiedades/components/category/ForRent.jsx";
 import Register from "../pages/register/Register";
@@ -23,9 +23,10 @@ const routes = (
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="/home2" element={<Home2 />} />
         <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/home2" element={<Home2 />} />
+            
 
             <Route path="propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
