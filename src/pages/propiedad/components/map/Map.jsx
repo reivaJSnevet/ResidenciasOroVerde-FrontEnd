@@ -5,7 +5,7 @@ import ChangeView from "./ChangeView";
 
 const Map = ({ center, zoom }) => {
   return (
-    <div className="block">
+    <div className="map-container">
       <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
