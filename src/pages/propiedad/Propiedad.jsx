@@ -5,7 +5,7 @@ import api from "../../database/api";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
 import useAuthStore from "../../hooks/auth/useAuth";
 import Map from "./components/map/Map";
-import PhotosGallery from "./components/PhotosGallery";
+import PhotosGallery from "./components/photosGallery/PhotosGallery";
 import {
   Accordion,
   AccordionHeader,

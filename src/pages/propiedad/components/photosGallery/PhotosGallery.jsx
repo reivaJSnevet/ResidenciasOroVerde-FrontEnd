@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ImageList, ImageListItem } from "@mui/material";
-import setGridSpace from "../services/setGridSpace";
+import setGridSpace from "../../services/setGridSpace";
+import PhotoModal from "./PhotoModal";
 
 /**
  * Renders a gallery of photos.
@@ -38,7 +39,7 @@ const PhotosGallery = ({ photos }) => {
   return (
     <div>
       <ImageList
-        sx={{ width: "auto", height: 450, padding: 2}}
+        sx={{ width: "auto", height: 450, padding: 2 }}
         variant="quilted"
         cols={4}
         rowHeight={121}
@@ -58,26 +59,7 @@ const PhotosGallery = ({ photos }) => {
         ))}
       </ImageList>
 
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={handleCloseModal}
-        >
-          <div className="relative">
-            <img
-              src={selectedImage}
-              alt="Imagen ampliada"
-              className="max-w-full max-h-full rounded-lg"
-            />
-            <button
-              className="absolute top-0 right-0 mt-2 mr-2 text-2xl font-bold text-white"
-              onClick={handleCloseModal}
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-      )}
+      {selectedImage && PhotoModal({ selectedImage, handleCloseModal })}
     </div>
   );
 };
