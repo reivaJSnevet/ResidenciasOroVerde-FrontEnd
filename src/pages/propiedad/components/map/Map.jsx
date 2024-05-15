@@ -2,10 +2,11 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import ChangeView from "./ChangeView";
-
+{/* <div className="map-container"> */}
 const Map = ({ center, zoom }) => {
   return (
-    <div className="map-container">
+    
+    <div className= "relative z-10 w-full h-[450px]" >
       <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
         <ChangeView center={center} zoom={zoom} />
         <TileLayer

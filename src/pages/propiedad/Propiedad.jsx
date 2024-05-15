@@ -63,7 +63,7 @@ const Propiedad = () => {
         <aside className="md:w-1/2 md:pl-6">
           <section className="mb-8">
             <h3 className="mb-4 text-lg font-semibold text-gray-800">Ubicación</h3>
-            <div className="w-full h-64 overflow-hidden rounded-lg shadow-lg">
+            <div className="w-full overflow-hidden rounded-lg shadow-lg">
               <Map center={coordinates} zoom={14} />
             </div>
           </section>
