@@ -150,19 +150,23 @@ function RolesTable({ reset, setReset }) {
           pageSizeOptions={sizeOptions}
         />
       </div>
+
       <ReusableModal
         open={openModal}
         onClose={handleCloseModal}
         title="Editar Rol"
-      >
-        <UpdateRol
-          role={selectedRole}
-          onUpdate={() => {
-            handleCloseModal();
-            setReset((prev) => !prev);
-          }}
-        />
-      </ReusableModal>
+        children={
+          <UpdateRol
+            tittle={"Actualizar Rol"}
+            onClose={handleCloseModal}
+            role={selectedRole}
+            onUpdate={() => {
+              handleCloseModal();
+              setReset((prev) => !prev);
+            }}
+          />
+        }
+      ></ReusableModal>
 
       {selectedRole && (
         <ReusableDialog

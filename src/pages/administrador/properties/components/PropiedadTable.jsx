@@ -15,6 +15,7 @@ import UpdateProperty from "./UpdateProperty";
 import renderCalificacion from "../../services/renderCalificacion";
 import { Card, CardMedia } from "@mui/material";
 
+
 function PropiedadTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [properties, setProperties] = useState([]);
@@ -91,48 +92,48 @@ function PropiedadTable({ reset, setReset }) {
       valueGetter: (params) =>
         ` ${params.row.salePrice || "No se vende"} / ${params.row.rentalPrice || "No se alquila"}`,
     },
-    {
-      field: "photos",
-      headerName: "Imagenes",
-      flex: 1,
-      renderCell: (params) => {
-        const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    // {
+    //   field: "photos",
+    //   headerName: "Imagenes",
+    //   flex: 1,
+    //   renderCell: (params) => {
+    //     const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-        useEffect(() => {
-          const photos = Array.isArray(params.row.photos)
-            ? params.row.photos
-            : params.row.photos.split(",");
+    //     useEffect(() => {
+    //       const photos = Array.isArray(params.row.photos)
+    //         ? params.row.photos
+    //         : params.row.photos.split(",");
   
-          const intervalId = setInterval(() => {
-            setCurrentImageIndex((prevIndex) =>
-              prevIndex === photos.length - 1 ? 0 : prevIndex + 1
-            );
-          }, 2000);
+    //       const intervalId = setInterval(() => {
+    //         setCurrentImageIndex((prevIndex) =>
+    //           prevIndex === photos.length - 1 ? 0 : prevIndex + 1
+    //         );
+    //       }, 2000);
   
-          return () => clearInterval(intervalId);
-        }, [params.row.photos]);
+    //       return () => clearInterval(intervalId);
+    //     }, [params.row.photos]);
   
-        const photos = Array.isArray(params.row.photos)
-          ? params.row.photos
-          : params.row.photos.split(",");
+    //     const photos = Array.isArray(params.row.photos)
+    //       ? params.row.photos
+    //       : params.row.photos.split(",");
   
-        return (
-          <Card sx={{ maxWidth: 400 }}>
-            <CardMedia
-              component="img"
-              image={photos[currentImageIndex]}
-              alt={`imagen-${currentImageIndex}`}
-              sx={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                marginRight: "5px",
-              }}
-            />
-          </Card>
-        );
-      },
-    },
+    //     return (
+    //       <Card sx={{ maxWidth: 400 }}>
+    //         <CardMedia
+    //           component="img"
+    //           image={photos[currentImageIndex]}
+    //           alt={`imagen-${currentImageIndex}`}
+    //           sx={{
+    //             width: "100px",
+    //             height: "100px",
+    //             objectFit: "cover",
+    //             marginRight: "5px",
+    //           }}
+    //         />
+    //       </Card>
+    //     );
+    //   },
+    // },
     {
       field: "actions",
       type: "actions",

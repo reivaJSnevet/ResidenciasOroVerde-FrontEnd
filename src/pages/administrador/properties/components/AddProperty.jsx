@@ -12,8 +12,29 @@ import { useSnackbar } from "notistack";
 import Grid from "@mui/system/Unstable_Grid";
 import { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
-import { FormControl } from "@mui/material";
-import Select from "@mui/material/Select";
+import { FormControl, Select } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import useAuthStore from "../../../../hooks/auth/useAuth";
+import HouseIcon from '@mui/icons-material/House';
+import HouseOutlinedIcon from '@mui/icons-material/HouseOutlined';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import ListItemText from '@mui/material/ListItemText';
+import InputLabel from "@mui/material/InputLabel";
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+
 
 const useFormStore = create((set) => ({
   formData: {
@@ -21,38 +42,38 @@ const useFormStore = create((set) => ({
     coordinates: "",
     type: "Point",
     squareMeters: "",
-    forRent: "",
+    forRent: false,
     bedroomNum: "",
     bathroomNum: "",
     garage: "",
-    rentalPrice: "",
+    rentalPrice: 0,
     salePrice: "",
     description: "",
     restriction: "",
     photos: "",
     UserId: 0,
-    CategoryId: 0,
+    CategoryId: [],
   },
   setFormData: (newFormData) =>
     set((state) => ({ formData: { ...state.formData, ...newFormData } })),
-  resetFormData: () =>
+  resetFormData: (userId) =>
     set(() => ({
       formData: {
         name: "",
         coordinates: "",
         type: "Point",
         squareMeters: "",
-        forRent: "",
+        forRent: false,
         bedroomNum: "",
         bathroomNum: "",
         garage: "",
-        rentalPrice: "",
+        rentalPrice: 0,
         salePrice: "",
         description: "",
         restriction: "",
         photos: "",
-        UserId: 0,
-        CategoryId: 0,
+        UserId: userId,
+        CategoryId: [],
       },
     })),
 }));
@@ -65,30 +86,31 @@ function AddProperty({ reset, setReset }) {
 
   const { formData, setFormData, resetFormData } = useFormStore();
   const { enqueueSnackbar } = useSnackbar();
-  const [users, setUsers] = useState([])
   const [categories, setCategories] = useState([])
+  const [showRentalPrice, setShowRentalPrice] = useState(false);
+
+  const idUsuario = useAuthStore((state) => state.auth.user.id);
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/users");
-        setUsers(response.data);
-        
-      } catch (error) {
-        console.error("Error fetching users", error.message);
-      }
-    };
-    const fetchCategories = async () => {
+    const fectData = async () => {
       try {
         const response = await api.get("/categories");
         setCategories(response.data);
+        console.log(categories)
       } catch (error) {
-        console.error("Error fetching categories", error.message);
+        enqueueSnackbar("Error cargando categorias", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
       }
     };
-    fetchCategories();
-    fetchData();
-  }, [api]);
+    setFormData({ UserId: idUsuario });
+    fectData();
+  }, [api, idUsuario]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -97,15 +119,18 @@ function AddProperty({ reset, setReset }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { coordinates, type, ...rest} = formData;
+    const { coordinates, type, forRent, ...rest} = formData;
     try {
       await api.post("/properties", {
         ...rest,
         coordinates: {
           coordinates: coordinates.split(",").map((c) => parseFloat(c)),
           type,
-        }
+        },
+        forRent,
+      squareMeters: formData.squareMeters + "m²",
       });
+      console.log(formData)
       enqueueSnackbar("Propiedad creada", {
         variant: "success",
         anchorOrigin: {
@@ -113,7 +138,7 @@ function AddProperty({ reset, setReset }) {
           horizontal: "center",
         },
       });
-      resetFormData();
+      resetFormData(idUsuario);
       setReset(!reset);
     } catch (err) {
       console.log(formData)
@@ -126,6 +151,25 @@ function AddProperty({ reset, setReset }) {
       });
     }
   }
+
+  
+  const handleCheckboxChange = (event) => {
+    setShowRentalPrice(event.target.checked);
+    setFormData({ forRent: event.target.checked });
+  }
+
+  const handleSelectChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setFormData({ CategoryId: typeof value === "string" ? value.split(",") : value });
+  };
+
+  
+  const getCategoryNameById = (id) => {
+    const category = categories.find((category) => category.id === id);
+    return category ? category.name : "";
+  };
 
   return (
     <>
@@ -184,18 +228,19 @@ function AddProperty({ reset, setReset }) {
                 />
               </Grid>
               <Grid  xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  select
-                  required
-                  name="forRent"
-                  label="Tipo de propiedad"
-                  value={formData.forRent}
-                  onChange={handleInputChange}
-                >
-                  <MenuItem value={true}>Renta</MenuItem>
-                  <MenuItem value={false}>Venta</MenuItem>
-                </TextField>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={showRentalPrice}
+                      onChange={handleCheckboxChange}
+                      name="forRent"
+                      color="success"
+                      icon={<HouseOutlinedIcon />}
+                      checkedIcon={<HouseIcon />}
+                    />
+                  }
+                  label="Alquilar también?"
+                />
               </Grid>
               <Grid  xs={12} sm={4}>
                 <TextField
@@ -233,18 +278,7 @@ function AddProperty({ reset, setReset }) {
                   onChange={handleInputChange}
                 />
               </Grid>
-              <Grid  xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                
-                  type="number"
-                  name="rentalPrice"
-                  label="Precio de renta"
-                  variant="outlined"
-                  value={formData.rentalPrice}
-                  onChange={handleInputChange}
-                />
-              </Grid>
+             
               <Grid  xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -257,6 +291,19 @@ function AddProperty({ reset, setReset }) {
                   onChange={handleInputChange}
                 />
               </Grid>
+              {showRentalPrice && (
+              <Grid  xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  type="number"
+                  name="rentalPrice"
+                  label="Precio de renta"
+                  variant="outlined"
+                  value={formData.rentalPrice}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              )}
               <Grid  xs={12} sm={6}>
                 <TextField
                   fullWidth
@@ -292,39 +339,31 @@ function AddProperty({ reset, setReset }) {
                   onChange={handleInputChange}
                 />
                 </Grid>
-              <Grid  xs={12}>
-                <TextField
-                  fullWidth
-                  select
-                  required
-                  name="UserId"
-                  label="Seleccione un usuario"
-                  value={formData.UserId}
-                  onChange={handleInputChange}
-                >
-                  <MenuItem value={0}>Seleccione un usuario</MenuItem>
-                  {users.map((user) => (
-                    <MenuItem key={user.id} value={user.id}>
-                      {user.name}
-                    </MenuItem>
-                  ))}
-              </TextField>
+
+                <Grid xs={12}>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">Categorías</InputLabel>
+                  <Select
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={formData.CategoryId}
+                    onChange={handleSelectChange}
+                    input={<OutlinedInput label="Categorías" />}
+                    renderValue={(selected) => selected.map((id) => getCategoryNameById(id)).join(', ')}
+                    MenuProps={MenuProps}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem key={category.id} value={category.id}>
+                        <Checkbox checked={formData.CategoryId.indexOf(category.id) > -1} />
+                        <ListItemText primary={category.name} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Grid>
-              {/* <Grid  xs={12}>
-                <Select
-                multiple
-                value={formData.CategoryId}
-                onChange={handleInputChange}
-                input={<TextField />}
-                >
-                {categories.map((category) => (
-                  <MenuItem key={category.id} value={category.id}>
-                    {category.name}
-                  </MenuItem>
-                ))}
-                </Select>
-                </Grid> */}
-        
+              
+              
             </Grid>
             <Button
           variant="contained"

@@ -4,8 +4,9 @@ import { useSnackbar } from "notistack"
 import { Button, Typography, TextField, AccordionDetails } from "@mui/material"
 import Box from "@mui/material/Box"
 import { useMediaQuery, useTheme } from "@mui/material"
+import CancelIcon from "@mui/icons-material/Cancel"
 
-function UpdateCategory({ category, onUpdate }) {
+function UpdateCategory({ category, onUpdate, tittle, onClose}) {
     const api = useAxiosPrivate()
     const [categoryData, setCategoryData] = useState({
         name: "",
@@ -66,11 +67,24 @@ function UpdateCategory({ category, onUpdate }) {
 
   return (
    <>
-    <Box sx={style}>
-        <Typography variant="h5" align="center" gutterBottom>
-            Actualizar Categoría
+    
+    <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Typography variant="h4" gutterBottom>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {tittle}
+            <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+              <CancelIcon />
+            </Button>
+          </div>
         </Typography>
-        <form onSubmit={handleSubmit}>
+
+        <AccordionDetails>
             <TextField
                 fullWidth
                 margin="normal"
@@ -87,7 +101,7 @@ function UpdateCategory({ category, onUpdate }) {
         >
           Guardar
         </Button>
-        </form>
+        </AccordionDetails>
     </Box>
    
    </>

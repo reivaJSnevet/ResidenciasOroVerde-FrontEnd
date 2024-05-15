@@ -19,6 +19,8 @@ import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
 import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
+import SaleProperty from "../pages/administrador/saleProperties/SaleProperty.jsx";
+import RentalProperty from "../pages/administrador/rentalProperties/RentalProperty.jsx";
 
 
 const routes = (
@@ -51,6 +53,8 @@ const routes = (
                         <Route path="categorias" element={<Categories />} />
                         <Route path="propiedades" element={<Properties />} />
                         <Route path="propiedad" element={<Propiedad />} />
+                        <Route path="propiedadesVenta" element={<SaleProperty />} />
+                        <Route path="propiedadesAlquiler" element={<RentalProperty />} />
                     </Route>
 
                 </Route>

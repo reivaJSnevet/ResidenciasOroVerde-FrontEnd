@@ -1,92 +1,111 @@
-import { useMediaQuery, useTheme } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/system/Unstable_Grid";
-import Button from "@mui/material/Button";
+import {
+  useMediaQuery,
+  useTheme,
+  Typography,
+  Box,
+  Grid,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import { useState, useEffect } from "react";
-import MenuItem from "@mui/material/MenuItem";
-
 
 function UpdateProperty({ property, onUpdate, tittle, onClose }) {
   const api = useAxiosPrivate();
   const [propertyData, setPropertyData] = useState({
     name: "",
-    coordinates: "",
-    type: "Point",
-    squareMeters: "",
-    forRent: "",
+    coordinates: {
+      type: "Point",
+      coordinates: [0, 0],
+    },
+    forRent: false,
     bedroomNum: "",
     bathroomNum: "",
     garage: "",
-    rentalPrice: "",
+    rentalPrice: 0,
     salePrice: "",
     description: "",
     restriction: "",
     photos: "",
     UserId: 0,
-    CategoryId: 0,
   });
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { enqueueSnackbar } = useSnackbar();
-  const [users, setUsers] = useState([]);
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (property) {
       setPropertyData({
         ...property,
-        UserId: property.User.id,
-        CategoryId: property.Category.id,
+        coordinates: {
+          ...property.coordinates,
+          coordinates: property.coordinates.coordinates || [0, 0],
+        },
       });
     }
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/users");
-        const userOptions = response.data.map((user) => {
-          return {
-            label: `${user.name} ${user.lastName} ${user.lastName2}`,
-            idUser: user.id,
-          };
-        });
-        setUsers(userOptions);
-      } catch (error) {
-        console.error("Error fetching users", error.message);
-      }
-    };
-    fetchData();
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("/categories");
-        const categoryOptions = response.data.map((category) => {
-          return {
-            label: category.name,
-            idCategory: category.id,
-          };
-        });
-        setCategories(categoryOptions);
-      } catch (error) {
-        console.error("Error fetching categories", error.message);
-      }
-    };
-    fetchCategories();
-  }, [property, api]);
+  }, [property]);
 
-  //InputChange
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "coordinates") {
+      setPropertyData((prevState) => ({
+        ...prevState,
+        coordinates: {
+          ...prevState.coordinates,
+          coordinates: value
+            .split(",")
+            .map((coord) => parseFloat(coord.trim())),
+        },
+      }));
+    } else {
+      setPropertyData((prevState) => ({
+        ...prevState,
+        [name]: value || "",
+      }));
+    }
+  };
+
+  const handleSelectChange = (e) => {
+    const { name, value } = e.target;
+    const isForRent = value === "Sí";
+    setPropertyData((prevState) => ({
+      ...prevState,
+      forRent: isForRent,
+      rentalPrice: isForRent ? prevState.rentalPrice : 0,
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    enqueueSnackbar("Propiedad actualizada con éxito", {
-      variant: "success",
-      anchorOrigin: {
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
+    e.preventDefault();
+    try {
+      await api.put(`/properties/${property.id}`, {
+        ...propertyData,
+        squareMeters: formData.squareMeters + "m²",
+      });
+      enqueueSnackbar("Propiedad actualizada", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      onUpdate();
+    } catch (error) {
+      enqueueSnackbar("Error al actualizar propiedad", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+    }
   };
 
   const style = {
@@ -96,145 +115,164 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
     transform: "translate(-50%, -50%)",
     width: isSmallScreen ? "90%" : "75%",
     bgcolor: "background.paper",
-
     boxShadow: 24,
-    p: 1,
-    margin: "auto",
+    p: 5,
     mt: 1,
     maxHeight: "80vh",
     overflowY: "auto",
+    overflowX: "hidden",
   };
+
   return (
-    <>
-      
-      <Box sx={style} component={"form"} onSubmit={handleSubmit}>
+    <Box sx={style} component="form" onSubmit={handleSubmit}>
       <Typography variant="h4" gutterBottom>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            {tittle}
-            <Button style={{ color: "#3c6c42" }} onClick={onClose}>
-              <CancelIcon />
-            </Button>
-          </div>
-        </Typography>
-        
-        <Grid container spacing={2} margin={1}>
-          <Grid  xs={12}>
-            <TextField
-              fullWidth
-              label="Nombre"
-              variant="outlined"
-              defaultValue={"Casa en la playa"}
-            />
-          </Grid>
-          <Grid  xs={12}>
-            <img src="/ping.png" alt="Descripción de la imagen" />
-          </Grid>
-
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="m²"
-              variant="outlined"
-              defaultValue={"2330"}
-            />
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              select
-              required
-              id=""
-              name=""
-              label=""
-              SelectProps={{ native: true }}
-              // value={formData.RoleId}
-              //onChange={handleInputChange}
-            >
-              <option value="">¿Se renta?</option>
-              <option value="primero">Sí</option>
-              <option value="segundo">No</option>
-            </TextField>
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Cuartos"
-              variant="outlined"
-              defaultValue={4}
-            />
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Baños"
-              variant="outlined"
-              defaultValue={2}
-            />
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Garage"
-              variant="outlined"
-              defaultValue={2}
-            />
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Precio de renta"
-              variant="outlined"
-              defaultValue={100000}
-            />
-          </Grid>
-          <Grid  xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="Precio de venta"
-              variant="outlined"
-              defaultValue={1000}
-            />
-          </Grid>
-          <Grid  xs={12}>
-            <TextField
-              fullWidth
-              label="Descripción"
-              variant="outlined"
-              defaultValue={
-                "Casa en la playa con vista al mar, 4 cuartos, 2 baños, 2 garajes, 2330 m² de terreno, precio de renta $100,000, precio de venta $1,000,000"
-              }
-            />
-          </Grid>
-          <Grid  xs={12} sm={3}>
-            <img src="/Homepotrero.jpeg" alt="Descripción de la imagen" />
-          </Grid>
-          <Grid  xs={12} sm={3}>
-            <img src="/Playa-Potrero.jpg" alt="Descripción de la imagen" />
-          </Grid>
-          <Grid  xs={12} sm={3}>
-            <img src="/Villapinilla.jpg" alt="Descripción de la imagen" />
-          </Grid>
-          <Grid  xs={12} sm={3}>
-            <img src="/Tamarindo.jpg" alt="Descripción de la imagen" />
-          </Grid>
-        </Grid>
-
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
-          type="submit"
-          fullWidth
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          Guardar
-        </Button>
-      </Box>
-    </>
+          {tittle}
+          <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+            <CancelIcon />
+          </Button>
+        </div>
+      </Typography>
+
+      <Grid container spacing={2} margin={1}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            name="name"
+            label="Nombre"
+            value={propertyData.name || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            name="coordinates"
+            label="Coordenadas"
+            value={propertyData.coordinates.coordinates.join(", ") || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="for-rent-label">En renta</InputLabel>
+            <Select
+              labelId="for-rent-label"
+              name="forRent"
+              value={propertyData.forRent ? "Sí" : "No"}
+              onChange={handleSelectChange}
+            >
+              <MenuItem value="Sí">Sí</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        {propertyData.forRent && (
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              type="number"
+              name="rentalPrice"
+              label="Precio de renta"
+              value={propertyData.rentalPrice || ""}
+              onChange={handleInputChange}
+            />
+          </Grid>
+        )}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            type="number"
+            name="bedroomNum"
+            label="Número de habitaciones"
+            value={propertyData.bedroomNum || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            type="number"
+            name="bathroomNum"
+            label="Número de baños"
+            value={propertyData.bathroomNum || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            type="number"
+            name="garage"
+            label="Garaje"
+            value={propertyData.garage || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            type="number"
+            name="salePrice"
+            label="Precio de venta"
+            value={propertyData.salePrice || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            name="description"
+            label="Descripción"
+            value={propertyData.description || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            name="restriction"
+            label="Restricciones"
+            value={propertyData.restriction || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            name="photos"
+            label="Fotos"
+            value={propertyData.photos || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            disabled
+            name="UserId"
+            label="Usuario Admistrador"
+            value={propertyData.User?.name || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+      </Grid>
+
+      <Button
+        variant="contained"
+        style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+        type="submit"
+        fullWidth
+      >
+        Guardar
+      </Button>
+    </Box>
   );
 }
 

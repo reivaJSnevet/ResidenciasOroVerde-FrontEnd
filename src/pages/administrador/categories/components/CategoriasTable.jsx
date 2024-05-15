@@ -181,18 +181,20 @@ function CategoriasTable({ reset, setReset}) {
           pageSizeOptions={sizeOptions}
         />
 
-      <ReusableModal
+<ReusableModal
         open={openModal}
         onClose={handleCloseModal}
         title="Editar Categoría"
-      >
-        <UpdateCategory
+        children={<UpdateCategory 
+          tittle={"Actualizar Categoría"}
+          onClose={handleCloseModal}
           category={selectedCategory}
           onUpdate={() => {
             handleCloseModal();
             setReset((prev) => !prev);
           }}
-        />
+        />}
+      >
       </ReusableModal>
 
       {selectedCategory && (
