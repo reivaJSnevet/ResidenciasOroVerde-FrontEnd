@@ -62,7 +62,7 @@ function Home() {
               <div className="text-white">
                 <h2 className="mb-4 font-bold text-8xl">Residencias</h2>
                 <h4 className="mb-6 font-serif text-6xl font-bold">Oro Verde</h4>
-                {/* <Switch className="text-sm font-medium text-gray-900 border border-white ms-3 dark:text-gray-300 " onChange={handleSwitchChange} /> */}
+                <Switch className="text-sm font-medium text-gray-900 border border-white ms-3 dark:text-gray-300 " onChange={handleSwitchChange} />
               </div>
             </div>
           </div>

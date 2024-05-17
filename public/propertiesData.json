@@ -1,0 +1,138 @@
+{
+    "id": 1,
+    "provincia": "Guanacaste",
+    "cantones": [
+      {
+        "id": 1,
+        "nombre": "Liberia",
+        "distritos": [
+          {
+            "id": 1,
+            "nombre": "Liberia",
+            "barrios": [
+              "Alaska",
+              "Ángeles",
+              "Buenos aires",
+              "Capulín",
+              "Cerros",
+              "Condega",
+              "Corazón de jesús",
+              "Curime",
+              "Choricera",
+              "Chorotega",
+              "Gallera",
+              "Guaria",
+              "Jícaro",
+              "La carreta",
+              "Llano la cruz",
+              "Mocho (santa lucía)",
+              "Moracia",
+              "Nazareth",
+              "Pueblo nuevo",
+              "Sabanero",
+              "San miguel",
+              "San roque",
+              "Sitio",
+              "Veinticinco de julio",
+              "Victoria",
+              "Villanueva",
+              "Arena",
+              "Caraña",
+              "Isleta (parte)",
+              "Juanilama",
+              "Montañita",
+              "Paso tempisque (parte)",
+              "Pelón de la bajura",
+              "Polvazales",
+              "Roble de sabana",
+              "Rodeito",
+              "Salto (parte)",
+              "San benito",
+              "San hernán",
+              "San lucas",
+              "Santa ana",
+              "Terreros",
+              "Zanjita"
+            ]
+          },
+          {
+            "id": 2,
+            "nombre": "Cañas dulces",
+            "barrios": [
+              "Alcántaro",
+              "Buenavista",
+              "Guayacán",
+              "Pochote",
+              "Brisas",
+              "Cedro",
+              "Congo",
+              "Cueva",
+              "Fortuna",
+              "Irigaray",
+              "Lilas",
+              "Pacayales",
+              "Panamacito",
+              "Pedregal",
+              "Pital",
+              "Pueblo nuevo"
+            ]
+          },
+          {
+            "id": 3,
+            "nombre": "Mayorga",
+            "barrios": [
+              "Lourdes",
+              "San antonio",
+              "Ángeles",
+              "Argentina",
+              "Buenavista",
+              "Consuelo"
+            ]
+          },
+          {
+            "id": 4,
+            "nombre": "Nacascolo",
+            "barrios": [
+              "Bejuco",
+              "Los lagos",
+              "Nacascolo",
+              "Oratorio",
+              "Puerto culebra",
+              "Triunfo"
+            ]
+          },
+          {
+            "id": 5,
+            "nombre": "Curubandé",
+            "barrios": [
+              "Gallo",
+              "San rafael",
+              "Colorado",
+              "Curubandé",
+              "Porvenir"
+            ]
+          }
+
+
+        ]
+      }, 
+    {
+      "id": 2,
+      "nombre": "Nandayure",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Carmona",
+          "barrios": [
+            "Alaska",
+            "Ángeles",
+            "Buenos aires"
+ 
+]}
+          ]
+        }
+
+
+      ]
+
+  }
