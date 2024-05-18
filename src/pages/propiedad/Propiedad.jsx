@@ -1,33 +1,49 @@
 import { useState, useEffect } from "react";
-import Rating from "@mui/material/Rating";
-import CarouselComponent from "../../../../components/carousel/Carousel";
-import CommentCards from "./comments/CommentCards";
-import PostComment from "./comments/PostComment";
-import Map from "./map/Map";
-import { Grid } from "@mui/material";
-import {
-  Shower,
-  Garage,
-  KingBed,
-  Home,
-  Paid,
-  AttachMoney,
-  Email,
-  Phone,
-  WhatsApp,
-  PinDropOutlined,
-} from "@mui/icons-material";
+import { useParams } from "react-router-dom";
+import PropiedadDetalles from "./components/PropiedadDetalles";
+import api from "../../database/api";
+import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
+import useAuthStore from "../../hooks/auth/useAuth";
+import Map from "./components/map/Map";
+import PhotosGallery from "./components/photosGallery/PhotosGallery";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import CommentCards from "./components/comments/CommentCards";
+import PostComment from "./components/comments/PostComment";
 
-const PropiedadDetalles = ({ property, auth }) => {
-  const [coordinates, setCoordinates] = useState({ lat: 9.7489, lng: -83.7534 });
+const Propiedad = () => {
+  const auth = useAuthStore((state) => state.auth);
+  const { id } = useParams();
+  const privateApi = useAxiosPrivate();
 
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 1 : value);
+
+  const [property, setProperty] = useState({});
+  const [coordinates, setCoordinates] = useState({
+    lat: 9.7489,
+    lng: -83.7534,
+  });
+
+  useEffect(() => {
+    const getProperty = async () => {
+      try {
+        if (auth.accessToken) {
+          const { data } = await privateApi.get(`/properties/${id}`);
+          setProperty(data);
+        } else {
+          const { data } = await api.get(`/properties/${id}`);
+          setProperty(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getProperty();
+  }, [id, privateApi, auth]);
 
   useEffect(() => {
     if (property?.coordinates) {
@@ -39,147 +55,51 @@ const PropiedadDetalles = ({ property, auth }) => {
   }, [property]);
 
   return (
-    <div>
-      <div className="flex flex-col -mt-12 md:flex-row">
-        <main className="grid grid-cols-1 p-4 md:w-1/2">
-          <section className="row-span-4 p-6 mb-4 bg-200 ">
-            <h2 className="mt-6 mb-6 text-2xl ">Detalles de la property</h2>
-            <p>{property?.name}</p>
-            <p>{property?.description}</p>
-
-            <section className="bg-500">
-              <h3 className="mb-2 text-lg font-semibold"></h3>
-              {/* <CarouselComponent
-                photos={property?.photos.split(",")}
-                height={350}
-              /> */}
-            </section>
-
-            <div className="bg-white rounded shadow">
-              <h3 className="mb-2 text-lg font-semibold">Calificación</h3>
-
-              {auth.user && property?.renta && (
-                <Rating
-                  name="property-rating"
-                  precision={0.1}
-                  value={property?.rating}
-                  size="large"
-                  readOnly
-                />
-              )}
-              <h3 className="mt-6 text-lg font-semibold">Características</h3>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={4}>
-                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                    <Home /> DIMENSIONES
-                    <p className="mx-10 mt-2"> {property?.squareMeters}</p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                    <KingBed /> HABITACIONES
-                    <p className="mx-10 mt-2"> {property?.bedroomNum}</p>
-                  </div>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                    <Shower /> DUCHAS
-                    <p className="mx-10 mt-2"> {property?.bathroomNum}</p>
-                  </div>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                  <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                    <Garage /> GARAJE
-                    <p className="mx-10 mt-2">
-                      {property?.garage ? "Sí" : "No"}
-                    </p>
-                  </div>
-                </Grid>
-
-                {(!property?.forRent || property?.salePrice) && (
-                  <Grid item xs={12} md={4}>
-                    <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                      <Paid /> PRECIO VENTA
-                      <p className="mx-6 mt-2">
-                        {" "}
-                        {property?.salePrice} dólares
-                      </p>
-                    </div>
-                  </Grid>
-                )}
-
-                {property?.forRent && property?.rentalPrice && (
-                  <Grid item xs={12} md={4}>
-                    <div className="p-4 transition duration-300 bg-white rounded shadow hover:bg-gray-100">
-                      <AttachMoney />
-                      PRECIO ALQUILER
-                      <p className="mx-6 mt-2">
-                        {" "}
-                        {property?.rentalPrice} dólares
-                      </p>
-                    </div>
-                  </Grid>
-                )}
-              </Grid>
-
-              {auth.user && (
-                <section className="p-6 mt-4">
-                  <h3 className="mb-2 text-lg font-semibold">
-                    Para más información puedes comunicarte al:
-                  </h3>
-                  <p className="mb-2">
-                    <Email /> correoanfitrion@gmail.com
-                  </p>
-                  <p className="mb-2">
-                    <Phone /> 2256-7878
-                  </p>
-                  <p>
-                    <WhatsApp /> 8677-1232
-                  </p>
-                  <p className="mt-2">
-                    <PinDropOutlined /> Santa Cruz, Guanacaste.
-                  </p>
-                </section>
-              )}
+    <>
+      <div className="flex flex-col p-6 md:flex-row">
+        <main className="md:w-1/2 md:pr-6">
+          <PropiedadDetalles property={property} auth={auth} />
+        </main>
+        <aside className="md:w-1/2 md:pl-6">
+          <section className="mb-8">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
+              Galería
+            </h3>
+            <div className="w-full rounded-lg shadow-lg h-[450] overflow-hidden">
+              <PhotosGallery photos={property?.photos} />
             </div>
           </section>
-        </main>
-        <aside className="w-full p-4 mt-6 bg-400 md:w-1/2">
-          <section className="p-6 mt-24 mb-4 bg-400 md:block">
-            <h3 className="mb-2 text-lg font-semibold">Ubicación</h3>
-            <Map center={coordinates} zoom={14} />
+          <section className="mb-8">
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
+              Ubicación
+            </h3>
+            <div className="w-full overflow-hidden rounded-lg shadow-lg">
+              <Map center={coordinates} zoom={14} />
+            </div>
           </section>
         </aside>
       </div>
-      <div className="p-6">
+      <div className="p-6 rounded-lg shadow-lg bg-gray-50">
         <Accordion open={open === 1}>
           <AccordionHeader
-            className="flex items-center justify-between p-2 transition duration-300 rounded-lg cursor-pointer hover:bg-gray-200"
+            className="flex items-center justify-between p-4 transition duration-300 rounded-lg cursor-pointer hover:bg-gray-200"
             onClick={() => handleOpen(0)}
           >
             Ver comentarios
           </AccordionHeader>
           <AccordionBody>
-            <section className="w-full mb-4 bg-400">
+            <section className="w-full p-6 bg-white rounded-lg shadow-md">
               {property?.renta && (
-                <div className="p-4 bg-white rounded shadow md:w-full md:mr-4">
-                  <div className="p-4 overflow-y-auto bg-white rounded shadow md:w-full md:mr-4 max-h-96">
-                    <CommentCards comments={comments} className="mb-4" />
-                  </div>
+                <div className="p-4 overflow-y-auto bg-white rounded-lg shadow-md max-h-96">
+                  <CommentCards comments={comments} className="mb-4" />
                 </div>
               )}
             </section>
           </AccordionBody>
         </Accordion>
+        <PostComment user={auth.user} className="mt-6" />
       </div>
-
-      <section className="bg-500">
-        <div className="p-4 bg-white rounded shadow">
-          <PostComment user={auth.user} />
-        </div>
-      </section>
-    </div>
+    </>
   );
 };
 
@@ -207,4 +127,4 @@ const comments = [
   },
 ];
 
-export default PropiedadDetalles;
+export default Propiedad;

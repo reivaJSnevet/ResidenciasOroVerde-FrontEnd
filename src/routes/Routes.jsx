@@ -9,7 +9,7 @@ import Properties from "../pages/administrador/properties/Properties";
 import Login from "../pages/login/Login";
 import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
-import Propiedad from "../pages/propiedades/propiedad/Propiedad";
+import Propiedad from "../pages/propiedad/Propiedad.jsx";
 import Propiedades from "../pages/propiedades/Propiedades.jsx";
 import Home2 from "../pages/home/home2/Home2.jsx";
 import ForSale from "../pages/propiedades/components/category/ForSale.jsx";
