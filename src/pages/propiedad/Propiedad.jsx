@@ -62,15 +62,19 @@ const Propiedad = () => {
         </main>
         <aside className="md:w-1/2 md:pl-6">
           <section className="mb-8">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Ubicación</h3>
-            <div className="w-full overflow-hidden rounded-lg shadow-lg">
-              <Map center={coordinates} zoom={14} />
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
+              Galería
+            </h3>
+            <div className="w-full rounded-lg shadow-lg h-[450] overflow-hidden">
+              <PhotosGallery photos={property?.photos} />
             </div>
           </section>
           <section className="mb-8">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">Galería</h3>
-            <div className="w-full rounded-lg shadow-lg h-[450] overflow-hidden">
-              <PhotosGallery photos={property?.photos} />
+            <h3 className="mb-4 text-lg font-semibold text-gray-800">
+              Ubicación
+            </h3>
+            <div className="w-full overflow-hidden rounded-lg shadow-lg">
+              <Map center={coordinates} zoom={14} />
             </div>
           </section>
         </aside>

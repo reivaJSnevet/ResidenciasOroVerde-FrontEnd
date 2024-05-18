@@ -1,15 +1,15 @@
 const PhotoModal = ({selectedImage, handleCloseModal}) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
       <div
-        className="w-1/2 overflow-hidden bg-white rounded-lg shadow-lg h-1/2 "
+        className= "max-w-[90vh] max-h-[90vh] overflow-auto custom-scrollbar bg-transparent rounded-lg shadow-lg"
         onClick={handleCloseModal}
       >
         <div className="relative">
           <img
             src={selectedImage}
             alt="Imagen ampliada"
-            className="max-w-full max-h-full rounded-lg"
+            className="rounded-lg"
           />
           <button
             className="absolute top-0 right-0 mt-2 mr-2 text-2xl font-bold text-white"

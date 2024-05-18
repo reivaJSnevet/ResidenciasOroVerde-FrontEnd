@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { ImageList, ImageListItem } from "@mui/material";
-import setGridSpace from "../../services/setGridSpace";
 import PhotoModal from "./PhotoModal";
 
 /**
@@ -12,20 +11,13 @@ import PhotoModal from "./PhotoModal";
  * @returns {JSX.Element} The rendered PhotosGallery component.
  */
 const PhotosGallery = ({ photos }) => {
-  const [imageConfigs, setImageConfigs] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
+  const [photosUrls, setPhotosUrls] = useState([]);
 
   useEffect(() => {
+    if (!photos) return;
     const imageUrls = photos?.split(",");
-    if (imageUrls) {
-      setGridSpace(imageUrls)
-        .then((results) => {
-          setImageConfigs(results);
-        })
-        .catch((error) => {
-          console.error("Error setting grid space:", error);
-        });
-    }
+    setPhotosUrls(imageUrls);
   }, [photos]);
 
   const handleImageClick = (image) => {
@@ -40,26 +32,29 @@ const PhotosGallery = ({ photos }) => {
     <div>
       <ImageList
         sx={{ width: "auto", height: 450, padding: 2 }}
-        variant="quilted"
-        cols={4}
-        rowHeight={121}
-        gap={8}
+        cols={3}
+        rowHeight={205}
       >
-        {imageConfigs.map((item, index) => (
-          <ImageListItem key={index} cols={item.cols} rows={item.rows}>
-            <img
-              src={item.src}
-              srcSet={item.srcSet}
-              alt={`Imagen ${index + 1}`}
-              loading="lazy"
-              className="transition-transform duration-300 cursor-pointer rounded-3xl hover:scale-90 hover:shadow-xl hover:z-10"
-              onClick={() => handleImageClick(item.src)}
-            />
-          </ImageListItem>
-        ))}
+        {photosUrls &&
+          photosUrls.map((photo, index) => (
+            <ImageListItem key={index}>
+              <img
+                src={photo}
+                alt={`Imagen ${index + 1}`}
+                loading="lazy"
+                className="transition-transform duration-300 rounded-md cursor-pointer hover:scale-90 hover:shadow-xl hover:z-10"
+                onClick={() => handleImageClick(photo)}
+              />
+            </ImageListItem>
+          ))}
       </ImageList>
 
-      {selectedImage && PhotoModal({ selectedImage, handleCloseModal })}
+      {selectedImage && (
+        <PhotoModal
+          selectedImage={selectedImage}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
     </div>
   );
 };
