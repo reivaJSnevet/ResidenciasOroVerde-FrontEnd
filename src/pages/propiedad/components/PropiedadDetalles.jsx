@@ -10,6 +10,9 @@ const PropiedadDetalles = ({ property, auth }) => {
       </h2>
       <p className="mb-2 text-lg text-gray-600">{property?.name}</p>
       <p className="mb-4 text-gray-600 text-md">{property?.description}</p>
+      <div className="pr-1 mb-1 text-xl font-bold text-gray-700">
+        {property.district}, {property.canton}, {property.province}
+      </div>
 
       {auth.accessToken && property?.forRent && (
         <div className="p-4 mb-6 rounded-lg shadow-inner bg-gray-50">
