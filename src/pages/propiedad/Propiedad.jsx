@@ -34,6 +34,7 @@ const Propiedad = () => {
         if (auth.accessToken) {
           const { data } = await privateApi.get(`/properties/${id}`);
           setProperty(data);
+          console.log(data);
         } else {
           const { data } = await api.get(`/properties/${id}`);
           setProperty(data);
@@ -79,7 +80,7 @@ const Propiedad = () => {
           </section>
         </aside>
       </div>
-      <div className="p-6 rounded-lg shadow-lg bg-gray-50">
+      {property?.forRent && (<div className="p-6 rounded-lg shadow-lg bg-gray-50">
         <Accordion open={open === 1}>
           <AccordionHeader
             className="flex items-center justify-between p-4 transition duration-300 rounded-lg cursor-pointer hover:bg-gray-200"
@@ -89,16 +90,16 @@ const Propiedad = () => {
           </AccordionHeader>
           <AccordionBody>
             <section className="w-full p-6 bg-white rounded-lg shadow-md">
-              {property?.renta && (
+              
                 <div className="p-4 overflow-y-auto bg-white rounded-lg shadow-md max-h-96">
-                  <CommentCards comments={comments} className="mb-4" />
+                  <CommentCards comments={property.Comments} className="mb-4" />
                 </div>
-              )}
+              
             </section>
           </AccordionBody>
         </Accordion>
         <PostComment user={auth.user} className="mt-6" />
-      </div>
+      </div>)}
     </>
   );
 };
