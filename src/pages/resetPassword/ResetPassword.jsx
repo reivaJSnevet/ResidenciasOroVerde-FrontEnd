@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "../../database/api";
 
 const ResetPassword = () => {
+  const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [msgTextColor, setMsgTextColor] = useState("text-green-800");
@@ -15,10 +18,9 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-
     try {
       comparePasswords(password, confirmPassword);
+        await api.post( `auth/reset-password/${token}`, {password});
       setMsgTextColor("text-green-800");
       setMsg(
         "La contraseña se ha restablecido correctamente. Por favor, inicia sesión."
@@ -30,53 +32,53 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-slate-50 ">
-      <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
-        <img
-          className="hidden object-cover lg:block lg:w-1/2 brightness-50"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png"
-          alt="casa olvidada"
-        />
-        <div className="w-full p-10 lg:w-1/2 bg-gradient-to-br from-green-50 to-green-200">
-          <h2 className="mb-4 text-xl font-bold text-gray-800">
-            Reiniciar contraseña
-          </h2>
-          <p className="block sm:inline">
-            Por favor, introduce tu nueva contraseña.
-          </p>
-          <form className="relative mt-6" onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-6 bg-white shadow-md rounded-xl" style={{ borderRadius: '9px', boxShadow: '4px 4px 8px #d9d9d9, -4px -4px 8px #ffffff' }}>
+        <h2 className="mb-4 text-2xl font-bold text-center text-gray-800">
+          Reiniciar Contraseña
+        </h2>
+        <p className="mb-6 text-center text-gray-600">
+          Por favor, introduce tu nueva contraseña.
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
             <label className="block mb-2 font-semibold text-gray-700">
               Nueva contraseña
             </label>
             <input
-              className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded focus:outline-none focus:shadow-outline"
+              className="w-full p-3 bg-gray-200 rounded-lg shadow-inner focus:bg-gray-100 focus:outline-none"
               type="password"
               placeholder="Ingrese su nueva contraseña"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ borderRadius: '5px' }}
             />
+          </div>
+          <div className="mb-6">
             <label className="block mb-2 font-semibold text-gray-700">
               Confirmar contraseña
             </label>
             <input
-              className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded focus:outline-none focus:shadow-outline"
+              className="w-full p-3 bg-gray-200 rounded-lg shadow-inner focus:bg-gray-100 focus:outline-none"
               type="password"
               placeholder="Confirme su nueva contraseña"
               value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              style={{ borderRadius: '5px' }}
             />
-            <button className="w-full px-4 py-2 text-sm font-semibold text-white bg-green-800 rounded hover:bg-green-900">
-              Reiniciar contraseña
-            </button>
-          </form>
-            {msg && (
-                <p className={`flex items-center justify-center mt-10 text-center font-semibold ${msgTextColor}`}>{msg}</p>
-            )}
-        </div>
+          </div>
+          <button
+            className="w-full py-3 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none"
+            style={{ borderRadius: '5px', boxShadow: '4px 4px 8px #cbced1, -4px -4px 8px #ffffff' }}
+          >
+            Reiniciar contraseña
+          </button>
+        </form>
+        {msg && (
+          <p className={`mt-4 text-center font-semibold ${msgTextColor}`}>
+            {msg}
+          </p>
+        )}
       </div>
     </div>
   );

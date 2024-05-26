@@ -29,7 +29,9 @@ const routes = (
 
         <Route path="/home2" element={<Home2 />} />
 
-        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />}>
+            <Route path=":token" element={<ResetPassword />} />
+        </Route>
 
         <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
