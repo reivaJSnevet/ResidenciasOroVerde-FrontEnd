@@ -19,6 +19,7 @@ import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
 import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
+import Profile from "../pages/profile/Profile.jsx";
 
 
 const routes = (
@@ -41,6 +42,7 @@ const routes = (
             <Route path="/propiedad" element={<Propiedad />}>
                 <Route path=":id" element={<Propiedad />} />
             </Route>
+            <Route path="/profile" element={<Profile />} />
 
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
 
