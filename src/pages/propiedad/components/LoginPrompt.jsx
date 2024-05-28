@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const LoginPrompt = ({resource}) => {
+    const  location = useLocation();
+
   return (
       <div className="p-6 text-center bg-white rounded shadow-lg">
         <h2 className="mb-4 text-2xl font-bold">Por favor, inicia sesión</h2>
@@ -9,6 +11,7 @@ const LoginPrompt = ({resource}) => {
         </p>
         <Link
           to="/login"
+          state={{ from: location.pathname }}
           className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
         >
           Iniciar sesión

@@ -30,46 +30,51 @@ const Login = () => {
 
   useEffect(() => {
     setErrorMsg("");
-  }, [email, password]);
+  }, [email, password]);  
+
+  const togglePersist = () => {
+    setPersist(!persist);
+  };
+
+  const login = async (email, password) => {
+    return await api.post(
+      "/auth/login",
+      { email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+  };
+
+  const navigateToRolePage = (role) => {
+    if (role === "admin") {
+      navigate("/admin", { replace: true });
+    } else if (role === "cliente") {
+      navigate(from);
+    } else {
+      navigate("login", { replace: true });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await api.post(
-        "/auth/login",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await login(email, password);
 
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
       });
 
-      if (response.data.user.Role.name === "admin") {
-        navigate("/admin", { replace: true });
-      } else if (response.data.user.Role.name === "cliente") {
-        navigate(from);
-      } else {
-        navigate("login", { replace: true });
-      }
+      navigateToRolePage(response.data.user.Role.name);
     } catch (error) {
       setErrorMsg("Usuario o contraseña incorrectos");
       errRef.current.focus();
     }
-  };
-
-  const togglePersist = () => {
-    setPersist(!persist);
   };
 
   return (
