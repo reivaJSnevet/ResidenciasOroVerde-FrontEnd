@@ -39,7 +39,11 @@ function Home() {
           id='home'
           style={{
             backgroundImage: 'url("/Homepotrero.jpeg")',
-            height: '600px'
+            height: '100vh',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
           }}
         >
           <div
