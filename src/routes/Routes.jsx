@@ -19,7 +19,9 @@ import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
 import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
+import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import Profile from "../pages/profile/Profile.jsx";
+
 
 
 const routes = (
@@ -35,12 +37,14 @@ const routes = (
         </Route>
 
         <Route path="/" element={<Layout />}>
+            <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/mapa" element={<Home />} />
             <Route path="/propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
             <Route path="/forSale" element={<ForSale />} />
             <Route path="/propiedad" element={<Propiedad />}>
                 <Route path=":id" element={<Propiedad />} />
+               
             </Route>
             <Route path="/profile" element={<Profile />} />
 
