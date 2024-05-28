@@ -10,7 +10,7 @@ import {
   const Characteristics = ({ property }) => {
     const cardContainer = "w-full px-2 mb-4 ";
     const commonClassNames =
-      "p-4 transition duration-300 bg-white rounded-lg shadow-md hover:bg-gray-100";
+      "p-4 transition duration-300 bg-white rounded-md shadow-md hover:bg-gray-100";
   
     return (
       <div className="flex flex-wrap">

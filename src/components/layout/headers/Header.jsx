@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAuthStore from '../../../hooks/auth/useAuth';
 
 function Header() {
+    const auth = useAuthStore((state) => state.auth);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -25,25 +27,13 @@ function Header() {
             <div className="w-full lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIO</Link>
-                    
-                    {/* <div className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md  transition-all duration-500 ease-in-out mr-4">
-                        <button 
-                            onClick={handleDropdownToggle} 
-                            className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white  rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4"
-                        >
-                            SERVICIOS
-                        </button>
-                        {isDropdownOpen && (
-                            <div className="absolute z-10 bg-[#3c6c42] mt-2 w-40 rounded-lg shadow-lg">
-                                <Link to="/forRent" onClick={handleDropdownClose} className="block py-2 px-4 text-[#c6c9c3] hover:bg-[#61dd67] hover:text-white">ALQUILER</Link>
-                                <Link to="/forSale" onClick={handleDropdownClose} className="block py-2 px-4 text-[#c6c9c3] hover:bg-[#61dd67] hover:text-white">VENTA</Link>
-                            </div>
-                        )}
-                    </div> */}
                     <Link to="/propiedades" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">BÚSQUEDA</Link>
                     <a href='#contacto' className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">CONTACTO</a>
-                    <Link to="/aboutUs" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">SOBRE NOSOTROS</Link>
-                    <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIAR SESIÓN</Link>
+                    <Link to="/aboutUs" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">SOBRE NOSOTROS</Link
+                    {
+                        auth.accessToken ?
+                        <Link to="/profile" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">PERFIL</Link> :
+                        <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIAR SESIÓN</Link>}
                 </div>
             </div>
         </nav>

@@ -1,26 +1,27 @@
 import { useState } from "react";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 
-const PostComment = ({ user }) => {
+const PostComment = ({ user, propertyId }) => {
   const api = useAxiosPrivate();
   const [comment, setComment] = useState("");
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      /* const response = await api.post("/comments", {
-        comment: comment,
-        user: user,
-      }); */
-      console.log({user, comment});
+      const response = await api.post("/comments", {
+        PropertyId: propertyId,
+        content: comment,
+        UserId: user.id,
+      });
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
-    }
+  };
 
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     setComment(e.target.value);
-    }
+  };
 
   return (
     <form
@@ -37,9 +38,12 @@ const PostComment = ({ user }) => {
         value={comment}
         onChange={handleChange}
       ></textarea>
-    <button className="w-full p-2 m-4 text-lg font-semibold text-white transition duration-300 ease-in-out bg-green-700 rounded-md md:w-1/2 hover:bg-green-900"
-        type="submit"       
-      >Enviar</button>
+      <button
+        className="w-full p-2 m-4 text-lg font-semibold text-white transition duration-300 ease-in-out bg-green-700 rounded-md md:w-1/2 hover:bg-green-900"
+        type="submit"
+      >
+        Enviar
+      </button>
     </form>
   );
 };

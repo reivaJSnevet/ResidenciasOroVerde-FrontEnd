@@ -20,22 +20,25 @@ import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
 import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
 import AboutUs from "../pages/aboutUs/AboutUs.jsx";
+import Profile from "../pages/profile/Profile.jsx";
+
 
 
 const routes = (
     <>
+      <Route element={<PersistLogin />}>
+        <Route path="/" element={<Home2 />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
-
-        <Route path="/home2" element={<Home2 />} />
-
-        <Route path="reset-password" element={<ResetPassword />} />
+        
+        <Route path="/reset-password" element={<ResetPassword />}>
+            <Route path=":token" element={<ResetPassword />} />
+        </Route>
 
         <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
-
             <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="/mapa" element={<Home />} />
             <Route path="/propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
             <Route path="/forSale" element={<ForSale />} />
@@ -43,7 +46,7 @@ const routes = (
                 <Route path=":id" element={<Propiedad />} />
                
             </Route>
-            <Route element={<PersistLogin />}>
+            <Route path="/profile" element={<Profile />} />
 
                 <Route element={<RequireAuth allowedRoles={["admin"]} />}>
 
@@ -56,10 +59,11 @@ const routes = (
                     </Route>
 
                 </Route>
-            </Route>
+            
         </Route>
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
+      </Route>
     </>
 );
 
