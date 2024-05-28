@@ -1,22 +1,13 @@
-import React from 'react';
-import 'leaflet/dist/leaflet.css';
 import { useState, useEffect } from 'react';
-import api from '../../../database/api';
 import CardsHome from './components/CardsHome';
-import { Switch } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import MapHome from './components/MapHome';
+import api from '../../../database/api';
+import 'leaflet/dist/leaflet.css';
 
 function Home() {
   const [propiedades, setPropiedades] = useState([]);
   const [totalAlquiladas, setTotalAlquiladas] = useState(0);
   const [totalVendidas, setTotalVendidas] = useState(0);
-
-  const navigate = useNavigate();
-
-  const handleSwitchChange = () => {
-    navigate('/home2');
-  };
 
   useEffect(() => {
     const getPropiedades = async () => {
@@ -32,7 +23,6 @@ function Home() {
         console.error(error);
       }
     };
-
     getPropiedades();
   }, []);
 
@@ -43,8 +33,6 @@ function Home() {
  
   return (
     <>
- 
-
       <div className="relative">
         <div 
           className="relative overflow-hidden text-center bg-no-repeat bg-cover "
@@ -62,7 +50,6 @@ function Home() {
               <div className="text-white">
                 <h2 className="mb-4 font-bold text-8xl">Residencias</h2>
                 <h4 className="mb-6 font-serif text-6xl font-bold">Oro Verde</h4>
-                <Switch className="text-sm font-medium text-gray-900 border border-white ms-3 dark:text-gray-300 " onChange={handleSwitchChange} />
               </div>
             </div>
           </div>
@@ -76,8 +63,6 @@ function Home() {
         <div id="contacto">
         </div>
       </div>
-
-      
     </>
   );
 }
