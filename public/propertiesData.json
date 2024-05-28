@@ -1,138 +1,1311 @@
 {
-    "id": 1,
-    "provincia": "Guanacaste",
-    "cantones": [
-      {
-        "id": 1,
-        "nombre": "Liberia",
-        "distritos": [
-          {
-            "id": 1,
-            "nombre": "Liberia",
-            "barrios": [
-              "Alaska",
-              "Ángeles",
-              "Buenos aires",
-              "Capulín",
-              "Cerros",
-              "Condega",
-              "Corazón de jesús",
-              "Curime",
-              "Choricera",
-              "Chorotega",
-              "Gallera",
-              "Guaria",
-              "Jícaro",
-              "La carreta",
-              "Llano la cruz",
-              "Mocho (santa lucía)",
-              "Moracia",
-              "Nazareth",
-              "Pueblo nuevo",
-              "Sabanero",
-              "San miguel",
-              "San roque",
-              "Sitio",
-              "Veinticinco de julio",
-              "Victoria",
-              "Villanueva",
-              "Arena",
-              "Caraña",
-              "Isleta (parte)",
-              "Juanilama",
-              "Montañita",
-              "Paso tempisque (parte)",
-              "Pelón de la bajura",
-              "Polvazales",
-              "Roble de sabana",
-              "Rodeito",
-              "Salto (parte)",
-              "San benito",
-              "San hernán",
-              "San lucas",
-              "Santa ana",
-              "Terreros",
-              "Zanjita"
-            ]
-          },
-          {
-            "id": 2,
-            "nombre": "Cañas dulces",
-            "barrios": [
-              "Alcántaro",
-              "Buenavista",
-              "Guayacán",
-              "Pochote",
-              "Brisas",
-              "Cedro",
-              "Congo",
-              "Cueva",
-              "Fortuna",
-              "Irigaray",
-              "Lilas",
-              "Pacayales",
-              "Panamacito",
-              "Pedregal",
-              "Pital",
-              "Pueblo nuevo"
-            ]
-          },
-          {
-            "id": 3,
-            "nombre": "Mayorga",
-            "barrios": [
-              "Lourdes",
-              "San antonio",
-              "Ángeles",
-              "Argentina",
-              "Buenavista",
-              "Consuelo"
-            ]
-          },
-          {
-            "id": 4,
-            "nombre": "Nacascolo",
-            "barrios": [
-              "Bejuco",
-              "Los lagos",
-              "Nacascolo",
-              "Oratorio",
-              "Puerto culebra",
-              "Triunfo"
-            ]
-          },
-          {
-            "id": 5,
-            "nombre": "Curubandé",
-            "barrios": [
-              "Gallo",
-              "San rafael",
-              "Colorado",
-              "Curubandé",
-              "Porvenir"
-            ]
-          }
-
-
-        ]
-      }, 
+  "id": 1,
+  "provincia": "Guanacaste",
+  "cantones": [
+    {
+      "id": 1,
+      "nombre": "Liberia",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Liberia",
+          "barrios": [
+            "Alaska",
+            "Ángeles",
+            "Buenos aires",
+            "Capulín",
+            "Cerros",
+            "Condega",
+            "Corazón de jesús",
+            "Curime",
+            "Choricera",
+            "Chorotega",
+            "Gallera",
+            "Guaria",
+            "Jícaro",
+            "La carreta",
+            "Llano la cruz",
+            "Mocho (santa lucía)",
+            "Moracia",
+            "Nazareth",
+            "Pueblo nuevo",
+            "Sabanero",
+            "San miguel",
+            "San roque",
+            "Sitio",
+            "Veinticinco de julio",
+            "Victoria",
+            "Villanueva",
+            "Arena",
+            "Caraña",
+            "Isleta (parte)",
+            "Juanilama",
+            "Montañita",
+            "Paso tempisque (parte)",
+            "Pelón de la bajura",
+            "Polvazales",
+            "Roble de sabana",
+            "Rodeito",
+            "Salto (parte)",
+            "San benito",
+            "San hernán",
+            "San lucas",
+            "Santa ana",
+            "Terreros",
+            "Zanjita"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Cañas dulces",
+          "barrios": [
+            "Alcántaro",
+            "Buenavista",
+            "Guayacán",
+            "Pochote",
+            "Brisas",
+            "Cedro",
+            "Congo",
+            "Cueva",
+            "Fortuna",
+            "Irigaray",
+            "Lilas",
+            "Pacayales",
+            "Panamacito",
+            "Pedregal",
+            "Pital",
+            "Pueblo nuevo"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Mayorga",
+          "barrios": [
+            "Lourdes",
+            "San antonio",
+            "Ángeles",
+            "Argentina",
+            "Buenavista",
+            "Consuelo"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Nacascolo",
+          "barrios": [
+            "Bejuco",
+            "Los lagos",
+            "Nacascolo",
+            "Oratorio",
+            "Puerto culebra",
+            "Triunfo"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Curubandé",
+          "barrios": [
+            "Gallo",
+            "San rafael",
+            "Colorado",
+            "Curubandé",
+            "Porvenir"
+          ]
+        }
+      ]
+    },
     {
       "id": 2,
+      "nombre": "Nicoya",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Nicoya",
+          "barrios": [
+            "Aguacaliente",
+            "Bajo las hojas",
+            "Caimital",
+            "Cañada",
+            "Chircó",
+            "Colorado",
+            "Guayabal",
+            "Guayabo",
+            "Los angeles",
+            "Matabuey",
+            "Nacascolo",
+            "Nambi",
+            "Paso tempisque",
+            "San rafael",
+            "San vicente",
+            "Santa ana",
+            "Santa clara",
+            "Santa fe",
+            "Zapote",
+            "Cerro jesús",
+            "Cerro negro",
+            "Jabilla",
+            "Libano",
+            "Los inocentes",
+            "Pozo de agua",
+            "Pueblo nuevo",
+            "San jorge",
+            "San luis",
+            "San martin",
+            "San pedro",
+            "San vicente",
+            "Santa ana",
+            "Santa rosa",
+            "Terrero"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Mansion",
+          "barrios": [
+            "Caimital (parte)",
+            "Canjel",
+            "Chiquito",
+            "La palma",
+            "Miravalles",
+            "Naranjal",
+            "San juan",
+            "Santa isabel",
+            "Talolinga"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "San antonio",
+          "barrios": [
+            "Altamira",
+            "Caimital (parte)",
+            "Chompipe",
+            "Cuesta morena",
+            "La saca",
+            "Lomas",
+            "Río montana",
+            "Santa cruz",
+            "Talolinga (parte)",
+            "Trinidad"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Quebrada honda",
+          "barrios": [
+            "Altos de abangares",
+            "Barbudal",
+            "Barbudal sur",
+            "Cuesta cajon",
+            "Finca belen",
+            "Guapinol",
+            "Guarumo",
+            "Jicaro",
+            "Limonal",
+            "Palmera",
+            "Rancho quemado",
+            "Rio chiquito",
+            "San jose",
+            "San luis",
+            "Santa cecilia",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Sámara",
+          "barrios": [
+            "Caimital (parte)",
+            "Cangrejal",
+            "Cantarrana",
+            "Corralillo",
+            "Coyote",
+            "Dolores",
+            "Garza",
+            "Islita",
+            "Mata",
+            "Nosara",
+            "Paloma",
+            "Pilon",
+            "San fernando",
+            "Santa rita",
+            "Tarcoles"
+          ]
+        },
+        {
+          "id": 6,
+          "nombre": "Nosara",
+          "barrios": [
+            "Cuajiniquil",
+            "Esperanza",
+            "Garza",
+            "Guiones",
+            "Los mangos",
+            "Playa pelada",
+            "San fernando",
+            "Santa teresa",
+            "Santa rita",
+            "Santa marta"
+          ]
+        },
+        {
+          "id": 7,
+          "nombre": "Belén de Nosarita",
+          "barrios": [
+            "Agujas",
+            "Alto de los junquillos",
+            "Belén",
+            "Chirraca",
+            "Colonia montes de oro",
+            "Esperanza",
+            "Jabilla",
+            "Jicaro",
+            "San juan",
+            "San pedro",
+            "Santa marta"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Santa Cruz",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Santa cruz",
+          "barrios": [
+            "Bajo de los anonos",
+            "Barranca",
+            "Carmona",
+            "Cerro pelado",
+            "Cuba",
+            "Guadalupe",
+            "Jorco",
+            "Las brisas",
+            "Los maderos",
+            "Los pinos",
+            "Ocote",
+            "Paso de la via",
+            "Rio seco",
+            "San jeronimo",
+            "San juan",
+            "San pedro",
+            "San vicente",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tempate",
+            "Tiquires",
+            "Turin"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Bolson",
+          "barrios": [
+            "Alto de bolson",
+            "Calle la cruz",
+            "Calle las lomas",
+            "Canjel",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jicaral",
+            "La esperanza",
+            "Las mercedes",
+            "Los llanos",
+            "Malinche",
+            "Naranja",
+            "Paso tempisque",
+            "Potrero",
+            "Quebrada honda",
+            "Rancho alto",
+            "Santa elena"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Veintisiete de abril",
+          "barrios": [
+            "Anonos",
+            "Caletas",
+            "Chacalal",
+            "Colorado",
+            "Coyote",
+            "Cuajiniquil",
+            "Esperanza",
+            "Guajiniquil",
+            "Guayabal",
+            "Guayabo",
+            "Jabillo",
+            "Matapalo",
+            "Pencal",
+            "San isidro",
+            "Santa fe",
+            "Santa marta",
+            "Santo domingo",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Tempate",
+          "barrios": [
+            "Alto de tempate",
+            "Cuajiniquil",
+            "Garza",
+            "Guapinol",
+            "Jabilla",
+            "La bruja",
+            "Matapalo",
+            "Palma de oro",
+            "Playa negra",
+            "Rinconada",
+            "San pedro",
+            "Santa isabel",
+            "Santa marta",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Cartagena",
+          "barrios": [
+            "Bajuras",
+            "Calle don fidel",
+            "Calle la palma",
+            "Callejon",
+            "El alto",
+            "Jabilla",
+            "La union",
+            "Limonal",
+            "Matapalo",
+            "Pueblo nuevo",
+            "Rinconada",
+            "San jeronimo",
+            "San juan",
+            "San pedro",
+            "San vicente",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 6,
+          "nombre": "Cuajiniquil",
+          "barrios": [
+            "Altos de curime",
+            "Bejuco",
+            "Calera",
+            "Cañada",
+            "Caribeno",
+            "Curime",
+            "Guaitil",
+            "Jabilla",
+            "Jicaral",
+            "Lomas",
+            "Monteverde",
+            "Penca",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 7,
+          "nombre": "Diriá",
+          "barrios": [
+            "Calle de la cruz",
+            "Calle la esperanza",
+            "Calle la union",
+            "Calle la virginia",
+            "Cañafistula",
+            "El guapote",
+            "Lomas del cocal",
+            "Matapalo",
+            "Monte alto",
+            "Pilamo",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 8,
+          "nombre": "Cabo velas",
+          "barrios": [
+            "Alto de cabo velas",
+            "Calle la tortuga",
+            "El alto",
+            "Guapinol",
+            "Jabilla",
+            "Matapalo",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 9,
+          "nombre": "Tamarindo",
+          "barrios": [
+            "Altos de tamarindo",
+            "Bajo de los anonos",
+            "Barbilla",
+            "Caletas",
+            "Caracol",
+            "Caribe",
+            "Cerro pelado",
+            "Cuajiniquil",
+            "Esperanza",
+            "Guaitil",
+            "Jabilla",
+            "Monte alto",
+            "Pilamo",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Bagaces",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Bagaces",
+          "barrios": [
+            "Bajo la esperanza",
+            "Bajo de los juarez",
+            "Barroeta",
+            "Calle del oro",
+            "Calle la cruz",
+            "Calle real",
+            "Cuesta de los martinez",
+            "Cuesta del sol",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "La fortuna",
+          "barrios": [
+            "Agua dulce",
+            "Aguinaldo",
+            "Altos de la fortuna",
+            "Bahía santa",
+            "Caldera",
+            "Chilamate",
+            "El brujo",
+            "Espavel",
+            "Esperanza",
+            "Fortuna",
+            "Guadalupe",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "La cruz",
+            "La esperanza",
+            "Los maderos",
+            "Monte alto",
+            "Penca",
+            "San antonio",
+            "San bartolo",
+            "San josecito",
+            "Santa clara",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Mogote",
+          "barrios": [
+            "Alto de mogote",
+            "Alto de san rafael",
+            "Bajo de los juarez",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Bolivar",
+            "Braulio",
+            "Chilamate",
+            "Cuesta del sol",
+            "Esperanza",
+            "Jabilla",
+            "Monte alto",
+            "Pilamo",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Río naranjo",
+          "barrios": [
+            "Agua buena",
+            "Altos de río naranjo",
+            "Bajo de los juarez",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Barroeta",
+            "Braulio",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nombre": "Carrillo",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Filadelfia",
+          "barrios": [
+            "Alto de filadelfia",
+            "Bajo filadelfia",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Barroeta",
+            "Braulio",
+            "Cuesta del sol",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Palmira",
+          "barrios": [
+            "Bajo de palmira",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Barroeta",
+            "Braulio",
+            "Cuesta del sol",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Sardinal",
+          "barrios": [
+            "Alto de sardinal",
+            "Bajo de los juarez",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Barroeta",
+            "Braulio",
+            "Cuesta del sol",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Belén",
+          "barrios": [
+            "Altos de belén",
+            "Bajo de los juarez",
+            "Bajo la cruz",
+            "Bajo la esperanza",
+            "Barroeta",
+            "Braulio",
+            "Cuesta del sol",
+            "El alto",
+            "Esperanza",
+            "Guapinol",
+            "Jabilla",
+            "Jicaral",
+            "Monte alto",
+            "Pilamo",
+            "Puerto del sol",
+            "Santa fe",
+            "Santa isabel",
+            "Santa marta",
+            "Santa rosa",
+            "Tamarindo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "nombre": "Cañas",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Cañas",
+          "barrios": [
+            "Albania",
+            "Ángeles",
+            "Bello horizonte",
+            "Cantarrana",
+            "Castillo",
+            "Cueva",
+            "Chorotega",
+            "Las cañas",
+            "Malinches",
+            "Miravalles",
+            "Palmas",
+            "San cristóbal",
+            "San martín",
+            "San pedro",
+            "Santa isabel abajo",
+            "Santa isabel arriba",
+            "Tenorio",
+            "Tres marías",
+            "Unión",
+            "Cedros",
+            "Cepo",
+            "Concepción",
+            "Corobicí",
+            "Correntadas",
+            "Cuesta el diablo",
+            "Cuesta el mico",
+            "Hotel",
+            "Jabilla abajo",
+            "Jabilla arriba",
+            "Libertad",
+            "Montes de oro",
+            "Paso lajas",
+            "Pedregal",
+            "Pochota",
+            "Pueblo nuevo",
+            "Sandial (sandillal)",
+            "San isidro (parte)",
+            "Santa lucía (parte)",
+            "Vergel"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Palmira",
+          "barrios": [
+            "Aguacaliente",
+            "Aguas gatas (parte)",
+            "Coyota",
+            "Huacal",
+            "Las flores",
+            "Martirio",
+            "Panales",
+            "Paraíso (parte)",
+            "San isidro (parte)",
+            "Santa lucía (parte)",
+            "Tenorio",
+            "Vueltas"
+          ]
+        },
+
+
+        {
+          "id": 3,
+          "nombre": "San miguel",
+          "barrios": [
+            "El coco",
+            "El güis",
+            "Eskameca (parte)",
+            "Gotera",
+            "Higuerón",
+            "Higuerón viejo",
+            "San juan"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Bebedero",
+          "barrios": [
+            "Loma",
+            "Coopetaboga",
+            "Taboga (parte)"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Porozal",
+          "barrios": [
+            "Brisas",
+            "Eskameca (parte)",
+            "Guapinol",
+            "Pozas",
+            "Puerto alegre",
+            "Quesera",
+            "Santa lucía",
+            "Taboga (parte)",
+            "Tiquirusas"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "nombre": "Abangáres",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Las juntas",
+          "barrios": [
+            "Bellavista",
+            "Cinco esquinas",
+            "La gloria",
+            "Paso ancho",
+            "San antonio",
+            "San jorge",
+            "San pablo",
+            "Blanco",
+            "Cecilia",
+            "Codornices",
+            "Concepción",
+            "Coyolito (parte)",
+            "Chiqueros",
+            "Desjarretado",
+            "Irma",
+            "Jarquín (parte)",
+            "Jesús",
+            "Lajas",
+            "Las huacas (parte)",
+            "Limonal",
+            "Limonal viejo",
+            "Matapalo",
+            "Naranjos agrios",
+            "Palma",
+            "Peña",
+            "Puente de tierra",
+            "Rancho alegre (parte)",
+            "Lourdes (rancho ania) (parte)",
+            "San cristóbal",
+            "San francisco",
+            "San juan chiquito",
+            "Santa lucía",
+            "Tortugal",
+            "Zapote"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Sierra",
+          "barrios": [
+            "Aguas claras",
+            "Alto cebadilla",
+            "Campos de oro",
+            "Candelaria",
+            "Cañitas",
+            "Cruz",
+            "Cuesta yugo",
+            "Dos de abangares",
+            "Marsellesa",
+            "San antonio",
+            "San rafael",
+            "Tornos",
+            "Tres amigos",
+            "Turín (parte)"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "San juan",
+          "barrios": [
+            "Arizona",
+            "Congo",
+            "Nancital",
+            "Portones",
+            "Pozo azul",
+            "Rancho alegre (parte)",
+            "Lourdes (rancho ania) (parte)",
+            "Tierra colorada",
+            "Vainilla"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Colorado",
+          "barrios": [
+            "Almendros",
+            "Barbudal",
+            "Gavilanes",
+            "Higuerillas",
+            "Las huacas (parte)",
+            "Monte potrero",
+            "Quebracho",
+            "Peñablanca",
+            "San buenaventura",
+            "San joaquín",
+            "Solimar",
+            "Villafuerte"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "nombre": "Tilarán",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Tilarán",
+          "barrios": [
+            "Cabra",
+            "Carmen",
+            "Juan xxiii",
+            "Lomalinda",
+            "Cuatro esquinas",
+            "Chiripa",
+            "Piamonte",
+            "Río chiquito",
+            "San luis",
+            "Tejona",
+            "Tres esquinas"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Quebrada grande",
+          "barrios": [
+            "Barrionuevo",
+            "Cabeceras de cañas",
+            "Campos de oro",
+            "Dos de tilarán",
+            "Esperanza",
+            "Florida",
+            "Monte olivos",
+            "Nubes",
+            "San miguel",
+            "Turín (parte)",
+            "Vueltas"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Tronadora",
+          "barrios": [
+            "Arenal viejo",
+            "Colonia menonita",
+            "Río chiquito abajo",
+            "Silencio"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Santa rosa",
+          "barrios": [
+            "Aguilares",
+            "Campos azules",
+            "Montes de oro (parte)",
+            "Naranjos agrios",
+            "Palma",
+            "Quebrada azul",
+            "Ranchitos",
+            "Santa rosa"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Líbano",
+          "barrios": [
+            "Alto cartago",
+            "Maravilla",
+            "San josé",
+            "Solania"
+          ]
+        },
+        {
+          "id": 6,
+          "nombre": "Tierras morenas",
+          "barrios": [
+            "Aguacate",
+            "Aguas gatas (parte)",
+            "Bajo paires",
+            "Guadalajara",
+            "Montes de oro (parte)",
+            "Paraíso (parte)",
+            "Río piedras",
+            "Sabalito"
+          ]
+        },
+        {
+          "id": 7,
+          "nombre": "Arenal",
+          "barrios": [
+            "Mata de caña",
+            "Sangregado",
+            "San antonio",
+            "Unión"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
       "nombre": "Nandayure",
       "distritos": [
         {
           "id": 1,
           "nombre": "Carmona",
           "barrios": [
-            "Alaska",
+            "Camas",
+            "Limones",
+            "Maquenco",
+            "San rafael",
+            "Vista de mar"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Santa rita",
+          "barrios": [
+            "Angostura",
+            "Cacao",
+            "Chumico",
+            "Guaria",
+            "Guastomatal",
+            "Morote",
+            "Tacanis",
+            "Uvita (parte)",
+            "Yerbabuena (parte)"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Zapotal",
+          "barrios": [
+            "Altos de mora",
+            "Cabeceras de río ora",
+            "Camaronal",
+            "Carmen",
+            "Cuesta bijagua",
+            "Leona",
+            "Manzanales",
+            "Río blanco este",
+            "Río de oro",
+            "Río ora",
+            "San martín",
+            "San pedro",
+            "Soledad"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "San pablo",
+          "barrios": [
+            "Canjel",
+            "Canjelito",
+            "Corozal oeste",
+            "Chamarro",
+            "Isla berrugate",
+            "Pavones",
+            "Puerto thiel",
+            "San pablo viejo"
+          ]
+        },
+        {
+          "id": 5,
+          "nombre": "Porvenir",
+          "barrios": [
             "Ángeles",
-            "Buenos aires"
- 
-]}
+            "Bellavista",
+            "Cabeceras de río bejuco",
+            "Chompipe (parte)",
+            "Delicias",
+            "Quebrada grande",
+            "San josecito"
+          ]
+        },
+        {
+          "id": 6,
+          "nombre": "Bejuco",
+          "barrios": [
+            "Caletas",
+            "Candelillo",
+            "Corozalito",
+            "Chiruta",
+            "Chompipe (parte)",
+            "I griega",
+            "Islita",
+            "Jabilla",
+            "Jabillos",
+            "Maicillal",
+            "Maquencal",
+            "Milagro",
+            "Millal",
+            "Mono",
+            "Pampas",
+            "Paso vigas",
+            "Pencal",
+            "Playa coyote",
+            "Playa san miguel",
+            "Pueblo nuevo",
+            "Punta bejuco",
+            "Puerto coyote",
+            "Quebrada nando",
+            "Quebrada seca",
+            "Rancho floriana",
+            "San francisco de coyote",
+            "San gabriel",
+            "San miguel",
+            "Triunfo",
+            "Zapote"
           ]
         }
-
-
       ]
+    },
+    {
+      "id": 10,
+      "nombre": "La cruz",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "La cruz",
+          "barrios": [
+            "Corazón de jesús",
+            "Fátima",
+           
 
-  }
+ "Roblar",
+            "Santa cecilia (parte)",
+            "Santa rita (parte)",
+            "Bellavista (parte)",
+            "Chaleco",
+            "Hondura",
+            "Límon",
+            "Monteverde (parte)",
+            "Nancite",
+            "Paraíso",
+            "Pochote",
+            "Puerto caribe (parte)",
+            "San dima",
+            "San jerónimo (parte)",
+            "Santa elena",
+            "Santa fe",
+            "Tempate",
+            "Tempatal",
+            "Valencia"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Santa cecilia",
+          "barrios": [
+            "Bellavista (parte)",
+            "Carmen",
+            "Cuatro esquinas",
+            "Esperanza",
+            "Gloria",
+            "Guabo",
+            "Isabel",
+            "Lajitas",
+            "San jerónimo (parte)",
+            "Santa cecilia (parte)",
+            "Santa rita (parte)",
+            "Unión",
+            "Vista al mar",
+            "Yerbabuena (parte)"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Garita",
+          "barrios": [
+            "Agua caliente",
+            "Arco iris",
+            "Bellavista (parte)",
+            "Betania",
+            "Concepción",
+            "El jorco",
+            "Flor",
+            "Guayabal",
+            "Guayabo",
+            "Jironal",
+            "Juntas",
+            "Llanos",
+            "Naranjales",
+            "Parcelas",
+            "San antonio",
+            "San gerardo",
+            "San jerónimo (parte)",
+            "San luis",
+            "San pedro",
+            "Santa cecilia (parte)",
+            "Santa elena",
+            "Tierras morenas (parte)",
+            "Unión",
+            "Unión de filo",
+            "Venado"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Santa elena",
+          "barrios": [
+            "Achiotal",
+            "Bellavista (parte)",
+            "Monteverde (parte)",
+            "Naranjos agrios",
+            "Parcelas",
+            "Santa cecilia (parte)",
+            "Tierras morenas (parte)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "nombre": "Hojancha",
+      "distritos": [
+        {
+          "id": 1,
+          "nombre": "Hojancha",
+          "barrios": [
+            "Alemania",
+            "Amanecer",
+            "Guaitil",
+            "Javilla",
+            "Pueblo nuevo",
+            "Salitral",
+            "Santa marta"
+          ]
+        },
+        {
+          "id": 2,
+          "nombre": "Monte romo",
+          "barrios": [
+            "Alemania (parte)",
+            "Andalucia",
+            "Bosques",
+            "Escobetal",
+            "Florida",
+            "Guapinol",
+            "Libertad",
+            "Llano largo",
+            "Mico",
+            "Piedra de fuego",
+            "Puerto carillo (parte)",
+            "Quebrada grande",
+            "Santa marta (parte)"
+          ]
+        },
+        {
+          "id": 3,
+          "nombre": "Puerto carrillo",
+          "barrios": [
+            "Balsal",
+            "Bajos",
+            "Candelillo (parte)",
+            "Cedros",
+            "Chavarria",
+            "Esperanza (parte)",
+            "Guayaquil",
+            "Isla grande",
+            "Juan denton",
+            "Penca",
+            "Punta isla",
+            "Río blanco",
+            "Río carillo (parte)",
+            "San juan",
+            "Santa rosa",
+            "Surubres",
+            "Ventanas"
+          ]
+        },
+        {
+          "id": 4,
+          "nombre": "Huacas",
+          "barrios": [
+            "Agua buena",
+            "Alto blanco",
+            "Brisas",
+            "Esperanza (parte)",
+            "Esperanza norte",
+            "Esperanza sur",
+            "Hondores",
+            "Juntas (parte)",
+            "Juntas norte",
+            "Pampas",
+            "Puerto carillo (parte)",
+            "Quebrada grande (parte)",
+            "San francisco",
+            "San miguel",
+            "Santo tomás",
+            "Veracruz"
+          ]
+        }
+      ]
+    }
+  ]
+}

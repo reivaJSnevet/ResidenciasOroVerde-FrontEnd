@@ -19,6 +19,7 @@ import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
 import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
+import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 
 
 const routes = (
@@ -33,13 +34,14 @@ const routes = (
 
         <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            
 
+            <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
             <Route path="/forSale" element={<ForSale />} />
             <Route path="/propiedad" element={<Propiedad />}>
                 <Route path=":id" element={<Propiedad />} />
+               
             </Route>
             <Route element={<PersistLogin />}>
 

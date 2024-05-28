@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../database/api';
-
+import NotFound from '../../../components/fileNotFound/NotFound';
 
 const Filters = ({ handleFilter }) => {
+    const [searchResult, setSearchResult] = useState([]);
     const [propertyType, setPropertyType] = useState('all');
+    const [propertyCategory, setPropertyCategory] = useState('all');
+    const [categories, setCategories] = useState([]);
     const [provinces, setProvinces] = useState([]);
     const [selectedProvince, setSelectedProvince] = useState(null);
     const [cantons, setCantons] = useState([]);
     const [selectedCanton, setSelectedCanton] = useState('all');
     const [districts, setDistricts] = useState([]);
     const [selectedDistrict, setSelectedDistrict] = useState('all');
+    const [searchPerformed, setSearchPerformed] = useState(false); 
 
     useEffect(() => {
+
         const fetchPropertiesData = async () => {
             try {
                 const response = await fetch('/propertiesData.json');
@@ -57,58 +62,64 @@ const Filters = ({ handleFilter }) => {
     }, [selectedCanton]);
 
    
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await api.get('/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+            
+        fetchCategories();
+    }, []);
 
-        const applyFilter = async () => {
-          try {
+
+    const applyFilter = async () => {
+        try {
             const response = await api.get("/properties");
             const properties = response.data;
-      
+
             const filteredProperties = properties.filter(property => {
-              const provinceMatch = selectedProvince === null || property.province === selectedProvince.provincia;
-              const cantonMatch = selectedCanton === 'all' || property.canton === selectedCanton;
-              const districtMatch = selectedDistrict === 'all' || property.district === selectedDistrict;
-              const typeMatch = propertyType === 'all' || (propertyType === 'rent' && property.forRent) || (propertyType === 'sale' && !property.forRent);
-      
-              return provinceMatch && cantonMatch && districtMatch && typeMatch;
+                const provinceMatch = !selectedProvince || property.province === selectedProvince.provincia;
+                const cantonMatch = selectedCanton === 'all' || property.canton === selectedCanton;
+                const districtMatch = selectedDistrict === 'all' || property.district === selectedDistrict;
+                const typeMatch = propertyType === 'all' || (propertyType === 'rent' && property.forRent) || (propertyType === 'sale' && !property.forRent);
+                const categories = property.Categories || []; 
+                const categoryMatch = propertyCategory === 'all' || categories.some(category => category.id === propertyCategory);
+                return provinceMatch && cantonMatch && districtMatch && typeMatch && categoryMatch;
             });
-      
+
+            console.log("Filtered Properties:", filteredProperties);
+            setSearchResult(filteredProperties);
             handleFilter(filteredProperties);
-            console.log(filteredProperties)
-          } catch (error) {
+            setSearchPerformed(true); 
+        } catch (error) {
             console.error(error);
-          }
-        };
-    
-        
+        }
+    };
+      
 
     const handleProvinceChange = (e) => {
         const selectedProvinceData = provinces.find(province => province.provincia === e.target.value);
         setSelectedProvince(selectedProvinceData);
     };
 
-
     return (
-        <div className=" mx-auto p-6 flex ">
-            <div className="flex items-center mb-4">
-                <label htmlFor="propertyType" className="mr-1">Tipo:</label>
-                <select
-                    id="propertyType"
-                    value={propertyType}
-                    onChange={e => setPropertyType(e.target.value)}
-                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
-                >
-                    <option value="all">Todos</option>
-                    <option value="rent">Alquiler</option>
-                    <option value="sale">Venta</option>
-                </select>
+        <div className="container mx-auto p-6 mt-10 bg-gray-50 rounded-xl">
+            <div className='text-center mb-10 text-bold text-xl'>
+            <h3>FILTRADO DE BÚSQUEDA</h3>
             </div>
-            <div className="flex items-center ml-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 m-4">
+            
+            <div className="flex items-center mb-4">
                 <label htmlFor="province" className="mr-1">Provincia:</label>
                 <select
                     id="province"
                     value={selectedProvince ? selectedProvince.provincia : ''}
                     onChange={handleProvinceChange}
-                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
+                    className="p-3 border border-gray-400 rounded-lg w-3/4"
                 >
                     <option value="">Todas</option>
                     {provinces.map(province => (
@@ -116,13 +127,13 @@ const Filters = ({ handleFilter }) => {
                     ))}
                 </select>
             </div>
-            <div className="flex items-center mb-4 ml-4">
+            <div className="flex items-center mb-4">
                 <label htmlFor="canton" className="mr-1">Cantón:</label>
                 <select
                     id="canton"
                     value={selectedCanton}
                     onChange={e => setSelectedCanton(e.target.value)}
-                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
+                    className="p-3 border border-gray-400 rounded-lg w-3/4"
                 >
                     <option value="all">Todos</option>
                     {cantons.map(canton => (
@@ -130,13 +141,13 @@ const Filters = ({ handleFilter }) => {
                     ))}
                 </select>
             </div>
-            <div className="flex items-center mb-4 ml-4">
+            <div className="flex items-center mb-4">
                 <label htmlFor="district" className="mr-1">Distrito:</label>
                 <select
                     id="district"
                     value={selectedDistrict}
                     onChange={e => setSelectedDistrict(e.target.value)}
-                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
+                    className="p-3 border border-gray-400 rounded-lg w-3/4"
                 >
                     <option value="all">Todos</option>
                     {districts.map(district => (
@@ -144,7 +155,36 @@ const Filters = ({ handleFilter }) => {
                     ))}
                 </select>
             </div>
+            <div className="flex items-center mb-4">
+                <label htmlFor="propertyType" className="mr-1">Tipo:</label>
+                <select
+                    id="propertyType"
+                    value={propertyType}
+                    onChange={e => setPropertyType(e.target.value)}
+                    className="p-3 border border-gray-400 rounded-lg w-3/4"
+                >
+                    <option value="all">Todos</option>
+                    <option value="rent">Alquiler</option>
+                    <option value="sale">Venta</option>
+                </select>
+            </div>
+            <div className="flex items-center mb-4">
+                <label htmlFor="propertyCategory" className="mr-1">Categoría:</label>
+                <select
+                    id="propertyCategory"
+                    value={propertyCategory}
+                    onChange={e => setPropertyCategory(e.target.value)}
+                    className="p-3 border border-gray-400 rounded-lg w-3/4"
+                >
+                    <option value="all">Todas</option>
+                    {categories.map(category => (
+                        <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                </select>
+            </div>
             <button onClick={applyFilter} className=" w-[100px] h-12 ml-6 bg-gray-100 text-gray font-semibold rounded-lg shadow-md hover:bg-[#61dd67] border border-gray-400 transition duration-300">Buscar</button>
+        </div>
+        {searchPerformed && searchResult.length === 0 && <NotFound />}
         </div>
     );
 

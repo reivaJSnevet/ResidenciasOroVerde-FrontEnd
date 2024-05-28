@@ -25,7 +25,8 @@ function Header() {
             <div className="w-full lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
                     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIO</Link>
-                    <div className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md  transition-all duration-500 ease-in-out mr-4">
+                    
+                    {/* <div className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md  transition-all duration-500 ease-in-out mr-4">
                         <button 
                             onClick={handleDropdownToggle} 
                             className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white  rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4"
@@ -38,9 +39,10 @@ function Header() {
                                 <Link to="/forSale" onClick={handleDropdownClose} className="block py-2 px-4 text-[#c6c9c3] hover:bg-[#61dd67] hover:text-white">VENTA</Link>
                             </div>
                         )}
-                    </div>
-                    <a href='#contacto' className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">CONTACTO</a>
+                    </div> */}
                     <Link to="/propiedades" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">BÚSQUEDA</Link>
+                    <a href='#contacto' className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">CONTACTO</a>
+                    <Link to="/aboutUs" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">SOBRE NOSOTROS</Link>
                     <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIAR SESIÓN</Link>
                 </div>
             </div>
