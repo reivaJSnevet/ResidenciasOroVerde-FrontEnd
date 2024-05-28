@@ -7,7 +7,7 @@ import {
 import CommentCards from "./CommentCards";
 import PostComment from "./PostComment";
 
-const Comments = ({ user, comments }) => {
+const Comments = ({ user, comments, propertyId }) => {
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 1 : value);
 
@@ -28,7 +28,7 @@ const Comments = ({ user, comments }) => {
           </section>
         </AccordionBody>
       </Accordion>
-      <PostComment user={user} className="mt-6" />
+      <PostComment user={user} propertyId={propertyId} className="mt-6" />
     </div>
   );
 };

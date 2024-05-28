@@ -73,7 +73,7 @@ const Propiedad = () => {
       </div>
         { property?.forRent && (
             auth.accessToken
-            ? <Comments user={auth.user} comments={property.Comments} /> 
+            ? <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
             : <LoginPrompt resource="los comentarios"/>
         )}
     </>
