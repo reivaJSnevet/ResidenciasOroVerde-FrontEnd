@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useAuthStore from '../../../hooks/auth/useAuth';
 
 function Header() {
     const auth = useAuthStore((state) => state.auth);
+
+    const location = useLocation();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleDropdownToggle = () => {
@@ -46,7 +48,7 @@ function Header() {
                     {
                         auth.accessToken ?
                         <Link to="/profile" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">PERFIL</Link> :
-                        <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIAR SESIÓN</Link>}
+                        <Link to="/login" state={{from: location.pathname}} className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIAR SESIÓN</Link>}
                 </div>
             </div>
         </nav>
