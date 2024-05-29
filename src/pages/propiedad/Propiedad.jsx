@@ -50,7 +50,7 @@ const Propiedad = () => {
     <>
       <div className="flex flex-col p-6 md:flex-row">
         <main className="md:w-1/2 md:pr-6">
-          <PropiedadDetalles property={property} auth={auth} />
+          <PropiedadDetalles property={property}/>
         </main>
         <aside className="md:w-1/2 md:pl-6">
           <section className="mb-8">
@@ -71,11 +71,10 @@ const Propiedad = () => {
           </section>
         </aside>
       </div>
-        { property?.forRent && (
-            auth.accessToken
+        { property?.forRent
             ? <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
             : <LoginPrompt resource="los comentarios"/>
-        )}
+        }
     </>
   );
 };
