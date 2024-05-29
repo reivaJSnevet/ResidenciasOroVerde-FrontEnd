@@ -12,8 +12,6 @@ import RequireAuth from "../components/auth/RequireAuth";
 import Propiedad from "../pages/propiedad/Propiedad.jsx";
 import Propiedades from "../pages/propiedades/Propiedades.jsx";
 import Home2 from "../pages/home/home2/Home2.jsx";
-import ForSale from "../pages/propiedades/components/category/ForSale.jsx";
-import ForRent from "../pages/propiedades/components/category/ForRent.jsx";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/resetPassword/ResetPassword.jsx";
