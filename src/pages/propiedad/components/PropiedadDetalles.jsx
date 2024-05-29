@@ -7,9 +7,8 @@ const PropiedadDetalles = ({ property, auth }) => {
   return (
     <div className="h-full p-6 bg-white rounded-md shadow-lg">
       <h2 className="mb-4 text-3xl font-bold text-gray-800">
-        Detalles de la propiedad
+        {property?.name}
       </h2>
-      <p className="mb-2 text-lg text-gray-600">{property?.name}</p>
       <p className="mb-4 text-gray-600 text-md">{property?.description}</p>
       <div className="pr-1 mb-1 text-xl font-bold text-gray-700">
         {property.district}, {property.canton}, {property.province}
