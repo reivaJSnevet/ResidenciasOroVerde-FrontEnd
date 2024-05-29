@@ -79,7 +79,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="py-16">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <img
             className="hidden lg:block lg:w-1/2 brightness-50"
