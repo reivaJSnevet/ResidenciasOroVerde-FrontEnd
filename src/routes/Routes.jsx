@@ -37,14 +37,14 @@ const routes = (
         <Route path="/mapa" element={<Home />} />
         <Route path="/propiedades" element={<Propiedades />} />
 
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route element={<RequireAuth allowedRoles={["cliente"]} />}>
           <Route path="/propiedad" element={<Propiedad />}>
             <Route path=":id" element={<Propiedad />} />
           </Route>
           <Route path="/profile" element={<Profile />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route element={<RequireAuth allowedRoles={["admin", "vendedor"]} />}>
           <Route path="/admin" element={<Admin />}>
             <Route path="usuarios" element={<Users />} />
             <Route path="roles" element={<Roles />} />
