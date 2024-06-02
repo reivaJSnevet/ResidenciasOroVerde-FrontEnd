@@ -22,9 +22,7 @@ const Comments = ({ user, comments, propertyId }) => {
         </AccordionHeader>
         <AccordionBody>
           <section className="w-full p-6 bg-white rounded-md shadow-md">
-            {/* <div className="p-4 overflow-y-auto bg-white rounded-md shadow-md max-h-96"> */}
-              <CommentCards comments={comments} className="mb-4" />
-           {/*  </div> */}
+            <CommentCards comments={comments} className="mb-4" />
           </section>
         </AccordionBody>
       </Accordion>

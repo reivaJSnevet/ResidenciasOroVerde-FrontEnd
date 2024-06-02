@@ -7,7 +7,6 @@ import useAuthStore from "../../hooks/auth/useAuth";
 import Map from "./components/map/Map";
 import PhotosGallery from "./components/photosGallery/PhotosGallery";
 import Comments from "./components/comments/Comments";
-import LoginPrompt from "./components/LoginPrompt";
 
 const Propiedad = () => {
   const auth = useAuthStore((state) => state.auth);
@@ -50,7 +49,7 @@ const Propiedad = () => {
     <>
       <div className="flex flex-col p-6 md:flex-row">
         <main className="md:w-1/2 md:pr-6">
-          <PropiedadDetalles property={property} auth={auth} />
+          <PropiedadDetalles property={property}/>
         </main>
         <aside className="md:w-1/2 md:pl-6">
           <section className="mb-8">
@@ -71,11 +70,9 @@ const Propiedad = () => {
           </section>
         </aside>
       </div>
-        { property?.forRent && (
-            auth.accessToken
-            ? <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
-            : <LoginPrompt resource="los comentarios"/>
-        )}
+        { property?.forRent
+            && <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
+        }
     </>
   );
 };
