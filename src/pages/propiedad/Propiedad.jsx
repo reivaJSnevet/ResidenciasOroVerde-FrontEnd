@@ -7,7 +7,6 @@ import useAuthStore from "../../hooks/auth/useAuth";
 import Map from "./components/map/Map";
 import PhotosGallery from "./components/photosGallery/PhotosGallery";
 import Comments from "./components/comments/Comments";
-import LoginPrompt from "./components/LoginPrompt";
 
 const Propiedad = () => {
   const auth = useAuthStore((state) => state.auth);
@@ -72,8 +71,7 @@ const Propiedad = () => {
         </aside>
       </div>
         { property?.forRent
-            ? <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
-            : <LoginPrompt resource="los comentarios"/>
+            && <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
         }
     </>
   );
