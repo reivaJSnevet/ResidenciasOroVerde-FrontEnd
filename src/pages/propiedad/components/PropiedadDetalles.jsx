@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Rating } from "@mui/material";
 import { Email, Phone, WhatsApp, PinDropOutlined } from "@mui/icons-material";
 import Characteristics from "./Characteristics";
 
 const PropiedadDetalles = ({ property }) => {
-    const [rating] = useState( property?.rating || 0);
+    const [rating, setRating] = useState(0);
+
+    useEffect(() => {
+        if(property?.rating){
+            setRating(property.rating);
+        }
+    }, [property]);
+
     
   return (
     <div className="h-full p-6 bg-white rounded-md shadow-lg">
@@ -23,6 +30,7 @@ const PropiedadDetalles = ({ property }) => {
         </h3>
         <Characteristics property={property} />
       </div>
+      { property.forRent &&
       <div className="p-4 mb-6">
         <h3 className="mb-3 text-xl font-semibold text-gray-700">
           Calificación
@@ -35,6 +43,7 @@ const PropiedadDetalles = ({ property }) => {
           readOnly
         />
       </div>
+      }
 
       <div className="p-4 rounded-md">
         <h3 className="mb-3 text-xl font-semibold text-gray-700">
