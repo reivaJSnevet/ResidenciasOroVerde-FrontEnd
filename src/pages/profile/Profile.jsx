@@ -39,7 +39,7 @@ const Profile = () => {
 
  
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col min-h-screen">
       <div className="relative flex flex-col p-6 bg-blue-300 rounded-b-lg md:flex-row md:h-1/3">
         <button
           type="button"
@@ -55,7 +55,7 @@ const Profile = () => {
         
         <UserComments comments={comments} setComments={setComments} />
 
-        <div className="flex flex-col w-full p-4 overflow-y-auto bg-green-200 md:w-2/3">
+        <div className="flex flex-col w-full p-4 overflow-y-auto bg-green-200 md:w-2/3 hide-scrollbar">
           <h2 className="mb-4 text-xl">Propiedades Guardadas</h2>
           <div className="p-4 m-2 bg-white rounded-md shadow-md">
             <p>Propiedad 1: Detalles de la propiedad guardada...</p>
