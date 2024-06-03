@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Edit, Delete, ArrowOutward } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import { Edit, Delete, ArrowOutward } from "@mui/icons-material";
 import useAxiosPrivate from "../../../hooks/auth/useAxiosPrivate";
 import EditCommentForm from "./EditCommentForm";
 
 const UserComments = ({comments, setComments}) => {
     const apiPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const [editComment, setEditComment] = useState(null);
 
     const formatDate = (dateString) => {
@@ -42,8 +44,22 @@ const UserComments = ({comments, setComments}) => {
             )
           );
           setEditComment(null);
+          enqueueSnackbar("Guardado!", {
+            variant: "success",
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+          });
         } catch (error) {
           console.error(error);
+            enqueueSnackbar("Error al guardar", {
+                variant: "error",
+                anchorOrigin: {
+                vertical: "top",
+                horizontal: "center",
+                },
+            });
         }
       };
     
