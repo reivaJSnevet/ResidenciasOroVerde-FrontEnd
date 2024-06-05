@@ -69,7 +69,7 @@ const UserComments = ({comments, setComments}) => {
     
 
   return (
-    <div className="flex flex-col w-full p-4 overflow-y-auto bg-red-200 md:w-1/3 hide-scrollbar">
+    <div className="flex flex-col w-full p-4 overflow-y-auto bg-red-200 md:w-1/3 custom-scrollbar">
           <h2 className="mb-4 text-xl">Comentarios</h2>
           {comments.map((comment) => (
             <div

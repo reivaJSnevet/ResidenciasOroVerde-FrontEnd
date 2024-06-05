@@ -51,7 +51,7 @@ const Profile = () => {
         <UserInfo user={auth.user} />
       </div>
 
-      <div className="flex flex-col flex-grow overflow-y-auto md:flex-row">
+      <div className="flex flex-col flex-grow md:flex-row max-h-svh ">
         
         <UserComments comments={comments} setComments={setComments} />
 
