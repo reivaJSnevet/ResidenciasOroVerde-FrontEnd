@@ -42,7 +42,7 @@ const routes = (
                
             </Route>
             <Route path="/profile" element={<Profile />} />
-
+            </Route> 
       <Route path="/reset-password" element={<ResetPassword />}>
         <Route path=":token" element={<ResetPassword />} />
       </Route>
