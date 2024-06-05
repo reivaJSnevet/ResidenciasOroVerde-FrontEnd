@@ -1,14 +1,16 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLogout from "../../hooks/auth/useLogout";
 
 const Profile = () => {
   const auth = useAuthStore((state) => state.auth);
     const navigate = useNavigate();
+    const location = useLocation();
     const logout = useLogout();
 
+
   if (!auth.accessToken) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" state={{from: location}} replace/>;
   }
 
   const handleLogout = () => {
