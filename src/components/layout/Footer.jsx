@@ -1,7 +1,11 @@
 import React from 'react';
 import { PhoneCallback, LocationOn, AttachEmail } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 function Footer() {
+
+
+
   return (
     <footer className="bg-[#3c6c43] p-4 font-[sans-serif]" id='contacto'>
       <div className="container mx-auto flex flex-col lg:flex-row items-center lg:justify-between">
@@ -31,10 +35,10 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-4 mr-20 text-white">SOBRE NOSOTROS</h4>
+          <h4 className="text-lg font-semibold mb-4 mr-20 text-white">COMPAÑÍA</h4>
           <ul className="space-y-2">
             <li>
-              <a  className="text-gray-300 hover:text-white text-sm">About Us</a>
+              <Link to="/aboutUs" className="text-gray-300 hover:text-white text-sm">Sobre nosotros</Link>
             </li>
             <li>
               <a className="text-gray-300 hover:text-white text-sm">Terms &amp; Conditions</a>
@@ -45,7 +49,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <p className="  text-gray-300 text-xs mt-4 text-center">© 2024 <a href='/'  className="hover:underline mx-1">Residencias Oro Verde.</a> Todos los derechos reservados.</p>
+      <p className=" text-gray-300 text-xs mt-4 text-center">© 2024 <a href='/'  className="hover:underline mx-1">Residencias Oro Verde.</a> Todos los derechos reservados.</p>
     </footer>
   );
 }

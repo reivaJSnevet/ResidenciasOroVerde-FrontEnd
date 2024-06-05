@@ -11,9 +11,9 @@ const NotFound = () => {
                     </g>
                 </g>
             </svg>
-            <h3 className="text-xl font-medium mt-4 text-gray-700 dark:text-gray-200">No encontrado</h3>
+            <h3 className="text-xl font-medium mt-4 text-gray-700 dark:text-gray-400">No encontrado</h3>
             <p className="text-gray-500 dark:text-gray-400 mt-2">
-                The file you are looking for could not be located.
+               No hay ninguna propiedad con esas características
             </p>
         </div>
     );

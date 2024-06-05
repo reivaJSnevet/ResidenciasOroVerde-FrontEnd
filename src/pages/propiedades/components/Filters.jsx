@@ -13,6 +13,8 @@ const Filters = ({ handleFilter }) => {
     const [selectedCanton, setSelectedCanton] = useState('all');
     const [districts, setDistricts] = useState([]);
     const [selectedDistrict, setSelectedDistrict] = useState('all');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
     const [searchPerformed, setSearchPerformed] = useState(false); 
 
     useEffect(() => {
@@ -88,7 +90,17 @@ const Filters = ({ handleFilter }) => {
                 const typeMatch = propertyType === 'all' || (propertyType === 'rent' && property.forRent) || (propertyType === 'sale' && !property.forRent);
                 const categories = property.Categories || []; 
                 const categoryMatch = propertyCategory === 'all' || categories.some(category => category.id === propertyCategory);
-                return provinceMatch && cantonMatch && districtMatch && typeMatch && categoryMatch;
+
+                const priceMatch = 
+                (propertyType === 'rent' && property.rentalPrice >= (minPrice || 0) && property.rentalPrice <= (maxPrice || Infinity)) ||
+                                   (propertyType === 'sale' && property.salePrice >= (minPrice || 0) && property.salePrice <= (maxPrice || Infinity)) ||
+                                   (propertyType === 'all' && (
+                                       (property.rentalPrice >= (minPrice || 0) && property.rentalPrice <= (maxPrice || Infinity)) ||
+                                       (property.salePrice >= (minPrice || 0) && property.salePrice <= (maxPrice || Infinity))
+                                    ));
+
+
+                return provinceMatch && cantonMatch && districtMatch && typeMatch && categoryMatch && priceMatch;
             });
 
             console.log("Filtered Properties:", filteredProperties);
@@ -111,10 +123,10 @@ const Filters = ({ handleFilter }) => {
             <div className='text-center mb-10 text-bold text-xl'>
             <h3>FILTRADO DE BÚSQUEDA</h3>
             </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 m-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 m-4">
             
             <div className="flex items-center mb-4">
-                <label htmlFor="province" className="mr-1">Provincia:</label>
+                <label htmlFor="province"  className="mr-1">Provincia:</label>
                 <select
                     id="province"
                     value={selectedProvince ? selectedProvince.provincia : ''}
@@ -181,6 +193,28 @@ const Filters = ({ handleFilter }) => {
                         <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                 </select>
+            </div>
+            <div className="flex items-center mb-4 ml-4">
+                <label htmlFor="minPrice" className="mr-1">Precio:</label>
+                <input
+                    type="number"
+                    placeholder='Mínimo'
+                    id="minPrice"
+                    value={minPrice}
+                    onChange={e => setMinPrice(e.target.value)}
+                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
+                />
+            </div>
+            <div className="flex items-center mb-4 ml-4">
+                <label htmlFor="maxPrice" className="mr-1">Precio:</label>
+                <input
+                    type="number"
+                    placeholder='Máximo'
+                    id="maxPrice"
+                    value={maxPrice}
+                    onChange={e => setMaxPrice(e.target.value)}
+                    className="p-3 border border-gray-400 rounded-lg w-[200px]"
+                />
             </div>
             <button onClick={applyFilter} className=" w-[100px] h-12 ml-6 bg-gray-100 text-gray font-semibold rounded-lg shadow-md hover:bg-[#61dd67] border border-gray-400 transition duration-300">Buscar</button>
         </div>

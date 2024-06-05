@@ -77,7 +77,7 @@ function MapHome({ propiedades }) {
                             Precio de venta:
                           </span>
                           <span className="font-semibold text-gray-800">
-                            ₡{property.salePrice}
+                          ${property.salePrice}
                           </span>
                         </>
                       )}

@@ -21,6 +21,7 @@ import Unauthorized from "../pages/unauthorized/Unauthorized.jsx";
 import NotFound from "../pages/notFound/NotFound.jsx";
 import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import Profile from "../pages/profile/Profile.jsx";
+import ContactUs from "../pages/contactUs/ContactUs.jsx";
 
 
 
@@ -38,6 +39,7 @@ const routes = (
 
         <Route path="/" element={<Layout />}>
             <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="/contactUs" element={<ContactUs />} />
             <Route path="/mapa" element={<Home />} />
             <Route path="/propiedades" element={<Propiedades />} />
             <Route path="/forRent" element={<ForRent />} />
