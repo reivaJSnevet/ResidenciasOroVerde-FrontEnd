@@ -19,7 +19,7 @@ function Header() {
                 <div className="text-sm lg:flex-grow">
                     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">INICIO</Link>
                     <Link to="/propiedades" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">BÚSQUEDA</Link>
-                    <a href='#contacto' className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">CONTACTO</a>
+                    <Link to="/contactUs" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">CONTACTO</Link>
                     <Link to="/aboutUs" className="block mt-4 lg:inline-block lg:mt-0 text-[#c6c9c3] hover:text-white hover:bg-[#61dd67] rounded-md px-4 py-2 transition-all duration-500 ease-in-out mr-4">SOBRE NOSOTROS</Link>
                     {
                         auth.accessToken ?
