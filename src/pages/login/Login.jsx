@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
@@ -9,16 +10,16 @@ const Login = () => {
   const persist = useAuthStore((state) => state.persist);
   const setPersist = useAuthStore((state) => state.setPersist);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || { pathname: "/" };
 
   const emailRef = useRef();
-  const errRef = useRef();
 
   const [email, setEmail] = useLocalStorage("correo", "");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     emailRef.current.focus();
@@ -26,11 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.setItem("persist", persist);
-  }, [persist]);
-
-  useEffect(() => {
-    setErrorMsg("");
-  }, [email, password]);  
+  }, [persist]); 
 
   const togglePersist = () => {
     setPersist(!persist);
@@ -64,16 +61,18 @@ const Login = () => {
 
     try {
       const response = await login(email, password);
+      enqueueSnackbar("Inicio de sesión exitoso", { variant: "success" });
 
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
       });
 
+
+
       navigateToRolePage(response.data.user.Role.name);
     } catch (error) {
-      setErrorMsg("Usuario o contraseña incorrectos");
-      errRef.current.focus();
+      enqueueSnackbar(`${error.response.data.message || "Error al iniciar sesión"}`, { variant: "error" });
     }
   };
 
@@ -93,15 +92,6 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                {errorMsg && (
-                  <p
-                    className="p-3 mt-2 text-white bg-red-500 rounded-md errmsg"
-                    role="alert"
-                    aria-live="assertive"
-                  >
-                    {errorMsg}
-                  </p>
-                )}
                 <div className="mb-6"></div>
                 <label
                   className="block mb-2 font-semibold text-gray-700"
