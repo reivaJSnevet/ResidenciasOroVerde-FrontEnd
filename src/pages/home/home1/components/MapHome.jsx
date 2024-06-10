@@ -55,7 +55,7 @@ function MapHome({ propiedades }) {
                     /* style={{ maxWidth: "200px", maxHeight: "200px" }} */
                   />
                 </div>
-                <div className="relative px-10 py-5 bg-white border border-gray-100 rounded-lg shadow-2xl">
+                <div className="relative p-2 bg-white">
                   <h3 className="mb-2 text-lg font-semibold text-gray-800">
                     {property.name}
                   </h3>
