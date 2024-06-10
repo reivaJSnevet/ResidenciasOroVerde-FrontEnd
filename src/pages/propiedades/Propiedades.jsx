@@ -31,11 +31,11 @@ const Propiedades = () => {
     return (
         <div>
              <Filters handleFilter={handleFilterFunction} />
-             <div className="container grid grid-cols-1 gap-3 mx-auto mt-12 lg:grid-cols-3 ">
+             <div className="container grid grid-cols-1 gap-3 mx-auto mt-12 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-items-center ">
          {filteredProperties.map(property => (
-        <div key={property.id} className="w-72 mb-6 rounded-lg shadow-inner bg-gray-100 rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        <div key={property.id} className="mb-6 duration-500 bg-gray-100 rounded-md shadow-inner w-72 hover:scale-105 hover:shadow-xl">
             <a href="#">
-                <img className="h-80 w-72 object-cover rounded-t-xl" src={property.photos.split(',')[0]} alt="Property" />
+                <img className="object-cover h-80 w-72 rounded-t-xl" src={property.photos.split(',')[0]} alt="Property" />
             </a>
             <div className="px-4 py-3">
                 <a href="#">
