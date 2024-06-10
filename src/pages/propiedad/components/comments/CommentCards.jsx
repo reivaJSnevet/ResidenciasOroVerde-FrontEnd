@@ -1,15 +1,6 @@
-const CommentCards = ({ comments = [] }) => {
-  const formatDate = (dateString) => {
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric" /* , hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true */,
-    };
-    return new Intl.DateTimeFormat("es-ES", options).format(
-      new Date(dateString)
-    );
-  };
+import formatDate from "./services/formatDate";
 
+const CommentCards = ({ comments = [] }) => {
   return (
     <div className="p-4">
       <div className="grid grid-cols-1 gap-4 bg-400 md:grid-cols-2">

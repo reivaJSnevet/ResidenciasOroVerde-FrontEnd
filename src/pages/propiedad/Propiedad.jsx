@@ -12,6 +12,7 @@ const Propiedad = () => {
   const auth = useAuthStore((state) => state.auth);
   const { id } = useParams();
   const privateApi = useAxiosPrivate();
+    const [refresh, setRefresh] = useState(false);
 
   const [property, setProperty] = useState({});
   const [coordinates, setCoordinates] = useState({
@@ -34,7 +35,7 @@ const Propiedad = () => {
       }
     };
     getProperty();
-  }, [id, privateApi, auth]);
+  }, [id, privateApi, auth, refresh]);
 
   useEffect(() => {
     if (property?.coordinates) {
@@ -71,7 +72,7 @@ const Propiedad = () => {
         </aside>
       </div>
         { property?.forRent
-            && <Comments user={auth.user} comments={property.Comments} propertyId={id} /> 
+            && <Comments user={auth.user} comments={property.Comments} propertyId={id} refresh={refresh} setRefresh={setRefresh} /> 
         }
     </>
   );

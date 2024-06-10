@@ -1,21 +1,26 @@
 import { useState } from "react";
+import { useSnackbar } from "notistack"; 
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 
-const PostComment = ({ user, propertyId }) => {
+const PostComment = ({ user, propertyId, refresh, setRefresh }) => {
   const api = useAxiosPrivate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [comment, setComment] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/comments", {
+      await api.post("/comments", {
         PropertyId: propertyId,
         content: comment,
         UserId: user.id,
       });
-      console.log(response.data);
+        setRefresh(!refresh);
+      enqueueSnackbar("Comentario enviado correctamente", { variant: "success" });
     } catch (error) {
       console.error(error);
+        enqueueSnackbar("Error al enviar el comentario", { variant: "error" });
     }
   };
 
