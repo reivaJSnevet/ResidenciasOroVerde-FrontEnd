@@ -38,7 +38,6 @@ const routes = (
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/mapa" element={<Home />} />
         <Route path="/propiedades" element={<Propiedades />} />
-        </Route> 
 
         <Route element={<RequireAuth allowedRoles={["cliente"]} />}>
           <Route path="/propiedad" element={<Propiedad />}>
@@ -46,20 +45,20 @@ const routes = (
           </Route>
           <Route path="/profile" element={<Profile />} />
         </Route>
+      </Route>
 
-        <Route element={<RequireAuth allowedRoles={["admin", "vendedor"]} />}>
-          <Route path="/admin" element={<Admin />}>
-            <Route path="usuarios" element={<Users />} />
-            <Route path="roles" element={<Roles />} />
-            <Route path="categorias" element={<Categories />} />
-            <Route path="propiedades" element={<Properties />} />
-            <Route path="propiedad" element={<Propiedad />} />
-          </Route>
+      <Route element={<RequireAuth allowedRoles={["admin", "vendedor"]} />}>
+        <Route path="/admin" element={<Admin />}>
+          <Route path="usuarios" element={<Users />} />
+          <Route path="roles" element={<Roles />} />
+          <Route path="categorias" element={<Categories />} />
+          <Route path="propiedades" element={<Properties />} />
+          <Route path="propiedad" element={<Propiedad />} />
         </Route>
+      </Route>
 
       <Route path="unauthorized" element={<Unauthorized />} />
       <Route path="*" element={<NotFound />} />
-
     </Route>
   </>
 );
