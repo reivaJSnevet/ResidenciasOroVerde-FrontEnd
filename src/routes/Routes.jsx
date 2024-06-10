@@ -29,29 +29,16 @@ const routes = (
       <Route path="register" element={<Register />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
 
-
-        <Route path="/" element={<Layout />}>
-            <Route path="/aboutUs" element={<AboutUs />} />
-            <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/mapa" element={<Home />} />
-            <Route path="/propiedades" element={<Propiedades />} />
-            <Route path="/forRent" element={<ForRent />} />
-            <Route path="/forSale" element={<ForSale />} />
-            <Route path="/propiedad" element={<Propiedad />}>
-                <Route path=":id" element={<Propiedad />} />
-               
-            </Route>
-            <Route path="/profile" element={<Profile />} />
-            </Route> 
       <Route path="/reset-password" element={<ResetPassword />}>
         <Route path=":token" element={<ResetPassword />} />
       </Route>
 
-
       <Route path="/" element={<Layout />}>
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/mapa" element={<Home />} />
         <Route path="/propiedades" element={<Propiedades />} />
+        </Route> 
 
         <Route element={<RequireAuth allowedRoles={["cliente"]} />}>
           <Route path="/propiedad" element={<Propiedad />}>
@@ -69,7 +56,6 @@ const routes = (
             <Route path="propiedad" element={<Propiedad />} />
           </Route>
         </Route>
-      </Route>
 
       <Route path="unauthorized" element={<Unauthorized />} />
       <Route path="*" element={<NotFound />} />
