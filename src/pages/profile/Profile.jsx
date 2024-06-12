@@ -5,6 +5,7 @@ import useLogout from "../../hooks/auth/useLogout";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
 import UserInfo from "./components/UserInfo";
 import UserComments from "./components/UserComments";
+import FavoriteProperties from "./components/FavoriteProperties";
 
 const Profile = () => {
   const apiPrivate = useAxiosPrivate();
@@ -19,7 +20,6 @@ const Profile = () => {
       try {
         const response = await apiPrivate.get(`/comments/user/${auth.user.id}`);
         setComments(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +37,6 @@ const Profile = () => {
     navigate("/");
   };
 
- 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="relative flex flex-col p-6 bg-blue-300 rounded-b-lg md:flex-row md:h-1/3">
@@ -52,19 +51,10 @@ const Profile = () => {
       </div>
 
       <div className="flex flex-col flex-grow md:flex-row max-h-svh ">
-        
         <UserComments comments={comments} setComments={setComments} />
-
         <div className="flex flex-col w-full p-4 overflow-y-auto bg-green-200 md:w-2/3 hide-scrollbar">
-          <h2 className="mb-4 text-xl">Propiedades Guardadas</h2>
-          <div className="p-4 m-2 bg-white rounded-md shadow-md">
-            <p>Propiedad 1: Detalles de la propiedad guardada...</p>
-          </div>
-          <div className="p-4 m-2 bg-white rounded-md shadow-md">
-            <p>Propiedad 2: Más detalles de otra propiedad...</p>
-          </div>
+          <FavoriteProperties favs={auth.user.favoriteProperties} />
         </div>
-        
       </div>
     </div>
   );
