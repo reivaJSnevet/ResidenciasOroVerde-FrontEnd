@@ -50,26 +50,24 @@ const Propiedad = () => {
   }, [property]);
 
   useEffect(() => {
-    if (auth.user) {
-      const isFavorite = auth.user.favoriteProperties.find(
-        (property) => property.id === id
-      )
-        ? true
-        : false;
-      setIsFavorite(isFavorite);
-    }
-  }, [auth.user, id]);
+    const getFavs = async () => {
+      const { data } = await privateApi.get(
+        `/users/${auth.user.id}/favorite-properties`
+      );
+      data.find((property) => property.id === id)
+        ? setIsFavorite(true)
+        : setIsFavorite(false);
+    };
+
+    getFavs();
+  }, [auth.user, id, privateApi]);
 
   const handleFavorite = async () => {
     try {
       if (isFavorite) {
-        await privateApi.delete(`/users/${auth.user.id}/favorite-properties`, {
-          propertyId: id,
-        });
+        await privateApi.delete(`/users/${auth.user.id}/favorite-properties/${id}`);
       } else {
-        await privateApi.post(`/users/${auth.user.id}/favorite-properties`, {
-          propertyId: id,
-        });
+        await privateApi.post(`/users/${auth.user.id}/favorite-properties/${id}`);
       }
       setIsFavorite(!isFavorite);
     } catch (error) {

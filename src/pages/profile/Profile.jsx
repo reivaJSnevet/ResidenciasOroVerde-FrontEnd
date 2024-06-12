@@ -94,7 +94,7 @@ const Profile = () => {
       </div>
     ) : (
       <div className="flex flex-col p-6 overflow-y-auto hide-scrollbar animate-fade-in">
-        <FavoriteProperties favs={auth.user.favoriteProperties} />
+        <FavoriteProperties userId={auth.user.id} />
       </div>
     )}
   </div>

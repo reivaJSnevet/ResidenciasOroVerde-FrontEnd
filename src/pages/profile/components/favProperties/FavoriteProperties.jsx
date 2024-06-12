@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
 import PropertyCard from "./PropertyCard";
+import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
+const FavoriteProperties = ({ userId }) => {
+  const apiPrivate = useAxiosPrivate();
+  const [favs, setFavs] = useState([]);
 
-const FavoriteProperties = ({ favs = [] }) => {
+  useEffect(() => {
+    const fetchFavs = async () => {
+      try {
+        const favorites = await apiPrivate.get(`/users/${userId}/favorite-properties`);
+        setFavs(favorites.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchFavs();
+  }, [userId, apiPrivate]);
+
   return (
     <>
       <h2 className="mb-4 text-2xl font-bold text-gray-800">
