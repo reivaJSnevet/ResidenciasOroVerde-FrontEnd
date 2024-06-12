@@ -105,22 +105,23 @@ const Propiedad = () => {
           </section>
         </aside>
       </div>
-      <div className="p-6 rounded-md shadow-lg bg-gray-50">
-        <div className="p-4 mb-4">
-          <span className="text-lg font-bold md:text-xl lg:text-2xl">
-            Calificaciones y comentarios
-          </span>
-          <div className="flex items-center justify-between mt-4">
-            <Rating
-              ratings={auth.user.ratings}
-              propertyId={id}
-              userId={auth.user.id}
-              refresh={refresh}
-              setRefresh={setRefresh}
-            />
+      {property?.forRent && (
+        <div className="p-6 rounded-md shadow-lg bg-gray-50">
+          <div className="p-4 mb-4">
+            <span className="text-lg font-bold md:text-xl lg:text-2xl">
+              Calificaciones y comentarios
+            </span>
+            <div className="flex items-center justify-between mt-4">
+              <Rating
+                ratings={auth.user.ratings}
+                propertyId={id}
+                userId={auth.user.id}
+                refresh={refresh}
+                setRefresh={setRefresh}
+              />
+            </div>
           </div>
-        </div>
-        {property?.forRent && (
+
           <Comments
             user={auth.user}
             comments={property.Comments}
@@ -128,8 +129,8 @@ const Propiedad = () => {
             refresh={refresh}
             setRefresh={setRefresh}
           />
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };

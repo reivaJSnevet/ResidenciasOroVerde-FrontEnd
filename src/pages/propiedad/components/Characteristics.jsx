@@ -1,6 +1,6 @@
 import {
     Shower,
-    Garage,
+    DirectionsCar,
     KingBed,
     Home,
     Paid,
@@ -37,7 +37,7 @@ import {
         </div>
         <div className={cardContainer}>
           <div className={commonClassNames}>
-            <Garage className="mr-2 text-gray-700" /> 
+            <DirectionsCar className="mr-2 text-gray-700" /> 
             <span className="font-semibold text-gray-800">GARAJE</span>
             <p className="mt-2 ml-10 text-gray-600">{property?.garage ? "Sí" : "No"}</p>
           </div>
