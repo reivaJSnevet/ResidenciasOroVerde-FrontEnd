@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSnackbar } from "notistack"; 
+import { useSnackbar } from "notistack";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 
 const PostComment = ({ user, propertyId, refresh, setRefresh }) => {
@@ -16,11 +16,24 @@ const PostComment = ({ user, propertyId, refresh, setRefresh }) => {
         content: comment,
         UserId: user.id,
       });
-        setRefresh(!refresh);
-      enqueueSnackbar("Comentario enviado correctamente", { variant: "success" });
+      setRefresh(!refresh);
+      enqueueSnackbar("Comentario enviado correctamente", {
+        variant: "success",
+      });
     } catch (error) {
       console.error(error);
-        enqueueSnackbar("Error al enviar el comentario", { variant: "error" });
+      enqueueSnackbar(
+        error.response.status == 403
+          ? "Debes haber alquilado esta propiedad para comentar. Contacta con el agente si ya lo hiciste."
+          : "Error al enviar el comentario",
+        {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "right",
+          },
+        }
+      );
     }
   };
 
@@ -30,10 +43,10 @@ const PostComment = ({ user, propertyId, refresh, setRefresh }) => {
 
   return (
     <form
-      className="flex flex-col items-center justify-center h-full bg-200"
+      className="flex flex-col items-center justify-center h-full mt-4 bg-200 md:mt-8 lg:mt-12"
       onSubmit={handleSubmit}
     >
-      <h3 className="mb-2 text-lg font-semibold ">
+      <h3 className="mb-2 text-base font-semibold text-gray-800 md:text-lg lg:text-xl ">
         Comenta tu estadía o el trato con el anfitrión
       </h3>
       <textarea

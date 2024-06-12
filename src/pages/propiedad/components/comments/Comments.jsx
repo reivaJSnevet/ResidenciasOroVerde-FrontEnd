@@ -33,22 +33,28 @@ const Comments = ({ user, comments, propertyId, refresh, setRefresh }) => {
   const sortDesc = () => setSortedComments(sortByDate([...comments], "desc"));
 
   return (
-    <div className="p-6 rounded-md shadow-lg bg-gray-50">
+    <>
       <Accordion open={openAccordion === 1}>
         <AccordionHeader
-          className="flex items-center justify-between p-4 transition duration-300 rounded-md cursor-pointer hover:bg-gray-200"
+          className="flex items-center justify-between p-2 transition duration-300 rounded-md cursor-pointer md:p-4 hover:bg-gray-200"
           onClick={() => handleOpen(0)}
         >
-          Ver comentarios
+         {
+              openAccordion === 1
+              ? <h3 className="text-lg font-semibold text-gray-800">Ocultar comentarios</h3>
+              : <h3 className="text-lg font-semibold text-gray-800">Ver comentarios</h3>
+         }
         </AccordionHeader>
         <AccordionBody>
           <section className="w-full p-6 bg-white rounded-md shadow-md">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="mb-4 text-lg font-semibold text-gray-800">
+            <div className="flex flex-wrap items-center justify-between mb-4">
+              <h3 className="pr-2 mb-4 text-base font-semibold text-gray-800 md:text-lg lg:text-xl"
+                onClick={() => handleOpen(0)}
+              >
                 Comentarios
               </h3>
               <div className="flex items-center justify-end mb-4">
-                <span className="text-lg font-semibold text-gray-800">
+                <span className="text-sm font-semibold text-gray-800 md:text-base lg:text-lg">
                   Ordenar por
                 </span>
                 <Button
@@ -105,7 +111,7 @@ const Comments = ({ user, comments, propertyId, refresh, setRefresh }) => {
         setRefresh={setRefresh}
         className="mt-6"
       />
-    </div>
+    </>
   );
 };
 

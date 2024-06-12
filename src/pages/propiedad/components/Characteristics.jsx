@@ -8,7 +8,7 @@ import {
   } from "@mui/icons-material";
   
   const Characteristics = ({ property }) => {
-    const cardContainer = "w-full px-2 mb-4 ";
+    const cardContainer = "w-full mb-4 ";
     const commonClassNames =
       "p-4 transition duration-300 bg-white rounded-md shadow-md hover:bg-gray-100";
   
