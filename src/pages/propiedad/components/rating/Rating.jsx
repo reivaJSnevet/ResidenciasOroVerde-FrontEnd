@@ -31,6 +31,8 @@ const Rating = ({ ratings = [], propertyId, userId, refresh, setRefresh }) => {
       if (rating) {
         await api.put(`/ratings/${rating.Rating.id}`, {
           score: newValue,
+          UserId: userId,
+          PropertyId: propertyId,
         });
         enqueueSnackbar("Rating actualizado correctamente", {
           variant: "success",
