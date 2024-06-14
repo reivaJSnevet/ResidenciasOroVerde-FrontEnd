@@ -13,81 +13,103 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@mui/material";
-import { Menu, ExitToApp } from "@mui/icons-material";
+import { Menu } from "@mui/icons-material";
 import useLogout from "../../../hooks/auth/useLogout";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import useAuthStore from "../../../hooks/auth/useAuth";
 
 function HeaderAdmin() {
-  
-    const navigate = useNavigate();
-    const logout = useLogout();
+  const user = useAuthStore((state) => state.auth.user.Role.name);
+  const navigate = useNavigate();
+  const logout = useLogout();
 
-    const signOut = async () => {
-        await logout();
-        navigate("/login");
-    };
-
+  const signOut = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   const ListOptions = () => {
     return (
       <>
-       <div
-                style={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-        {/* <ListItem disablePadding>
-          <ListItemButton component={Link} to="" disabled={true}>
-            <ListItemText primary={"Casas de Alquiler"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="" disabled={true}>
-            <ListItemText primary={"Casas de Venta"} />
-          </ListItemButton>
-        </ListItem> */}
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="admin/usuarios">
-            <ListItemText primary={"Usuarios"} />
-          </ListItemButton>
-        </ListItem> 
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="admin/propiedades">
-            <ListItemText primary={"Propiedades"} />
-          </ListItemButton>
-        </ListItem>
-        {/* <ListItem disablePadding>
-          <ListItemButton component={Link} to="" disabled={true}>
-            <ListItemText primary={"Ranking"} />
-          </ListItemButton>
-        </ListItem> */}
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="admin/roles">
-            <ListItemText primary={"Roles"} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="admin/categorias">
-            <ListItemText primary={"Categorias"} />
-          </ListItemButton>
-        </ListItem>
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+          }}
+        >
+          {user === "admin" || user === "Admin" ? (
+            <>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin">
+                  <ListItemText primary={"Inicio"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/roles">
+                  <ListItemText primary={"Roles"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/categorias">
+                  <ListItemText primary={"Categorias"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/usuarios">
+                  <ListItemText primary={"Usuarios"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedades">
+                  <ListItemText primary={"Propiedades"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedadesAlquiler">
+                  <ListItemText primary={"Casas de Alquiler"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedadesVenta">
+                  <ListItemText primary={"Casas de Venta"} />
+                </ListItemButton>
+              </ListItem>
+            </>
+          ) : user === "vendedor" || user === "Vendedor" ? (
+            <>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedades">
+                  <ListItemText primary={"Propiedades"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedadesAlquiler">
+                  <ListItemText primary={"Casas de Alquiler"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/propiedadesVenta">
+                  <ListItemText primary={"Casas de Venta"} />
+                </ListItemButton>
+              </ListItem>
+            </>
+          ) : null}
         </div>
-       
-        <div style={{ flexGrow: 1 }}>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={signOut}>
-                        <ListItemIcon>
-                            <ExitToAppIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            className="text-red-600"
-                            primary={"Cerrar Sesión"}
-                        />
-                    </ListItemButton>
-                </ListItem>
-            </div>
+        <div>
+          <ListItem disablePadding>
+            <ListItemButton onClick={signOut}>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText
+                className="text-red-600"
+                primary={"Cerrar Sesión"}
+              />
+            </ListItemButton>
+          </ListItem>
+        </div>
       </>
     );
   };
@@ -121,7 +143,10 @@ function HeaderAdmin() {
               Administrador
             </Typography>
           </div>
-          <Avatar src="/zyro-image-removebg-preview.png" sx={{ width: 70, height: 70 }}></Avatar>
+          <Avatar
+            src="/zyro-image-removebg-preview.png"
+            sx={{ width: 70, height: 70 }}
+          ></Avatar>
         </Toolbar>
       </AppBar>
 
