@@ -29,7 +29,7 @@ const EditCommentForm = ({ comment, onSave, onCancel }) => {
               handleSave();
             }
           }}
-          className="mr-2 text-blue-600 hover:text-blue-800"
+          className="mr-2 text-green-600 hover:text-green-800"
         >
           <Send />
         </button>

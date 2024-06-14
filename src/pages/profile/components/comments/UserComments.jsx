@@ -78,7 +78,7 @@ const UserComments = ({ comments, setComments }) => {
           >
             {!editComment && (
               <ArrowOutward
-                className="absolute text-gray-600 cursor-pointer top-2 right-2"
+                className="absolute text-gray-600 transition-colors duration-300 cursor-pointer top-2 right-2 hover:text-blue-500 "
                 onClick={(e) => {
                   e.stopPropagation();
                   handlePropertyRedirect(comment.PropertyId);
@@ -102,14 +102,14 @@ const UserComments = ({ comments, setComments }) => {
                   </p>
                   <div className="flex items-center space-x-4">
                     <Edit
-                      className="text-gray-600 cursor-pointer"
+                      className="text-gray-600 transition-colors duration-300 cursor-pointer hover:text-yellow-500"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleEditComment(comment);
                       }}
                     />
                     <Delete
-                      className="text-gray-600 cursor-pointer"
+                      className="text-gray-600 transition-colors duration-300 cursor-pointer hover:text-red-600"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeleteComment(comment.id);
