@@ -93,6 +93,12 @@ function SaleTable() {
         initialState={{
           ...sale.initialState,
           pagination: { paginationModel: { pageSize } },
+          columns: {
+            columnVisibilityModel: {
+              rating: window.innerWidth < 768 ? false : true,
+              prices: window.innerWidth < 768 ? false : true,
+            },
+          },
         }}
         pageSizeOptions={sizeOptions}
       />

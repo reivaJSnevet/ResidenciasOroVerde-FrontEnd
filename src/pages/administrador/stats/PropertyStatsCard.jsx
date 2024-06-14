@@ -4,7 +4,7 @@ import { PieChart } from "@mui/x-charts/PieChart";
 function PropertyStatsCard({ title, rentalCount, saleCount }) {
 
   return (
-    <Card style={{ width: 300, margin: "20px", display: "inline-block" }}>
+    <Card style={{ width: 300, height: 285, margin: "10px" }}>
       <CardContent>
         <Typography variant="h5" component="h2" gutterBottom>
           {title}
