@@ -4,8 +4,10 @@ import { useSnackbar } from "notistack";
 import { Button, Typography, TextField, AccordionDetails } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useMediaQuery, useTheme } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-function UpdateRol({ role, onUpdate }) {
+
+function UpdateRol({ role, onUpdate, tittle, onClose}) {
   const api = useAxiosPrivate();
   const [roleData, setRoleData] = useState({
     name: "",
@@ -64,13 +66,26 @@ function UpdateRol({ role, onUpdate }) {
     mt: 1,
     maxHeight: "80vh",
     overflowY: "auto",
+    borderRadius: "10px",
   };
 
   return (
+  
     <Box sx={style} component="form" onSubmit={handleSubmit}>
-      <Typography variant="h4" align="center">
-        Editar Rol
-      </Typography>
+    <Typography variant="h4" gutterBottom>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {tittle}
+        <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+          <CancelIcon />
+        </Button>
+      </div>
+    </Typography>
       <AccordionDetails>
         <TextField
           label="Nombre"
