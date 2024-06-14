@@ -2,12 +2,12 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import ChangeView from "./ChangeView";
-{/* <div className="map-container"> */}
+
 const Map = ({ center, zoom }) => {
   return (
     
-    <div className= "relative z-10 w-full h-[450px]" >
-      <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
+<div className="map-container">
+      <MapContainer center={center} zoom={zoom} scrollWheelZoom={true} className="leaflet-container">
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
