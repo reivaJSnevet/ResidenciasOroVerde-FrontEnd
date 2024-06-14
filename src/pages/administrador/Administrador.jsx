@@ -5,7 +5,7 @@ import HouseIcon from "@mui/icons-material/House";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
 import StatsCard from "./stats/StatsCards";
 import PropertyStatsCard from "./stats/PropertyStatsCard";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 function Administrador() {
   const api = useAxiosPrivate();
@@ -18,37 +18,27 @@ function Administrador() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usuariosResponse = await api.get("/users");
+        const [usuariosResponse, propiedadesResponse] = await Promise.all([
+          api.get("/users"),
+          api.get("/properties"),
+        ]);
+
         setUsuarios(usuariosResponse.data);
-      } catch (error) {
-        console.error("Error obteniendo los usuarios", error);
-      }
+        const propiedadesData = propiedadesResponse.data;
+        setPropiedades(propiedadesData);
 
-      try {
-        const propiedadesResponse = await api.get("/properties");
-        setPropiedades(propiedadesResponse.data);
-      } catch (error) {
-        console.error("Error obteniendo las propiedades", error);
-      }
-
-      try {
-        const propertiesResponse = await api.get("/properties");
-        const rentalProperties = propertiesResponse.data.filter(
+        const rentalProperties = propiedadesData.filter(
           (property) => property.forRent === true
         );
         setCasasAlquiladas(rentalProperties);
-      } catch (error) {
-        console.error("Error obteniendo las casas alquiladas", error);
-      }
 
-      try {
-        const propertiesResponse = await api.get("/properties");
-        const saleProperties = propertiesResponse.data.filter(
+        const saleProperties = propiedadesData.filter(
           (property) => property.forRent === false
         );
         setCasasVendidas(saleProperties);
+
       } catch (error) {
-        console.error("Error obteniendo las casas vendidas", error);
+        console.error("Error obteniendo los datos", error);
       }
     };
 
@@ -60,29 +50,33 @@ function Administrador() {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" marginTop={8}>
-      <Grid item xs={12} sm={6} md={4}>
-        <StatsCard
-          icon={<PeopleAltIcon style={{ fontSize: 50 }} />}
-          title="Usuarios"
-          total={usuarios.length}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <StatsCard
-          icon={<HouseIcon style={{ fontSize: 50 }} />}
-          title="Propiedades"
-          total={propiedades.length}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <PropertyStatsCard
-          title="Casas"
-          rentalCount={casasAlquiladas.length}
-          saleCount={casasVendidas.length}
-        />
-      </Grid>
-    </Grid>
+    <Box sx={{ overflow: "auto", display: "flex", justifyContent: "center" }}>
+      <Box sx={{ width: "100%", maxWidth: 1200, padding: 2 }}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center" marginTop={8}>
+          <Grid item xs={12} sm={6} md={4}>
+            <StatsCard
+              icon={<PeopleAltIcon style={{ fontSize: 50 }} />}
+              title="Usuarios"
+              total={usuarios.length}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <StatsCard
+              icon={<HouseIcon style={{ fontSize: 50 }} />}
+              title="Propiedades"
+              total={propiedades.length}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <PropertyStatsCard
+              title="Casas"
+              rentalCount={casasAlquiladas.length}
+              saleCount={casasVendidas.length}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 }
 
