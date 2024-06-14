@@ -20,6 +20,8 @@ import NotFound from "../pages/notFound/NotFound.jsx";
 import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import Profile from "../pages/profile/Profile.jsx";
 import ContactUs from "../pages/contactUs/ContactUs.jsx";
+import SaleProperty from "../pages/administrador/saleProperties/SaleProperty.jsx";
+import RentaPropiedad from "../pages/administrador/rentalProperties/RentaPropiedad.jsx";
 
 
 const routes = (
@@ -46,7 +48,7 @@ const routes = (
           </Route>
           <Route path="/profile" element={<Profile />} />
         </Route>
-      </Route>
+      
 
       <Route element={<RequireAuth allowedRoles={["admin", "vendedor"]} />}>
         <Route path="/admin" element={<Admin />}>
@@ -55,7 +57,10 @@ const routes = (
           <Route path="categorias" element={<Categories />} />
           <Route path="propiedades" element={<Properties />} />
           <Route path="propiedad" element={<Propiedad />} />
+          <Route path="propiedadesAlquiler" element={<RentaPropiedad />} />
+          <Route path="propiedadesVenta" element={<SaleProperty />} />
         </Route>
+      </Route>
       </Route>
 
       <Route path="unauthorized" element={<Unauthorized />} />

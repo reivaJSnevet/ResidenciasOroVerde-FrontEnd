@@ -16,8 +16,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 function CategoriasTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [categorias, setCategorias] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+  const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -116,28 +116,7 @@ function CategoriasTable({ reset, setReset }) {
 
   return (
     <>
-      {/* <Backdrop
-        sx={{
-          color: "#5c7e03",
-          backgroundColor: "rgba(255, 255, 255, 0.5)",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={loading}
-      >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          height="100%"
-        >
-          <CircularProgress color="inherit" />{" "}
-          <Typography variant="body1" mt={2} color="inherit">
-            Cargando datos...
-          </Typography>
-        </Box>
-      </Backdrop> */}
-
+     
       <DataGrid
         sx={{
           boxShadow: 2,
@@ -146,15 +125,12 @@ function CategoriasTable({ reset, setReset }) {
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         rows={categorias}
         getRowId={(row) => row.id}
-        //   loading={categorias.length === 0}
         columns={columns}
         editMode="row"
         slots={{ toolbar: GridToolbar }}
         slotProps={{
           toolbar: {
             showQuickFilter: true,
-            // csvOptions,
-            // printOptions,
           },
         }}
         disableSelectionOnClick

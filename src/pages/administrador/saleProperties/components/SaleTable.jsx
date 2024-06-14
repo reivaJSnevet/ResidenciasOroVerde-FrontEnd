@@ -7,8 +7,8 @@ import renderCalificacion from "../../services/renderCalificacion";
 function SaleTable() {
   const api = useAxiosPrivate();
   const [sale, setSale] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+   const sizeOptions = [10, 20, 30];
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {

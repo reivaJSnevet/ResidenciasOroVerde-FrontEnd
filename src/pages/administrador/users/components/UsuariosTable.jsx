@@ -18,8 +18,8 @@ import { Box } from "@mui/material";
 function UsuariosTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [usuarios, setUsuarios] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+   const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);

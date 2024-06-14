@@ -17,8 +17,8 @@ import { Box } from "@mui/material";
 function RolesTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [roles, setRoles] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+   const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);

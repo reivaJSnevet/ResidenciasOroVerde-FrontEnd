@@ -85,6 +85,11 @@ function HeaderAdmin() {
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
+                <ListItemButton component={Link} to="admin/usuarios">
+                  <ListItemText primary={"Usuarios"} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
                 <ListItemButton component={Link} to="admin/propiedadesAlquiler">
                   <ListItemText primary={"Casas de Alquiler"} />
                 </ListItemButton>
