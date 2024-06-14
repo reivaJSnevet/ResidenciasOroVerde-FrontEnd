@@ -12,7 +12,7 @@ function Layout() {
   return (
     <div className="flex flex-col">
       <div>
-        {auth?.user?.Role?.name === "admin" ? <HeaderAdmin /> : <Header />}
+        {(auth?.user?.Role?.name === "admin" || auth?.user?.Role?.name === "vendedor") ? <HeaderAdmin /> : <Header />}
       </div>
 
       <div className="flex-grow">

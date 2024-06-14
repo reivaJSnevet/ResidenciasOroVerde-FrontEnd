@@ -47,7 +47,7 @@ const Login = () => {
   };
 
   const navigateToRolePage = (role) => {
-    if (role === "admin") {
+    if (role === "admin" || role === "vendedor") {
       navigate("/admin", { replace: true });
     } else if (role === "cliente") {
       navigate(from);
