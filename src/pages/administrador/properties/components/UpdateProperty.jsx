@@ -6,13 +6,14 @@ import {
   Grid,
   Button,
   TextField,
-  Select,
-  MenuItem,
   FormControl,
-  InputLabel,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
+import HouseIcon from "@mui/icons-material/House";
+import HouseOutlinedIcon from "@mui/icons-material/HouseOutlined";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import { useState, useEffect } from "react";
 
@@ -20,20 +21,17 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
   const api = useAxiosPrivate();
   const [propertyData, setPropertyData] = useState({
     name: "",
-    coordinates: {
-      type: "Point",
-      coordinates: [0, 0],
-    },
     forRent: false,
     bedroomNum: "",
     bathroomNum: "",
+    squareMeters: "",
     garage: "",
     rentalPrice: 0,
     salePrice: "",
     description: "",
     restriction: "",
-    photos: "",
     UserId: 0,
+    categoryId: 0,
   });
 
   const theme = useTheme();
@@ -57,12 +55,6 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
     if (name === "coordinates") {
       setPropertyData((prevState) => ({
         ...prevState,
-        coordinates: {
-          ...prevState.coordinates,
-          coordinates: value
-            .split(",")
-            .map((coord) => parseFloat(coord.trim())),
-        },
       }));
     } else {
       setPropertyData((prevState) => ({
@@ -72,23 +64,18 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
     }
   };
 
-  const handleSelectChange = (e) => {
-    const { name, value } = e.target;
-    const isForRent = value === "Sí";
-    setPropertyData((prevState) => ({
-      ...prevState,
-      forRent: isForRent,
-      rentalPrice: isForRent ? prevState.rentalPrice : 0,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const updatedPropertyData = {
+      ...propertyData,
+      squareMeters: propertyData.squareMeters.includes("m²")
+        ? propertyData.squareMeters
+        : `${propertyData.squareMeters}m²`,
+      rentalPrice: propertyData.forRent ? propertyData.rentalPrice : 0,
+    };
+
     try {
-      await api.put(`/properties/${property.id}`, {
-        ...propertyData,
-        squareMeters: formData.squareMeters + "m²",
-      });
+      await api.put(`/properties/${property.id}`, updatedPropertyData);
       enqueueSnackbar("Propiedad actualizada", {
         variant: "success",
         anchorOrigin: {
@@ -121,6 +108,16 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
     maxHeight: "80vh",
     overflowY: "auto",
     overflowX: "hidden",
+    borderRadius: "10px",
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setPropertyData((prevState) => ({
+      ...prevState,
+      forRent: checked,
+      rentalPrice: checked ? prevState.rentalPrice : 0,
+    }));
   };
 
   return (
@@ -141,7 +138,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
       </Typography>
 
       <Grid container spacing={2} margin={1}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             name="name"
@@ -150,31 +147,91 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <TextField
             fullWidth
-            name="coordinates"
-            label="Coordenadas"
-            value={propertyData.coordinates.coordinates.join(", ") || ""}
+            type="text"
+            disabled
+            name="province"
+            label="Provincia"
+            value={propertyData.province || ""}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel id="for-rent-label">En renta</InputLabel>
-            <Select
-              labelId="for-rent-label"
-              name="forRent"
-              value={propertyData.forRent ? "Sí" : "No"}
-              onChange={handleSelectChange}
-            >
-              <MenuItem value="Sí">Sí</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
+        <Grid item xs={12} sm={3}>
+          <TextField
+            fullWidth
+            disabled
+            type="text"
+            name="canton"
+            label="Cantón"
+            value={propertyData.canton || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <TextField
+            fullWidth
+            disabled
+            type="text"
+            name="district"
+            label="Distrito"
+            value={propertyData.district || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <TextField
+            fullWidth
+            type="text"
+            name="squareMeters"
+            label="Metros cuadrados"
+            value={
+              propertyData.squareMeters
+                ? propertyData.squareMeters.replace("m²", "")
+                : ""
+            }
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <FormControl
+            variant="outlined"
+            style={{
+              border: "1px solid rgba(0, 0, 0, 0.23)",
+              borderRadius: "4px",
+              padding: "6px",
+              width: "100%",
+            }}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={propertyData.forRent}
+                  onChange={handleCheckboxChange}
+                  name="forRent"
+                  color="success"
+                  icon={<HouseOutlinedIcon />}
+                  checkedIcon={<HouseIcon />}
+                />
+              }
+              label="Poner la propiedad en renta"
+              labelPlacement="end"
+            />
           </FormControl>
         </Grid>
+        <Grid item xs={12} sm={4}>
+          <TextField
+            fullWidth
+            type="number"
+            name="salePrice"
+            label="Precio de venta"
+            value={propertyData.salePrice || ""}
+            onChange={handleInputChange}
+          />
+        </Grid>
         {propertyData.forRent && (
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
               type="number"
@@ -185,7 +242,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             />
           </Grid>
         )}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -195,7 +252,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -205,7 +262,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -215,16 +272,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            type="number"
-            name="salePrice"
-            label="Precio de venta"
-            value={propertyData.salePrice || ""}
-            onChange={handleInputChange}
-          />
-        </Grid>
+       
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
@@ -246,22 +294,24 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            name="photos"
-            label="Fotos"
-            value={propertyData.photos || ""}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
             disabled
             name="UserId"
-            label="Usuario Admistrador"
+            label="Usuario Administrador"
             value={propertyData.User?.name || ""}
             onChange={handleInputChange}
           />
         </Grid>
+        
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            disabled
+            name="categoryId"
+            label="Categoría"
+            value={propertyData.Categories?.[0]?.name || "Sin categoría asignada"}
+            onChange={handleInputChange}
+          />
+          </Grid>
       </Grid>
 
       <Button

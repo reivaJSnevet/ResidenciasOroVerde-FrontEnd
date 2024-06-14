@@ -66,6 +66,7 @@ function UpdateRol({ role, onUpdate, tittle, onClose}) {
     mt: 1,
     maxHeight: "80vh",
     overflowY: "auto",
+    borderRadius: "10px",
   };
 
   return (

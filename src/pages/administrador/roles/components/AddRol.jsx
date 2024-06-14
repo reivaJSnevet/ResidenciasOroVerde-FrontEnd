@@ -59,6 +59,10 @@ function AddRol({ reset, setReset }) {
     }
   };
 
+  const isFormValid = () => {
+    return formData.name !== "";
+  };
+
   return (
     <>
       <Accordion>
@@ -85,14 +89,19 @@ function AddRol({ reset, setReset }) {
               value={formData.name}
               onChange={handleInputChange}
             />
-                   <Button
-          variant="contained"
-          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: !isFormValid() ? "#9e9e9e" : "#3c6c42",
+                color: "#fff",
+                cursor: !isFormValid() ? "not-allowed" : "pointer",
+              }}
+              type="submit"
+              fullWidth
+              disabled={!isFormValid()}
+            >
+              Guardar
+            </Button>
           </Box>
         </AccordionDetails>
       </Accordion>

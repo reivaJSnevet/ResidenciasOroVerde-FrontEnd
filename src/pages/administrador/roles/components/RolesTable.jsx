@@ -12,6 +12,7 @@ import UpdateRol from "./UpdateRol";
 import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
+import { Box } from "@mui/material";
 
 function RolesTable({ reset, setReset }) {
   const api = useAxiosPrivate();
@@ -57,11 +58,6 @@ function RolesTable({ reset, setReset }) {
   }, [api, reset]);
 
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-    },
     {
       field: "name",
       headerName: "Nombre",
@@ -121,35 +117,37 @@ function RolesTable({ reset, setReset }) {
 
   return (
     <>
-      <div className="flex justify-center mt-2">
-        <DataGrid
-          sx={{
-            boxShadow: 2,
-          }}
-          style={{ height: 500, width: "100%" }}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={roles}
-          getRowId={(row) => row.id}
-          loading={roles.length === 0}
-          columns={columns}
-          editMode="row"
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          disableSelectionOnClick
-          getRowHeight={() => "auto"}
-          pageSize={pageSize}
-          rowsPerPageOptions={pageSize}
-          initialState={{
-            ...roles.initialState,
-            pagination: { paginationModel: { pageSize } },
-          }}
-          pageSizeOptions={sizeOptions}
-        />
-      </div>
+      <Box sx={{ overflow: "auto" }}>
+        <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+          <DataGrid
+            sx={{
+              boxShadow: 2,
+            }}
+            style={{ height: 500, width: "100%" }}
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            rows={roles}
+            getRowId={(row) => row.id}
+            loading={roles.length === 0}
+            columns={columns}
+            editMode="row"
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+              },
+            }}
+            disableSelectionOnClick
+            getRowHeight={() => "auto"}
+            pageSize={pageSize}
+            rowsPerPageOptions={pageSize}
+            initialState={{
+              ...roles.initialState,
+              pagination: { paginationModel: { pageSize } },
+            }}
+            pageSizeOptions={sizeOptions}
+          />
+        </Box>
+      </Box>
 
       <ReusableModal
         open={openModal}
