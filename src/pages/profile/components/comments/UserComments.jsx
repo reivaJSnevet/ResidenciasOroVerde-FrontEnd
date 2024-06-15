@@ -27,12 +27,22 @@ const UserComments = ({ comments, setComments }) => {
   };
 
   const handleEditComment = (comment) => {
-    console.log(`Editar comentario con id: ${comment.id}`);
     setEditComment(comment);
   };
 
-  const handleDeleteComment = (commentId) => {
-    console.log(`Eliminar comentario con id: ${commentId}`);
+  const handleDeleteComment = async (commentId) => {
+    await apiPrivate.delete(`/comments/${commentId}`);
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.id !== commentId)
+    );
+    enqueueSnackbar("Comentario eliminado", {
+      variant: "success",
+      anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "left",
+      },
+    });
+
   };
 
   const handleEditSave = async (commentId, content) => {
