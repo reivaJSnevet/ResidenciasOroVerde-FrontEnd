@@ -52,7 +52,7 @@ function Home() {
           >
             <div className="flex items-center justify-center h-full px-12 font-mono">
               <div className="text-white">
-                <h2 className="mb-4 font-bold text-8xl">Residencias</h2>
+                <h2 className="mb-4 text-5xl font-bold sm:text-8xl">Residencias</h2>
                 <h4 className="mb-6 font-serif text-6xl font-bold">Oro Verde</h4>
               </div>
             </div>
