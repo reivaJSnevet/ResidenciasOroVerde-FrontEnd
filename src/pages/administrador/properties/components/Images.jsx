@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, ImageList, ImageListItem, IconButton } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -31,6 +31,7 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
       window.removeEventListener("resize", calculateContainerHeight);
     };
   }, [photosArray]);
+
   useEffect(() => {
     if (imageRefs.current[currentImageIndex]) {
       setContainerHeight(imageRefs.current[currentImageIndex].clientHeight);
@@ -107,6 +108,7 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
             left: 0,
             transform: "translateY(-50%)",
             zIndex: 1,
+            color: "#fff",
           }}
           onClick={goToPreviousImage}
         >
@@ -125,29 +127,29 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
           cols={1}
         >
           {photosArray.map((photo, index) => (
-           <ImageListItem
-           key={index}
-           className="image-item"
-           ref={(el) => (imageRefs.current[index] = el)}
-           sx={{
-             width: "100%",
-             height: "auto",
-             display: currentImageIndex === index ? "block" : "none",
-             margin: "0 auto",
-           }}
-         >
-           <img
-             src={photo.trim()}
-             alt={`Imagen ${index}`}
-             onLoad={handleImageLoad} // Cambio aquí
-             style={{
-               width: "100%",
-               height: "auto",
-               display: "block",
-               margin: "0 auto",
-             }}
-           />
-         </ImageListItem>
+            <ImageListItem
+              key={index}
+              className="image-item"
+              ref={(el) => (imageRefs.current[index] = el)}
+              sx={{
+                width: "100%",
+                height: "auto",
+                display: currentImageIndex === index ? "block" : "none",
+                margin: "0 auto",
+              }}
+            >
+              <img
+                src={photo.trim()}
+                alt={`Imagen ${index}`}
+                onLoad={handleImageLoad}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  margin: "0 auto",
+                }}
+              />
+            </ImageListItem>
           ))}
         </ImageList>
 
@@ -158,6 +160,7 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
             right: 0,
             transform: "translateY(-50%)",
             zIndex: 1,
+            color: "#fff",
           }}
           onClick={goToNextImage}
         >
@@ -170,6 +173,7 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
             top: 0,
             right: 0,
             zIndex: 1,
+            color: "#fff",
           }}
           onClick={onClose}
         >
@@ -182,6 +186,7 @@ function Images({ propertyPhotos, onClose, onUpdate }) {
             top: 0,
             left: 0,
             zIndex: 1,
+            color: "#f44336",
           }}
           onClick={() => handleImageDelete(photosArray[currentImageIndex])}
         >

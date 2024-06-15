@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import clsx from "clsx";
 
 const cardStyles = {
   card: {
-
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -20,7 +20,6 @@ const cardStyles = {
   },
   content: {
     padding: "16px",
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -32,47 +31,60 @@ const cardStyles = {
   },
   chartContainer: {
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    height: 200, 
+  },
+  legendContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    marginTop: "16px",
+  },
+  legendItem: {
+    display: "flex",
+    alignItems: "center",
+    margin: "0 8px",
+  },
+  legendColor: {
+    width: "16px",
+    height: "16px",
+    marginRight: "8px",
   },
 };
 
-const PropertyStatsCard = ({ title, rentalCount, saleCount }) => {
+const DistrictStatsCard = ({ title, districtData = {} }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const data = Object.entries(districtData).map(([district, count], id) => ({
+    id,
+    value: count,
+    label: district,
+  }));
+
   return (
-    <Card className={clsx("property-stats-card", cardStyles.card)}>
-      <CardContent
-        className={clsx("property-stats-content", cardStyles.content)}
-      >
-        <Typography
-          variant="h5"
-          component="h2"
-          className={clsx("property-stats-title", cardStyles.title)}
-        >
+    <Card className={clsx("district-stats-card", cardStyles.card)}>
+      <CardContent className={clsx("district-stats-content", cardStyles.content)}>
+        <Typography variant="h5" component="h2" className={clsx("district-stats-title", cardStyles.title)}>
           {title}
         </Typography>
-        <Box
-          className={clsx(
-            "property-stats-chart-container",
-            cardStyles.chartContainer
-          )}
-        >
+        <Box className={clsx("district-stats-chart-container", cardStyles.chartContainer)}>
           <PieChart
             series={[
               {
-                data: [
-                  { id: 0, value: rentalCount, label: "Alquiler" },
-                  { id: 1, value: saleCount, label: "Venta" },
-                ],
+                data,
                 highlightScope: { faded: "global", highlighted: "item" },
                 faded: {
                   innerRadius: 30,
                   additionalRadius: -30,
                   color: "gray",
                 },
+                 
               },
             ]}
-            height={200} // Ajustado para mejorar la visualización del gráfico
+            height={200}
+            slotProps={{ legend: { hidden: isMobile } }}
           />
         </Box>
       </CardContent>
@@ -80,4 +92,4 @@ const PropertyStatsCard = ({ title, rentalCount, saleCount }) => {
   );
 };
 
-export default PropertyStatsCard;
+export default DistrictStatsCard;

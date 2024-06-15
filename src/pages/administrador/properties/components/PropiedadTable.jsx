@@ -215,7 +215,8 @@ function PropiedadTable({ reset, setReset }) {
             }}
           />
         }
-      />
+      >
+      </ReusableModal>
 
       <ReusableModal
         open={openImages}

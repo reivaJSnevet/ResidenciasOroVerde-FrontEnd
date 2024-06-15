@@ -1,3 +1,4 @@
+import React from "react";
 import {
   MapContainer,
   TileLayer,
@@ -5,7 +6,8 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import { IconButton, useTheme, useMediaQuery } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 function ClickHandler({ setCoordinates, handleCloseModal }) {
   useMapEvents({
@@ -35,30 +37,46 @@ function Map({ coordinates, setCoordinates, handleCloseModal }) {
     overflowY: "auto",
     overflowX: "hidden",
     borderRadius: "10px",
+    zIndex: 9999, // Asegura que el mapa esté por encima de otros elementos
+  };
+
+  const handleClose = () => {
+    setCoordinates(null); // Limpiar coordenadas si es necesario
+    handleCloseModal();
   };
 
   return (
-    <>
-      <Box sx={style}>
-        <MapContainer center={[10.6313, -85.4378]} zoom={9}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <ClickHandler
-            setCoordinates={setCoordinates}
-            handleCloseModal={handleCloseModal}
-          />
-          {coordinates && (
-            <Marker position={[coordinates.lat, coordinates.lng]}>
-              <Popup>
-                Coordenadas: {coordinates.lat}, {coordinates.lng}
-              </Popup>
-            </Marker>
-          )}
-        </MapContainer>
-      </Box>
-    </>
+    <div style={style}>
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          zIndex: 10000, // Asegura que esté por encima del mapa
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <MapContainer center={[10.6313, -85.4378]} zoom={9} style={{ height: "400px" }}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <ClickHandler
+          setCoordinates={setCoordinates}
+          handleCloseModal={handleCloseModal}
+        />
+        {coordinates && (
+          <Marker position={[coordinates.lat, coordinates.lng]}>
+            <Popup>
+              Coordenadas: {coordinates.lat}, {coordinates.lng}
+            </Popup>
+          </Marker>
+        )}
+      </MapContainer>
+    </div>
   );
 }
 
