@@ -81,7 +81,7 @@ const Profile = () => {
         <button
           type="button"
           onClick={handleLogout}
-          className="absolute px-4 py-2 text-white transition-transform transform bg-red-600 rounded-md top-4 right-4 hover:scale-105"
+          className="absolute z-50 px-4 py-2 text-white transition-transform transform bg-red-600 rounded-md top-4 right-4 hover:scale-105"
         >
           Cerrar Sesión
         </button>

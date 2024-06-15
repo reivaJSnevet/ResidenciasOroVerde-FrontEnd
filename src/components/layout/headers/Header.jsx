@@ -12,7 +12,7 @@ function Header() {
     const [showMenu, setShowMenu] = useState(false);
 
     return (
-        <header id="header-home1" className="sticky top-0 z-40 flex items-center justify-between w-full px-4 bg-gray-180 bg-opacity-90 backdrop-blur-sm shadow-md transition-shadow duration-300 ease-in-out">
+        <header id="header-home1" className="sticky top-0 z-40 flex items-center justify-between w-full px-4 transition-shadow duration-300 ease-in-out shadow-md bg-gray-180 bg-opacity-90 backdrop-blur-sm">
             <div className="flex flex-grow basis-0">
                 <a href="/" className="w-auto">
                     <LogoG />
@@ -20,9 +20,10 @@ function Header() {
             </div>
 
 
-            <nav className="hidden xl:flex text-sm">
+            <nav className="hidden text-sm xl:flex">
                 <ul className="flex space-x-4">
                     <NavLink to="/">Inicio</NavLink>
+                    <NavLink to="/mapa">Mapa</NavLink>
                     <NavLink to="/propiedades">Búsqueda</NavLink>
                     <NavLink to="/contactUs">Contacto</NavLink>
                     <NavLink to="/aboutUs">Sobre nosotros</NavLink>
@@ -30,17 +31,18 @@ function Header() {
             </nav>
 
          
-            <nav className="flex xl:hidden items-center">
+            <nav className="flex items-center xl:hidden">
                 <button
                     onClick={() => setShowMenu(!showMenu)}
-                    className="text-sm px-4 py-2 border border-transparent rounded-md text-gray-800 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    className="px-4 py-2 text-sm text-gray-800 bg-white border border-transparent rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 >
                     {showMenu ? <CloseOutlined /> : <GridMenuIcon />} 
                 </button>
                 {showMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                    <div className="absolute right-0 z-10 w-48 mt-2 bg-white border border-gray-200 rounded-md shadow-lg top-14 ">
                         <ul className="py-1">
                             <MobileNavLink to="/" onClick={() => setShowMenu(false)}>Inicio</MobileNavLink>
+                            <MobileNavLink to="/mapa" onClick={() => setShowMenu(false)}>Mapa</MobileNavLink>
                             <MobileNavLink to="/propiedades" onClick={() => setShowMenu(false)}>Búsqueda</MobileNavLink>
                             <MobileNavLink to="/contactUs" onClick={() => setShowMenu(false)}>Contacto</MobileNavLink>
                             <MobileNavLink to="/aboutUs" onClick={() => setShowMenu(false)}>Sobre nosotros</MobileNavLink>
