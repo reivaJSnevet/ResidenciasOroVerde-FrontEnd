@@ -22,6 +22,8 @@ import Profile from "../pages/profile/Profile.jsx";
 import ContactUs from "../pages/contactUs/ContactUs.jsx";
 import SaleProperty from "../pages/administrador/saleProperties/SaleProperty.jsx";
 import RentaPropiedad from "../pages/administrador/rentalProperties/RentaPropiedad.jsx";
+import Alquiler from "../pages/alquiler/Alquiler.jsx";
+import Venta from "../pages/venta/Venta.jsx";
 
 
 const routes = (
@@ -37,6 +39,8 @@ const routes = (
       </Route>
 
       <Route path="/" element={<Layout />}>
+        <Route path="/alquiler" element={<Alquiler />} />
+        <Route path="/venta" element={<Venta />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/mapa" element={<Home />} />
