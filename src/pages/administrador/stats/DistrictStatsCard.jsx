@@ -84,7 +84,7 @@ const DistrictStatsCard = ({ title, districtData = {} }) => {
               },
             ]}
             height={200}
-            slotProps={{ legend: { hidden: isMobile } }}
+            slotProps={{ legend: { hidden: true } }}
           />
         </Box>
       </CardContent>

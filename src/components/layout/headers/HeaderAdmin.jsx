@@ -145,7 +145,7 @@ function HeaderAdmin() {
               <Menu />
             </IconButton>
             <Typography variant="h6" color="inherit">
-              Administrador
+              {user}
             </Typography>
           </div>
           <Avatar
