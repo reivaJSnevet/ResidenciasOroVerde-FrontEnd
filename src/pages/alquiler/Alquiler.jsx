@@ -1,30 +1,40 @@
 import { useEffect, useState } from "react";
 import api from "../../database/api";
 import { Link } from 'react-router-dom';
+import Navbar from "../../pages/home/home2/Navbar";
+import HeaderHome2 from "../home/home2/HeaderHome2";
+
 
     const Alquiler = () => {
-        const [topRatedHouses, setTopRatedHouses] = useState([]);
-      
-        const sortHouses = (casas) => {
-          return casas.sort((a, b) => b.rating - a.rating);
-        };
-      
-        const fetchTopRatedHouses = async () => {
-          try {
-            const response = await api.get('properties');
-            const sortedHouses = sortHouses(response.data);
-            setTopRatedHouses(sortedHouses.filter(house => house.forRent).slice(0, 3));
-          } catch (error) {
-            console.error('Error al obtener las casas mejor calificadas:', error);
-          }
-        };
-      
-        useEffect(() => {
-          fetchTopRatedHouses();
-        }, []);
-      
-        return (
-          <div className="text-center">
+      const [topRatedHouses, setTopRatedHouses] = useState([]);
+      const [topRents, setTopRents] = useState([]);
+      const [topSales, setTopSales] = useState([]);
+    
+      const sortHouses = (casas) => {
+        return casas.sort((a, b) => b.rating - a.rating);
+      };
+    
+      const fetchTopRatedHouses = async () => {
+        try {
+          const response = await api.get('properties');
+          const sortedHouses = sortHouses(response.data);
+          setTopRatedHouses(sortedHouses.filter(house => house.forRent).slice(0, 3));
+          setTopRents(sortedHouses.filter(house => house.forRent));
+          setTopSales(sortedHouses.filter(house => house.forSale));
+        } catch (error) {
+          console.error('Error al obtener las casas mejor calificadas:', error);
+        }
+      };
+    
+      useEffect(() => {
+        fetchTopRatedHouses();
+      }, []);
+    
+      return (
+        <div>
+          <HeaderHome2 topSales={topSales} topRents={topRents} />
+    
+          <div className="mt-16 text-center">
             <h1 className="my-8 text-3xl font-bold">Casas en Alquiler</h1>
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold">Las 3 Mejor Calificadas</h2>
@@ -41,8 +51,10 @@ import { Link } from 'react-router-dom';
               ))}
             </section>
           </div>
-        );
-      };
+        </div>
+      );
+    };
+    
       
       export default Alquiler;
 
