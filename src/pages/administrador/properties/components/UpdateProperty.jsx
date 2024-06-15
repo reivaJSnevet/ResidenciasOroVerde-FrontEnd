@@ -2,8 +2,6 @@ import {
   useMediaQuery,
   useTheme,
   Typography,
-  Box,
-  Grid,
   Button,
   TextField,
   FormControl,
@@ -12,9 +10,11 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Grid from "@mui/system/Unstable_Grid";
 import HouseIcon from "@mui/icons-material/House";
 import HouseOutlinedIcon from "@mui/icons-material/HouseOutlined";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
+import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 
 function UpdateProperty({ property, onUpdate, tittle, onClose }) {
@@ -103,11 +103,11 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
     width: isSmallScreen ? "90%" : "75%",
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 5,
+    p: 1,
+    margin: "auto",
     mt: 1,
     maxHeight: "80vh",
     overflowY: "auto",
-    overflowX: "hidden",
     borderRadius: "10px",
   };
 
@@ -121,6 +121,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
   };
 
   return (
+    <>
     <Box sx={style} component="form" onSubmit={handleSubmit}>
       <Typography variant="h4" gutterBottom>
         <div
@@ -138,7 +139,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
       </Typography>
 
       <Grid container spacing={2} margin={1}>
-        <Grid item xs={12}>
+        <Grid  xs={12}>
           <TextField
             fullWidth
             name="name"
@@ -147,10 +148,10 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid  xs={12} sm={3}>
           <TextField
             fullWidth
-            type="text"
+      
             disabled
             name="province"
             label="Provincia"
@@ -158,32 +159,32 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid  xs={12} sm={3}>
           <TextField
             fullWidth
             disabled
-            type="text"
+          
             name="canton"
             label="Cantón"
             value={propertyData.canton || ""}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid  xs={12} sm={3}>
           <TextField
             fullWidth
             disabled
-            type="text"
+      
             name="district"
             label="Distrito"
             value={propertyData.district || ""}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid  xs={12} sm={3}>
           <TextField
             fullWidth
-            type="text"
+         
             name="squareMeters"
             label="Metros cuadrados"
             value={
@@ -194,7 +195,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid  xs={12} sm={4}>
           <FormControl
             variant="outlined"
             style={{
@@ -220,7 +221,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid  xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -231,7 +232,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
           />
         </Grid>
         {propertyData.forRent && (
-          <Grid item xs={12} sm={4}>
+          <Grid  xs={12} sm={4}>
             <TextField
               fullWidth
               type="number"
@@ -242,7 +243,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             />
           </Grid>
         )}
-        <Grid item xs={12} sm={4}>
+        <Grid  xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -252,7 +253,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid  xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -262,7 +263,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid  xs={12} sm={4}>
           <TextField
             fullWidth
             type="number"
@@ -273,7 +274,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
           />
         </Grid>
        
-        <Grid item xs={12} sm={6}>
+        <Grid  xs={12} sm={6}>
           <TextField
             fullWidth
             name="description"
@@ -282,7 +283,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid  xs={12} sm={6}>
           <TextField
             fullWidth
             name="restriction"
@@ -291,7 +292,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid  xs={12} sm={6}>
           <TextField
             fullWidth
             disabled
@@ -302,7 +303,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
           />
         </Grid>
         
-        <Grid item xs={12} sm={6}>
+        <Grid  xs={12} sm={6}>
           <TextField
             fullWidth
             disabled
@@ -312,7 +313,7 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
             onChange={handleInputChange}
           />
           </Grid>
-      </Grid>
+      
 
       <Button
         variant="contained"
@@ -322,7 +323,9 @@ function UpdateProperty({ property, onUpdate, tittle, onClose }) {
       >
         Guardar
       </Button>
+      </Grid>
     </Box>
+    </>
   );
 }
 
