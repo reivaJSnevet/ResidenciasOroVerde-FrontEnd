@@ -1,9 +1,14 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleCards, setShowSaleCards}) => {
-
-
+const NavBar = ({
+  topRents,
+  topSales,
+  showRentCards,
+  setShowRentCards,
+  showSaleCards,
+  setShowSaleCards,
+}) => {
   const handleMouseEnter = (type) => {
     if (type === "rent") {
       setShowRentCards(true);
@@ -15,6 +20,11 @@ const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleC
   const handleMouseLeave = () => {
     setShowRentCards(false);
     setShowSaleCards(false);
+  };
+
+  const variants = {
+    hidden: { opacity: 0, y: -1000 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
@@ -31,7 +41,14 @@ const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleC
           >
             <Link to="/alquiler">Alquiler</Link>
             {showRentCards && (
-              <div className="fixed inset-0 flex justify-center items-start w-full h-[65vh] mt-16 p-4 bg-white bg-opacity-95 shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0 z-40">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={variants}
+                transition={{ duration: 0.1 }}
+                className="fixed inset-0 flex justify-center items-start w-full h-[65vh] mt-14 p-4 bg-white bg-opacity-95 shadow-lg transform transition-transform duration-1000 ease-in-out translate-y-0 z-40"
+              >
                 <div className="flex w-full space-x-4 overflow-auto">
                   {topRents.map((house) => {
                     const photoUrls = house.photos.split(",");
@@ -56,10 +73,11 @@ const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleC
                   })}
                 </div>
                 <div className="absolute inset-x-0 bottom-0 flex justify-center p-4 bg-white shadow-lg bg-opacity-95">
-                    <p className="text-sm text-gray-500">Nuestras casas mejor calificadas</p>  
+                  <p className="text-sm text-gray-500">
+                    Nuestras casas mejor calificadas
+                  </p>
                 </div>
-                
-              </div>
+              </motion.div>
             )}
           </li>
           <li
@@ -69,7 +87,14 @@ const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleC
           >
             <Link to="/venta">Venta</Link>
             {showSaleCards && (
-              <div className="fixed inset-0 flex justify-center items-start w-full h-[65vh] mt-16 p-4 bg-white bg-opacity-95 shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0 z-40">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={variants}
+                transition={{ duration: 0.1 }}
+                className="fixed inset-0 flex justify-center items-start w-full h-[65vh] mt-14 p-4 bg-white bg-opacity-95 shadow-lg transform transition-transform duration-1000 ease-in-out translate-y-0 z-40"
+              >
                 <div className="flex w-full space-x-4 overflow-auto">
                   {topSales.map((house) => {
                     const photoUrls = house.photos.split(",");
@@ -94,9 +119,11 @@ const NavBar = ({ topRents, topSales, showRentCards, setShowRentCards, showSaleC
                   })}
                 </div>
                 <div className="absolute inset-x-0 bottom-0 flex justify-center p-4 bg-white shadow-lg bg-opacity-95">
-                    <p className="text-sm text-gray-500">Nuestras casas más lujosas</p>
+                  <p className="text-sm text-gray-500">
+                    Nuestras casas más lujosas
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             )}
           </li>
           <li>
