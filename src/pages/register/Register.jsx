@@ -61,7 +61,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="py-16">
+      <div className="flex items-center justify-center min-h-screen ">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="mb-4 text-2xl text-center text-gray-700 font-regular">

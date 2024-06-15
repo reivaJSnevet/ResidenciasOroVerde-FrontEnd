@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
@@ -9,16 +10,16 @@ const Login = () => {
   const persist = useAuthStore((state) => state.persist);
   const setPersist = useAuthStore((state) => state.setPersist);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || { pathname: "/" };
 
   const emailRef = useRef();
-  const errRef = useRef();
 
   const [email, setEmail] = useLocalStorage("correo", "");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     emailRef.current.focus();
@@ -26,55 +27,58 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.setItem("persist", persist);
-  }, [persist]);
+  }, [persist]); 
 
-  useEffect(() => {
-    setErrorMsg("");
-  }, [email, password]);
+  const togglePersist = () => {
+    setPersist(!persist);
+  };
+
+  const login = async (email, password) => {
+    return await api.post(
+      "/auth/login",
+      { email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+  };
+
+  const navigateToRolePage = (role) => {
+    if (role === "admin" || role === "vendedor") {
+      navigate("/admin", { replace: true });
+    } else if (role === "cliente") {
+      navigate(from);
+    } else {
+      navigate("login", { replace: true });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await api.post(
-        "/auth/login",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await login(email, password);
+      enqueueSnackbar("Inicio de sesión exitoso", { variant: "success" });
 
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
       });
 
-      if (response.data.user.Role.name === "admin") {
-        navigate("/admin", { replace: true });
-      } else if (response.data.user.Role.name === "cliente") {
-        navigate(from);
-      } else {
-        navigate("login", { replace: true });
-      }
-    } catch (error) {
-      setErrorMsg("Usuario o contraseña incorrectos");
-      errRef.current.focus();
-    }
-  };
 
-  const togglePersist = () => {
-    setPersist(!persist);
+
+      navigateToRolePage(response.data.user.Role.name);
+    } catch (error) {
+      enqueueSnackbar(`${error.response.data.message || "Error al iniciar sesión"}`, { variant: "error" });
+    }
   };
 
   return (
     <>
-      <div className="py-16">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="flex max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-2xl lg:max-w-4xl">
           <img
             className="hidden lg:block lg:w-1/2 brightness-50"
@@ -88,15 +92,6 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                {errorMsg && (
-                  <p
-                    className="p-3 mt-2 text-white bg-red-500 rounded-md errmsg"
-                    role="alert"
-                    aria-live="assertive"
-                  >
-                    {errorMsg}
-                  </p>
-                )}
                 <div className="mb-6"></div>
                 <label
                   className="block mb-2 font-semibold text-gray-700"

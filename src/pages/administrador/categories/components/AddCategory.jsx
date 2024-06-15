@@ -11,95 +11,103 @@ import { create } from "zustand";
 import { useSnackbar } from "notistack";
 
 const useFormStore = create((set) => ({
-    formData: {
+  formData: {
+    name: "",
+  },
+  setFormData: (newFormData) =>
+    set((state) => ({ formData: { ...state.formData, ...newFormData } })),
+  resetFormData: () =>
+    set(() => ({
+      formData: {
         name: "",
-    },
-    setFormData: (newFormData) =>
-        set((state) => ({ formData: { ...state.formData, ...newFormData } })),
-    resetFormData: () =>
-        set(() => ({
-        formData: {
-            name: "",
-        },
-        })),
-    }));
+      },
+    })),
+}));
 
 function AddCategory({ reset, setReset }) {
-    const api = useAxiosPrivate();
+  const api = useAxiosPrivate();
 
-    const { formData, setFormData, resetFormData } = useFormStore();
-    const { enqueueSnackbar } = useSnackbar();
+  const { formData, setFormData, resetFormData } = useFormStore();
+  const { enqueueSnackbar } = useSnackbar();
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ [name]: value });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await api.post("/categories", formData);
+      enqueueSnackbar("Categoría creada con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      resetFormData();
+      setReset(!reset);
+    } catch (error) {
+      enqueueSnackbar("Error creando categoría", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     }
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            await api.post("/categories", formData);
-            enqueueSnackbar("Categoría creada con éxito", {
-                variant: "success",
-                anchorOrigin: {
-                    vertical: "top",
-                    horizontal: "center",
-                },
-            });
-            resetFormData();
-            setReset(!reset);
-        } catch (error) {
-            enqueueSnackbar("Error creando categoría", {
-                variant: "error",
-                anchorOrigin: {
-                    vertical: "top",
-                    horizontal: "center",
-                },
-            });
-        }
-    }
+  const isFormValid = () => {
+    return formData.name !== "";
+  };
 
   return (
-   <>
-    <Accordion>
+    <>
+      <Accordion>
         <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
         >
-            <Typography>Agregar Categoría</Typography>
+          <Typography>Agregar Categoría</Typography>
         </AccordionSummary>
         <AccordionDetails>
-            <Box
+          <Box
             component="form"
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
             }}
             onSubmit={handleSubmit}
-            >
+          >
             <TextField
-                label="Nombre"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
+              label="Nombre"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
             />
-                   <Button
-          variant="contained"
-          style={{ backgroundColor: "#3c6c42", color: "#fff" }}
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
-            </Box>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: !isFormValid() ? "#9e9e9e" : "#3c6c42",
+                color: "#fff",
+                cursor: !isFormValid() ? "not-allowed" : "pointer",
+              }}
+              type="submit"
+              fullWidth
+              disabled={!isFormValid()}
+            >
+              Guardar
+            </Button>
+          </Box>
         </AccordionDetails>
-    </Accordion>
-   
-   </>
-  )
+      </Accordion>
+    </>
+  );
 }
 
-export default AddCategory
+export default AddCategory;

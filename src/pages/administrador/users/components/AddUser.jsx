@@ -45,13 +45,11 @@ const useFormStore = create((set) => ({
 }));
 
 function AddUser({ reset, setReset }) {
-
   const api = useAxiosPrivate();
 
   const { formData, setFormData, resetFormData } = useFormStore();
   const { enqueueSnackbar } = useSnackbar();
-  const [roles, setRoles] = useState([])
-
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,6 +105,18 @@ function AddUser({ reset, setReset }) {
     }
   };
 
+  const isFormValid = () => {
+    return (
+      formData.name !== "" &&
+      formData.lastName !== "" &&
+      formData.lastName2 !== "" &&
+      formData.email !== "" &&
+      formData.password !== "" &&
+      formData.principal !== "" &&
+      formData.RoleId !== 0
+    );
+  };
+
   return (
     <>
       <Accordion>
@@ -136,7 +146,6 @@ function AddUser({ reset, setReset }) {
                     variant="outlined"
                     value={formData.name}
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={4}>
@@ -149,7 +158,6 @@ function AddUser({ reset, setReset }) {
                     variant="outlined"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={4}>
@@ -162,7 +170,6 @@ function AddUser({ reset, setReset }) {
                     variant="outlined"
                     value={formData.lastName2}
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={4}>
@@ -175,7 +182,6 @@ function AddUser({ reset, setReset }) {
                     label="Correo Electrónico"
                     variant="outlined"
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={4}>
@@ -188,7 +194,6 @@ function AddUser({ reset, setReset }) {
                     label="Contraseña"
                     variant="outlined"
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={4}>
@@ -200,7 +205,6 @@ function AddUser({ reset, setReset }) {
                     label="Seleccione un rol"
                     value={formData.RoleId}
                     onChange={handleInputChange}
-                    
                   >
                     <MenuItem value={0}>Selecciona un rol</MenuItem>
                     {roles.map((role) => (
@@ -218,7 +222,6 @@ function AddUser({ reset, setReset }) {
                     label="Teléfono principal"
                     value={formData.principal}
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
                 <Grid xs={12} sm={6}>
@@ -228,16 +231,19 @@ function AddUser({ reset, setReset }) {
                     label="Teléfono secundario"
                     value={formData.secundario}
                     onChange={handleInputChange}
-                    
                   />
                 </Grid>
-            
               </Grid>
               <Button
                 variant="contained"
-                style={{ backgroundColor: "#3c6c42", color: "#fff" }}
+                style={{
+                  backgroundColor: !isFormValid() ? "#9e9e9e" : "#3c6c42",
+                  color: "#fff",
+                  cursor: !isFormValid() ? "not-allowed" : "pointer",
+                }}
                 type="submit"
                 fullWidth
+                disabled={!isFormValid()}
               >
                 Guardar
               </Button>
