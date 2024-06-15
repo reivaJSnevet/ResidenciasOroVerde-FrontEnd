@@ -10,31 +10,37 @@ import FavoriteProperties from "./components/favProperties/FavoriteProperties";
 
 const Navbar = ({ currentSection, setCurrentSection }) => {
   return (
-<div className="flex justify-center p-4 bg-gray-200 shadow-md">
-  <button
-    className={`flex items-center px-4 py-2 mx-2 text-gray-700 border-b-2 transform transition-transform hover:scale-105 ${
-      currentSection === "comments"
-        ? "border-gray-700 font-semibold"
-        : "border-transparent"
-    }`}
-    onClick={() => setCurrentSection("comments")}
-  >
-    <Comment className="mr-2" />
-    Comentarios
-  </button>
-  <button
-    className={`flex items-center px-4 py-2 mx-2 text-gray-700 border-b-2 transform transition-transform hover:scale-105 ${
-      currentSection === "favorites"
-        ? "border-gray-700 font-semibold"
-        : "border-transparent"
-    }`}
-    onClick={() => setCurrentSection("favorites")}
-  >
-    <Favorite className="mr-2" />
-    Favoritos
-  </button>
-</div>
-
+    <div className="flex justify-center p-4 bg-gray-200 shadow-lg">
+      <button
+        className={`flex items-center px-4 py-2 mx-2 text-gray-700 border-b-2 transform transition-transform hover:scale-105 ${
+          currentSection === "comments"
+            ? "border-blue-700 font-semibold"
+            : "border-transparent"
+        }`}
+        onClick={() => setCurrentSection("comments")}
+      >
+        <div
+          className={`${currentSection === "comments"
+            ? "text-blue-500"
+            : ""
+        }`}
+        >
+          <Comment className="mr-2" />
+          Comentarios
+        </div>
+      </button>
+      <button
+        className={`flex items-center px-4 py-2 mx-2 text-gray-700 border-b-2 transform transition-transform hover:scale-105 ${
+          currentSection === "favorites"
+            ? "border-red-700 font-semibold text-red-500"
+            : "border-transparent"
+        }`}
+        onClick={() => setCurrentSection("favorites")}
+      >
+        <Favorite className="mr-2 " />
+        Favoritos
+      </button>
+    </div>
   );
 };
 
@@ -70,35 +76,35 @@ const Profile = () => {
   };
 
   return (
-   <div className="flex flex-col min-h-screen">
-  <div className="relative flex flex-col md:flex-row md:h-1/3">
-    <button
-      type="button"
-      onClick={handleLogout}
-      className="absolute px-4 py-2 text-white transition-transform transform bg-red-600 rounded-md top-4 right-4 hover:scale-105"
-    >
-      Cerrar Sesión
-    </button>
-    <UserInfo user={auth.user} />
-  </div>
-
-  <Navbar
-    currentSection={currentSection}
-    setCurrentSection={setCurrentSection}
-  />
-
-  <div className="flex flex-col flex-grow md:flex-row">
-    {currentSection === "comments" ? (
-      <div className="flex flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in">
-        <UserComments comments={comments} setComments={setComments} />
+    <div className="flex flex-col min-h-screen">
+      <div className="relative flex flex-col md:flex-row md:h-1/3">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="absolute px-4 py-2 text-white transition-transform transform bg-red-600 rounded-md top-4 right-4 hover:scale-105"
+        >
+          Cerrar Sesión
+        </button>
+        <UserInfo user={auth.user} />
       </div>
-    ) : (
-      <div className="flex flex-col p-6 overflow-y-auto hide-scrollbar animate-fade-in">
-        <FavoriteProperties userId={auth.user.id} />
+
+      <Navbar
+        currentSection={currentSection}
+        setCurrentSection={setCurrentSection}
+      />
+
+      <div className="flex flex-col flex-grow md:flex-row">
+        {currentSection === "comments" ? (
+          <div className="flex flex-col p-6 overflow-y-auto custom-scrollbar animate-fade-in">
+            <UserComments comments={comments} setComments={setComments} />
+          </div>
+        ) : (
+          <div className="flex flex-col p-6 overflow-y-auto hide-scrollbar animate-fade-in">
+            <FavoriteProperties userId={auth.user.id} />
+          </div>
+        )}
       </div>
-    )}
-  </div>
-</div>
+    </div>
   );
 };
 
