@@ -7,7 +7,7 @@ function Header() {
     const location = useLocation();
 
     return (
-        <header id="header-home1" className="fixed z-40 flex items-center justify-between w-full px-10 text-white ">
+        <header id="header-home1" className="sticky z-40 flex items-center justify-between w-full px-10 text-black ">
             <div className="flex flex-grow basis-0">
                 <a href="" className="w-auto">
                     <Logo />
@@ -17,20 +17,20 @@ function Header() {
             <nav className="relative hidden xl:block sm:hidden">
                 <ul className="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
                     <li><Link
-                     className="transition duration-500 hover:bg-gray-200 border-2 border-transparent hover:border-white hover:bg-black hover:bg-opacity-20 px-4 py-2"
+                     className="px-4 py-2 transition duration-500 border-2 border-transparent hover:bg-gray-200 hover:border-white hover:bg-black hover:bg-opacity-20"
                       to="/">Inicio</Link></li>
 
                     <li className="relative">
                         <Link
-                         className="transition duration-500 hover:bg-gray-200 border-2 border-transparent hover:border-white hover:bg-black hover:bg-opacity-20 px-4 py-2" 
+                         className="px-4 py-2 transition duration-500 border-2 border-transparent hover:bg-gray-200 hover:border-white hover:bg-black hover:bg-opacity-20" 
                          to="/propiedades" >Búsqueda</Link>
                         
                         <Link 
-                         className="transition duration-500 hover:bg-gray-200 border-2 border-transparent hover:border-white hover:bg-black hover:bg-opacity-20 px-4 py-2"
+                         className="px-4 py-2 transition duration-500 border-2 border-transparent hover:bg-gray-200 hover:border-white hover:bg-black hover:bg-opacity-20"
                         to="/contactUs">Contacto</Link>
 
                         <Link 
-                         className="transition duration-500 hover:bg-gray-200 border-2 border-transparent hover:border-white hover:bg-black hover:bg-opacity-20 px-4 py-2"
+                         className="px-4 py-2 transition duration-500 border-2 border-transparent hover:bg-gray-200 hover:border-white hover:bg-black hover:bg-opacity-20"
                         to="/aboutUs">Sobre nosotros</Link>
                     </li>
                 </ul>
@@ -42,7 +42,7 @@ function Header() {
                         auth.accessToken ?
                             <Link to="/profile" className="">Perfil</Link> :
                             <Link to="/login" state={{ from: location.pathname }} 
-                            className="transition duration-500 hover:bg-gray-200 border-2 border-transparent hover:border-white hover:bg-black hover:bg-opacity-20 px-4 py-2"
+                            className="px-4 py-2 transition duration-500 border-2 border-transparent hover:bg-gray-200 hover:border-white hover:bg-black hover:bg-opacity-20"
                             >Iniciar Sesión</Link>}
                 </ul>
             </nav>
