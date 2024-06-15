@@ -98,7 +98,7 @@ const Propiedad = () => {
           <section className="mb-8">
             <h3 className="text-lg font-semibold text-gray-800">Ubicación</h3>
             <div className="w-full overflow-hidden rounded-md shadow-lg">
-              <Map center={coordinates} zoom={14} />
+              <Map center={coordinates} zoom={14} property={property} />
             </div>
           </section>
         </aside>

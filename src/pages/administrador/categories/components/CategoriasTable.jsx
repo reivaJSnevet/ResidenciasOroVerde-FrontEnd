@@ -5,7 +5,6 @@ import {
   GridToolbar,
   GridActionsCellItem,
 } from "@mui/x-data-grid";
-import { Backdrop, CircularProgress, Box, Typography } from "@mui/material";
 import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
@@ -14,13 +13,11 @@ import UpdateCategory from "./UpdateCategory";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
-function CategoriasTable({ reset, setReset}) {
+function CategoriasTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [categorias, setCategorias] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
-  const [loading, setLoading] = useState(true);
+  const pageSize = 10;
+  const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -51,10 +48,7 @@ function CategoriasTable({ reset, setReset}) {
     const fetchCategorias = async () => {
       try {
         const response = await api.get("/categories");
-        setTimeout(() => {
-          setCategorias(response.data);
-          setLoading(false);
-        }, 1000);
+        setCategorias(response.data);
       } catch (error) {
         console.error("Error fetching categorias", error.message);
       }
@@ -63,11 +57,6 @@ function CategoriasTable({ reset, setReset}) {
   }, [api, reset]);
 
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-    },
     {
       field: "name",
       headerName: "Nombre",
@@ -125,75 +114,52 @@ function CategoriasTable({ reset, setReset}) {
     }
   };
 
-
   return (
     <>
-      {/* <Backdrop
+     
+      <DataGrid
         sx={{
-          color: "#5c7e03",
-          backgroundColor: "rgba(255, 255, 255, 0.5)",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
+          boxShadow: 2,
         }}
-        open={loading}
-      >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          height="100%"
-        >
-          <CircularProgress color="inherit" />{" "}
-          <Typography variant="body1" mt={2} color="inherit">
-            Cargando datos...
-          </Typography>
-        </Box>
-      </Backdrop> */}
-
-      
-        <DataGrid
-          sx={{
-            boxShadow: 2,
-          }}
-          style={{ height: 500, width: "100%" }}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          rows={categorias}
-          getRowId={(row) => row.id}
-          //   loading={categorias.length === 0}
-          columns={columns}
-          editMode="row"
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              // csvOptions,
-              // printOptions,
-            },
-          }}
-          disableSelectionOnClick
-          getRowHeight={() => "auto"}
-          pageSize={pageSize}
-          rowsPerPageOptions={pageSize}
-          initialState={{
-            ...categorias.initialState,
-            pagination: { paginationModel: { pageSize } },
-          }}
-          pageSizeOptions={sizeOptions}
-        />
+        style={{ height: 500, width: "100%" }}
+        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+        rows={categorias}
+        getRowId={(row) => row.id}
+        columns={columns}
+        editMode="row"
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
+        disableSelectionOnClick
+        getRowHeight={() => "auto"}
+        pageSize={pageSize}
+        rowsPerPageOptions={pageSize}
+        initialState={{
+          ...categorias.initialState,
+          pagination: { paginationModel: { pageSize } },
+        }}
+        pageSizeOptions={sizeOptions}
+      />
 
       <ReusableModal
         open={openModal}
         onClose={handleCloseModal}
         title="Editar Categoría"
-      >
-        <UpdateCategory
-          category={selectedCategory}
-          onUpdate={() => {
-            handleCloseModal();
-            setReset((prev) => !prev);
-          }}
-        />
-      </ReusableModal>
+        children={
+          <UpdateCategory
+            tittle={"Actualizar Categoría"}
+            onClose={handleCloseModal}
+            category={selectedCategory}
+            onUpdate={() => {
+              handleCloseModal();
+              setReset((prev) => !prev);
+            }}
+          />
+        }
+      ></ReusableModal>
 
       {selectedCategory && (
         <ReusableDialog

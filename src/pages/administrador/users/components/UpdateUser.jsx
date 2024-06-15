@@ -1,4 +1,4 @@
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 
 function UpdateUser({ user, onUpdate, tittle, onClose }) {
+  const [properties, setProperties] = useState([]);
   const api = useAxiosPrivate();
   const [roleData, setRoleData] = useState({
     id: "",
@@ -25,6 +26,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
       secundario: "",
     },
     RoleId: 0,
+    propertyId: [],
   });
 
   const theme = useTheme();
@@ -38,7 +40,10 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
         ...user,
         principal: user.phoneNumbers.principal || "",
         secundario: user.phoneNumbers.secundario || "",
+        ratingPermissions: user.ratingPermissions || [],
+        propertyIds: user.ratingPermissions.map((perm) => perm.propertyId) || [], // Inicializar con propiedades permitidas
       });
+
     }
     const fetchData = async () => {
     try {
@@ -51,6 +56,14 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
       }
       );
       setRoles(rolOpcion);
+      const response2 = await api.get(`/properties`);
+      const propertiesOptions = response2.data.map((property) => {
+        return {
+          label: property.name,
+          id: property.id,
+        };
+      });
+      setProperties(propertiesOptions);
     } catch (error) {
       console.error("Error fetching roles", error.message);
     }
@@ -84,7 +97,13 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
           secundario: roleData.secundario,
         },
       });
-      console.log(roleData);
+
+      await api.post(`/users/${user.id}/rating-permissions/${roleData.propertyId}`, {
+        userId: user.id,
+        propertyId: roleData.propertyId,
+      });
+
+
       enqueueSnackbar("Usuario actualizado con éxito", {
         variant: "success",
         anchorOrigin: {
@@ -117,6 +136,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
     mt: 1,
     maxHeight: "80vh",
     overflowY: "auto",
+    borderRadius: "10px",
   };
 
   return (
@@ -143,7 +163,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               fullWidth
               disabled
               name="id"
-              label="Identificación"
+              label="Id"
               value={roleData.id}
               onChange={handleInputChange}
             />
@@ -178,7 +198,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12}>
+          <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               required
@@ -188,7 +208,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12}>
+          <Grid xs={12} sm={6}>
             <TextField
               fullWidth
               name="password"
@@ -197,7 +217,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12} sm={4}>
+          <Grid xs={12} sm={3}>
             <TextField
               fullWidth
               required
@@ -207,7 +227,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12} sm={4}>
+          <Grid xs={12} sm={3}>
             <TextField
               fullWidth
               name="secundario"
@@ -216,8 +236,7 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid xs={12} sm={4}>
-         
+          <Grid xs={12} sm={3}>
             <TextField
               fullWidth
               select
@@ -232,7 +251,27 @@ function UpdateUser({ user, onUpdate, tittle, onClose }) {
                 </MenuItem>
               ))}
             </TextField>
-
+          </Grid>
+          <Grid xs={12} sm={3}>
+           <Autocomplete
+              fullWidth
+              options={properties}
+              getOptionLabel={(option) => option.label}
+              value={properties.find((property) => property.id === roleData?.ratingPermissions[0]?.id) || null}
+              onChange={(event, newValue) => {
+                setRoleData((prevData) => ({
+                  ...prevData,
+                  propertyId: newValue ? newValue.id : 0,
+                }));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Permisos para comentarios en propiedad"
+                  name="propertyId"
+                />
+              )}
+            />
           </Grid>
 
           <Button

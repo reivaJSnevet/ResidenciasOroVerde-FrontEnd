@@ -12,13 +12,14 @@ import ReusableModal from "../../../../components/modal/ReusableModal";
 import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import UpdateUser from "./UpdateUser";
+import { Box } from "@mui/material";
 
 
 function UsuariosTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [usuarios, setUsuarios] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+   const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -58,11 +59,6 @@ function UsuariosTable({ reset, setReset }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
-    {
-      field: "id",
-      headerName: "Cedula",
-      flex: 1,
-    },
     {
       field: "nombreCompleto",
       headerName: "Nombre Completo",
@@ -146,6 +142,8 @@ function UsuariosTable({ reset, setReset }) {
 
   return (
     <>
+     <Box sx={{ overflow: "auto" }}>
+     <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
       <DataGrid
         sx={{
           boxShadow: 2,
@@ -173,6 +171,8 @@ function UsuariosTable({ reset, setReset }) {
         }}
         pageSizeOptions={sizeOptions}
       />
+      </Box>
+      </Box>
 
      <ReusableModal
         open={openModal}

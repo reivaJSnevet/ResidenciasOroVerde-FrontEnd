@@ -46,7 +46,7 @@ const ContactUs = () => {
   return (
     <section className="relative">
       <div className="w-full h-[400px] bg-cover bg-center brightness-50"
-        style={{ backgroundImage: 'url("https://www.slidebackground.com/uploads/real-estate-background/real-estate-homebuy-home-banner-background-homebuym-1.jpg")' }}>
+        style={{ backgroundImage: 'url("/imagenContacto.jpg")' }}>
       </div>
       <div className="relative -mt-40 pb-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">

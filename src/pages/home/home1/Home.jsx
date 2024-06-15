@@ -61,9 +61,10 @@ function Home() {
 
         <MapHome propiedades={propiedades} />
 
-        <div style={{ marginBottom: '50px' }} ></div>
+        {/* <div style={{ marginBottom: '50px' }} ></div>
         <CardsHome totalAlquiladas={totalAlquiladas} totalVendidas={totalVendidas} />
-        <div style={{ marginBottom: '50px' }} ></div>
+        <div style={{ marginBottom: '50px' }} ></div> */}
+        
         <div id="contacto">
         </div>
       </div>

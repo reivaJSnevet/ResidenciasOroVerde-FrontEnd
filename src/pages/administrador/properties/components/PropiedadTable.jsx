@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import {
   DataGrid,
   esES,
@@ -13,16 +13,20 @@ import { useSnackbar } from "notistack";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import UpdateProperty from "./UpdateProperty";
 import renderCalificacion from "../../services/renderCalificacion";
-import { Card, CardMedia } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Images from "./Images";
+import { Box } from "@mui/material";
 
 function PropiedadTable({ reset, setReset }) {
   const api = useAxiosPrivate();
   const [properties, setProperties] = useState([]);
-  const pageSize = 5;
-  const sizeOptions = [5, 10, 20];
+  const pageSize = 10;
+  const sizeOptions = [10, 20, 30];
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
+  const [selectedPropertyPhotos, setSelectedPropertyPhotos] = useState([]);
+  const [openImages, setOpenImages] = useState(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -34,30 +38,34 @@ function PropiedadTable({ reset, setReset }) {
       }
     };
     fetchProperties();
-  }, [api, reset]);
+  }, [api, reset, selectedPropertyPhotos]);
 
   const handleOpenModal = (property) => {
     setSelectedProperty(property);
     setOpenModal(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedProperty(null);
-  }
+  };
 
   const handleOpenDeleteDialog = (property) => {
     setSelectedProperty(property);
     setOpenDeleteDialog(true);
-  }
+  };
 
   const handleCloseDeleteDialog = () => {
     setSelectedProperty(null);
     setOpenDeleteDialog(false);
-  }
+  };
+
+  const handleCloseImages = () => {
+    setSelectedProperty(null);
+    setOpenImages(false);
+  };
 
   const { enqueueSnackbar } = useSnackbar();
-
 
   const columns = [
     {
@@ -89,49 +97,9 @@ function PropiedadTable({ reset, setReset }) {
       headerName: "Precio Venta / Alquiler $",
       flex: 1,
       valueGetter: (params) =>
-        ` ${params.row.salePrice || "No se vende"} / ${params.row.rentalPrice || "No se alquila"}`,
-    },
-    {
-      field: "photos",
-      headerName: "Imagenes",
-      flex: 1,
-      renderCell: (params) => {
-        const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-        useEffect(() => {
-          const photos = Array.isArray(params.row.photos)
-            ? params.row.photos
-            : params.row.photos.split(",");
-  
-          const intervalId = setInterval(() => {
-            setCurrentImageIndex((prevIndex) =>
-              prevIndex === photos.length - 1 ? 0 : prevIndex + 1
-            );
-          }, 2000);
-  
-          return () => clearInterval(intervalId);
-        }, [params.row.photos]);
-  
-        const photos = Array.isArray(params.row.photos)
-          ? params.row.photos
-          : params.row.photos.split(",");
-  
-        return (
-          <Card sx={{ maxWidth: 400 }}>
-            <CardMedia
-              component="img"
-              image={photos[currentImageIndex]}
-              alt={`imagen-${currentImageIndex}`}
-              sx={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                marginRight: "5px",
-              }}
-            />
-          </Card>
-        );
-      },
+        ` ${params.row.salePrice || "No se vende"} / ${
+          params.row.rentalPrice || "No se alquila"
+        }`,
     },
     {
       field: "actions",
@@ -142,6 +110,14 @@ function PropiedadTable({ reset, setReset }) {
       renderCell: (params) => {
         return (
           <div>
+             <GridActionsCellItem
+              icon={<PhotoCamera />}
+              label="Fotos"
+              onClick={() => {
+                setSelectedPropertyPhotos(params.row);
+                setOpenImages(true);
+              }}
+            />
             <GridActionsCellItem
               icon={<EditIcon />}
               label="Editar"
@@ -149,7 +125,7 @@ function PropiedadTable({ reset, setReset }) {
                 handleOpenModal(params.row);
               }}
             />
-            <GridActionsCellItem
+             <GridActionsCellItem
               icon={<DeleteIcon />}
               label="Eliminar"
               onClick={() => {
@@ -183,52 +159,77 @@ function PropiedadTable({ reset, setReset }) {
       });
     }
     handleCloseDeleteDialog();
-  }
-
+  };
 
   return (
     <>
-      <DataGrid
-        sx={{
-          boxShadow: 2,
-        }}
-        style={{ height: 500, width: "100%" }}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        rows={properties}
-        getRowId={(row) => row.id}
-        loading={properties.length === 0}
-        columns={columns}
-        editMode="row"
-        slots={{ toolbar: GridToolbar }}
-        slotProps={{
-          toolbar: {
-            showQuickFilter: true,
-          },
-        }}
-        disableSelectionOnClick
-        getRowHeight={() => "auto"}
-        pageSize={pageSize}
-        rowsPerPageOptions={pageSize}
-        initialState={{
-          ...properties.initialState,
-          pagination: { paginationModel: { pageSize } },
-        }}
-        pageSizeOptions={sizeOptions}
-      />
+      <Box sx={{ overflowX: "auto" }}>
+        <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+          <DataGrid
+             sx={{
+              boxShadow: 2,
+            }}
+            style={{ height: 500, width: "100%" }}
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            rows={properties}
+            getRowId={(row) => row.id}
+            loading={properties.length === 0}
+            columns={columns}
+            editMode="row"
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+              },
+            }}
+            disableSelectionOnClick
+            getRowHeight={() => "auto"}
+            pageSize={pageSize}
+            rowsPerPageOptions={sizeOptions}
+            initialState={{
+              ...properties.initialState,
+              pagination: { paginationModel: { pageSize } },
+              columns: {
+                columnVisibilityModel: {
+                  rating: window.innerWidth < 768 ? false : true,
+                  prices: window.innerWidth < 768 ? false : true,
+                },
+              },
+            }}
+            pageSizeOptions={sizeOptions}
+          />
+        </Box>
+      </Box>
 
       <ReusableModal
         open={openModal}
         onClose={handleCloseModal}
-        title="Editar propiedad"
-        children={<UpdateProperty
-          tittle={"Actualizar propiedad"}
-          onClose={handleCloseModal}
-          property={selectedProperty}
-          onUpdate={() => {
-            handleCloseModal();
-            setReset((prev) => !prev);
-          }}
-        />}
+        children={
+          <UpdateProperty
+            tittle={"Actualizar propiedad"}
+            onClose={handleCloseModal}
+            property={selectedProperty}
+            onUpdate={() => {
+              handleCloseModal();
+              setReset((prev) => !prev);
+            }}
+          />
+        }
+      />
+
+      <ReusableModal
+        open={openImages}
+        onClose={() => setOpenImages(false)}
+        children={
+          <Images
+            propertyPhotos={selectedPropertyPhotos}
+            onClose={handleCloseImages}
+            onUpdate={() => {
+              handleCloseImages();
+              setReset((prev) => !prev);
+            }}
+          />
+        }
       />
 
       {selectedProperty && (
@@ -241,9 +242,7 @@ function PropiedadTable({ reset, setReset }) {
         />
       )}
     </>
-
-    
-  )
+  );
 }
 
-export default PropiedadTable
+export default PropiedadTable;

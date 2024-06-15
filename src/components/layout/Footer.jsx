@@ -41,10 +41,10 @@ function Footer() {
               <Link to="/aboutUs" className="text-gray-300 hover:text-white text-sm">Sobre nosotros</Link>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">Terms &amp; Conditions</a>
+              <a className="text-gray-300 hover:text-white text-sm">Términos &amp; Condiciones</a>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+              <a className="text-gray-300 hover:text-white text-sm">Política de privacidad</a>
             </li>
           </ul>
         </div>
