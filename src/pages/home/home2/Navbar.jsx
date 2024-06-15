@@ -17,9 +17,14 @@ const NavBar = ({
     }
   };
 
-  const handleMouseLeave = () => {
-    setShowRentCards(false);
-    setShowSaleCards(false);
+  const handleMouseLeave = (type) => {
+    setTimeout(() => {
+      if (type === "rent") {
+        setShowRentCards(false);
+      } else if (type === "sale") {
+        setShowSaleCards(false);
+      }
+    }, 500);
   };
 
   const variants = {
@@ -36,7 +41,7 @@ const NavBar = ({
           </li>
           <li
             onMouseEnter={() => handleMouseEnter("rent")}
-            onMouseLeave={handleMouseLeave}
+            onMouseLeave={() => handleMouseLeave("rent")}
             className="relative"
           >
             <Link to="/alquiler">Alquiler</Link>
@@ -55,7 +60,7 @@ const NavBar = ({
                     const firstPhotoUrl = photoUrls[0];
 
                     return (
-                      <div key={house.id} className="flex-1">
+                        <div key={house.id} className="flex-1 mt-28">
                         <img
                           src={firstPhotoUrl}
                           alt={house.name}
@@ -82,7 +87,7 @@ const NavBar = ({
           </li>
           <li
             onMouseEnter={() => handleMouseEnter("sale")}
-            onMouseLeave={handleMouseLeave}
+            onMouseLeave={() => handleMouseLeave("sale")}
             className="relative"
           >
             <Link to="/venta">Venta</Link>
@@ -101,7 +106,7 @@ const NavBar = ({
                     const firstPhotoUrl = photoUrls[0];
 
                     return (
-                      <div key={house.id} className="flex-1">
+                      <div key={house.id} className="flex-1 mt-28">
                         <img
                           src={firstPhotoUrl}
                           alt={house.name}
